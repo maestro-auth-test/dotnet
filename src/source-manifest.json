@@ -114,10 +114,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.25062.1",
-      "barId": 252010,
+      "barId": 171,
       "path": "scenario-tests",
       "remoteUri": "https://github.com/maestro-auth-test/scenario-tests",
-      "commitSha": "b0ca06c74fb2db943320377dd42a43b114b2e983"
+      "commitSha": "cf08dbda3908b20b80ceb161d883cc39029d95b6"
     },
     {
       "packageVersion": null,
