@@ -116,7 +116,7 @@
       "packageVersion": "10.0.0-preview.25112.3",
       "barId": 256443,
       "path": "scenario-tests",
-      "remoteUri": "https://github.com/dotnet/scenario-tests",
+      "remoteUri": "https://github.com/maestro-auth-test/scenario-tests",
       "commitSha": "0dd6f1c1147596a5901b5e705b251853248cb817"
     },
     {
