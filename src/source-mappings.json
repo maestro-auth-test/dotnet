@@ -112,7 +112,7 @@
         },
         {
             "name": "scenario-tests",
-            "defaultRemote": "https://github.com/dotnet/scenario-tests",
+            "defaultRemote": "https://github.com/maestro-auth-test/scenario-tests",
             "disableSynchronization": true
         },
         {
