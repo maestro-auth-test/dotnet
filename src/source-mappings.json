@@ -117,7 +117,7 @@
         },
         {
             "name": "sdk",
-            "defaultRemote": "https://github.com/dotnet/sdk",
+            "defaultRemote": "https://github.com/maestro-auth-test/sdk",
             "exclude": [
               // Exclude the VMR content as this is copied to the root of VMR via the synchronization process.
               "src/SourceBuild/content/**/*"
