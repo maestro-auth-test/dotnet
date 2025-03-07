@@ -88,7 +88,7 @@
       "packageVersion": "9.0.0-preview.25156.2",
       "barId": null,
       "path": "razor",
-      "remoteUri": "https://github.com/dotnet/razor",
+      "remoteUri": "https://github.com/maestro-auth-test/razor",
       "commitSha": "2798396c3481573aa49f9c792179ebbb5e183dca"
     },
     {
