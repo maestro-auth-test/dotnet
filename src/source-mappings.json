@@ -104,7 +104,7 @@
         },
         {
             "name": "roslyn-analyzers",
-            "defaultRemote": "https://github.com/dotnet/roslyn-analyzers"
+            "defaultRemote": "https://github.com/maestro-auth-test/roslyn-analyzers"
         },
         {
             "name": "runtime",
