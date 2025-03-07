@@ -109,7 +109,7 @@
       "packageVersion": "10.0.0-preview.3.25155.15",
       "barId": null,
       "path": "runtime",
-      "remoteUri": "https://github.com/dotnet/runtime",
+      "remoteUri": "https://github.com/maestro-auth-test/runtime",
       "commitSha": "666e9188f5e11f4a59708b5f18ff611aa950d965"
     },
     {
