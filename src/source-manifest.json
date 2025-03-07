@@ -156,10 +156,10 @@
     },
     {
       "packageVersion": "10.0.100-preview.3.25155.2",
-      "barId": null,
+      "barId": 377,
       "path": "templating",
       "remoteUri": "https://github.com/maestro-auth-test/templating",
-      "commitSha": "2986723d29666aa4cac805d8333b07207cb839d5"
+      "commitSha": "916053bc961f27471a5313822f46452c41b83a84"
     },
     {
       "packageVersion": "17.14.0-preview-25156-01",
