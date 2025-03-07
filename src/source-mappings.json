@@ -125,7 +125,7 @@
         },
         {
             "name": "source-build-externals",
-            "defaultRemote": "https://github.com/dotnet/source-build-externals",
+            "defaultRemote": "https://github.com/maestro-auth-test/source-build-externals",
             "exclude": [
                 "src/application-insights/**/*.exe",
                 "src/application-insights/**/*.dll",
