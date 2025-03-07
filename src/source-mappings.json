@@ -171,7 +171,7 @@
         },
         {
             "name": "xdt",
-            "defaultRemote": "https://github.com/dotnet/xdt"
+            "defaultRemote": "https://github.com/maestro-auth-test/xdt"
         },
         {
             // TODO: Remove the xliff-tasks mapping once the synchronization flags it as unused
