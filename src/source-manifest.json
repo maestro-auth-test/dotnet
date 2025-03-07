@@ -39,7 +39,7 @@
       "packageVersion": "9.0.0-preview.1.25124.1",
       "barId": null,
       "path": "deployment-tools",
-      "remoteUri": "https://github.com/dotnet/deployment-tools",
+      "remoteUri": "https://github.com/maestro-auth-test/deployment-tools",
       "commitSha": "3597bfe8e90ef3d99b917b84b05eaef88369d5ef"
     },
     {
