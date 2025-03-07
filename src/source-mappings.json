@@ -200,7 +200,7 @@
         },
         {
             "name": "windowsdesktop",
-            "defaultRemote": "https://github.com/dotnet/windowsdesktop"
+            "defaultRemote": "https://github.com/maestro-auth-test/windowsdesktop"
         }
     ]
 }
