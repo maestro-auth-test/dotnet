@@ -158,7 +158,7 @@
       "packageVersion": "10.0.100-preview.3.25159.2",
       "barId": null,
       "path": "templating",
-      "remoteUri": "https://github.com/dotnet/templating",
+      "remoteUri": "https://github.com/maestro-auth-test/templating",
       "commitSha": "73721d9554ef9cd277fcadd6520bc27f5619b3ad"
     },
     {
