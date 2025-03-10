@@ -96,7 +96,7 @@
         },
         {
             "name": "razor",
-            "defaultRemote": "https://github.com/dotnet/razor"
+            "defaultRemote": "https://github.com/maestro-auth-test/razor"
         },
         {
             "name": "roslyn",
