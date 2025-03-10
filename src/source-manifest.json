@@ -137,7 +137,7 @@
       "packageVersion": "10.0.615601",
       "barId": null,
       "path": "source-build-reference-packages",
-      "remoteUri": "https://github.com/dotnet/source-build-reference-packages",
+      "remoteUri": "https://github.com/maestro-auth-test/source-build-reference-packages",
       "commitSha": "232bcf31aad21949f80d6706720540b85e43fff3"
     },
     {
