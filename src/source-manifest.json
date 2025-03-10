@@ -72,10 +72,10 @@
     },
     {
       "packageVersion": "17.14.0-preview-25155-03",
-      "barId": null,
+      "barId": 399,
       "path": "msbuild",
       "remoteUri": "https://github.com/maestro-auth-test/msbuild",
-      "commitSha": "428195cb74072bbb5314889119525369cb9bdeb0"
+      "commitSha": "79c777acad20747d6e362041a9867be5d384285f"
     },
     {
       "packageVersion": "6.14.0-preview.1.66",
