@@ -130,7 +130,7 @@
       "packageVersion": "10.0.615301",
       "barId": null,
       "path": "source-build-externals",
-      "remoteUri": "https://github.com/dotnet/source-build-externals",
+      "remoteUri": "https://github.com/maestro-auth-test/source-build-externals",
       "commitSha": "f023162b1e92e7ecf801a88733668d4021f72bdb"
     },
     {
