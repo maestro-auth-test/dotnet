@@ -87,7 +87,7 @@
         },
         {
             "name": "msbuild",
-            "defaultRemote": "https://github.com/dotnet/msbuild"
+            "defaultRemote": "https://github.com/maestro-auth-test/msbuild"
         },
         {
             "name": "nuget-client",
