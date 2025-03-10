@@ -67,7 +67,7 @@
         },
         {
             "name": "deployment-tools",
-            "defaultRemote": "https://github.com/dotnet/deployment-tools"
+            "defaultRemote": "https://github.com/maestro-auth-test/deployment-tools"
         },
         {
             "name": "diagnostics",
