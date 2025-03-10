@@ -172,7 +172,7 @@
       "packageVersion": "10.0.0-preview.3.25126.4",
       "barId": null,
       "path": "windowsdesktop",
-      "remoteUri": "https://github.com/dotnet/windowsdesktop",
+      "remoteUri": "https://github.com/maestro-auth-test/windowsdesktop",
       "commitSha": "3a56fe1dfd995519adde76accdd69d26b1408c3e"
     },
     {
