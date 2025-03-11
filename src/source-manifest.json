@@ -177,10 +177,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.2.25118.5",
-      "barId": null,
+      "barId": 416,
       "path": "winforms",
       "remoteUri": "https://github.com/maestro-auth-test/winforms",
-      "commitSha": "4a6bc3ac0df78cf7cfaef54ad5e76a390776c8ef"
+      "commitSha": "ed95d3bb9f12e9edfbd291635b4d7abadb8dbac3"
     },
     {
       "packageVersion": "10.0.0-preview.3.25120.2",
