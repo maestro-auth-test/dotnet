@@ -23,10 +23,10 @@
     },
     {
       "packageVersion": "0.11.5-alpha.25125.1",
-      "barId": null,
+      "barId": 418,
       "path": "cecil",
       "remoteUri": "https://github.com/maestro-auth-test/cecil",
-      "commitSha": "f7a78a77069262841fe3c3c6b89ff243fc43cefc"
+      "commitSha": "9bbc9ec09a831c42fe372bb1eb08d45d73e98781"
     },
     {
       "packageVersion": "0.1.607102",
