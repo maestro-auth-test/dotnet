@@ -151,7 +151,7 @@
       "packageVersion": "2.2.0-beta.25124.1",
       "barId": null,
       "path": "symreader",
-      "remoteUri": "https://github.com/dotnet/symreader",
+      "remoteUri": "https://github.com/maestro-auth-test/symreader",
       "commitSha": "e3d70b066e2e27c7050928e1095df9e5ae859dfd"
     },
     {
