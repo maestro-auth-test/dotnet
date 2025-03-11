@@ -44,10 +44,10 @@
     },
     {
       "packageVersion": "9.0.0-preview.25121.1",
-      "barId": null,
+      "barId": 419,
       "path": "diagnostics",
       "remoteUri": "https://github.com/maestro-auth-test/diagnostics",
-      "commitSha": "6626d0ac5d10532ef9c0939b4b65c7381715340a"
+      "commitSha": "41100b269ac1c25c16ef75fb8173020044566962"
     },
     {
       "packageVersion": "10.0.0-preview.3.25156.7",
