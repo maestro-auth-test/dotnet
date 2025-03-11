@@ -25,7 +25,7 @@
       "packageVersion": "0.11.5-alpha.25125.1",
       "barId": null,
       "path": "cecil",
-      "remoteUri": "https://github.com/dotnet/cecil",
+      "remoteUri": "https://github.com/maestro-auth-test/cecil",
       "commitSha": "f7a78a77069262841fe3c3c6b89ff243fc43cefc"
     },
     {
