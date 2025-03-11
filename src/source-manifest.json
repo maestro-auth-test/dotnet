@@ -60,7 +60,7 @@
       "packageVersion": "10.0.0-preview.3.25155.1",
       "barId": null,
       "path": "emsdk",
-      "remoteUri": "https://github.com/dotnet/emsdk",
+      "remoteUri": "https://github.com/maestro-auth-test/emsdk",
       "commitSha": "7619d65bf2534a42257d1d8488552e59790475f6"
     },
     {
