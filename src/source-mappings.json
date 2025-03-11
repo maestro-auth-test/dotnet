@@ -157,7 +157,7 @@
         },
         {
             "name": "testfx",
-            "defaultRemote": "https://github.com/microsoft/testfx"
+            "defaultRemote": "https://github.com/maestro-auth-test/testfx"
         },
         {
             "name": "vstest",
