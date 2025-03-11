@@ -63,7 +63,7 @@
         },
         {
             "name": "command-line-api",
-            "defaultRemote": "https://github.com/dotnet/command-line-api"
+            "defaultRemote": "https://github.com/maestro-auth-test/command-line-api"
         },
         {
             "name": "deployment-tools",
