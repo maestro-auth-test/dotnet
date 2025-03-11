@@ -186,7 +186,7 @@
       "packageVersion": "10.0.0-preview.3.25120.2",
       "barId": null,
       "path": "wpf",
-      "remoteUri": "https://github.com/dotnet/wpf",
+      "remoteUri": "https://github.com/maestro-auth-test/wpf",
       "commitSha": "b129327573e5f7babf24738aeda16e131a318ef5"
     },
     {
