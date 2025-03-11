@@ -149,7 +149,7 @@
         },
         {
             "name": "symreader",
-            "defaultRemote": "https://github.com/dotnet/symreader"
+            "defaultRemote": "https://github.com/maestro-auth-test/symreader"
         },
         {
             "name": "templating",
