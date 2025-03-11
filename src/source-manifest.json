@@ -58,10 +58,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.3.25155.1",
-      "barId": null,
+      "barId": 417,
       "path": "emsdk",
       "remoteUri": "https://github.com/maestro-auth-test/emsdk",
-      "commitSha": "7619d65bf2534a42257d1d8488552e59790475f6"
+      "commitSha": "24ade583f6e1ec3169870af30163554d4abe3838"
     },
     {
       "packageVersion": "9.0.300-beta.25124.4",
