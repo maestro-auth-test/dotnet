@@ -30,10 +30,10 @@
     },
     {
       "packageVersion": "0.1.607102",
-      "barId": null,
+      "barId": 414,
       "path": "command-line-api",
       "remoteUri": "https://github.com/maestro-auth-test/command-line-api",
-      "commitSha": "3bbb940ceeb3254790899d751a8d418348563d40"
+      "commitSha": "b7f0d1c4f0da129f7a115e32b21f0b773e60805b"
     },
     {
       "packageVersion": "9.0.0-preview.1.25124.1",
