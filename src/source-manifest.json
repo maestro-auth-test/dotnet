@@ -53,7 +53,7 @@
       "packageVersion": "10.0.0-preview.3.25156.7",
       "barId": null,
       "path": "efcore",
-      "remoteUri": "https://github.com/dotnet/efcore",
+      "remoteUri": "https://github.com/maestro-auth-test/efcore",
       "commitSha": "34ee81aacb6355620e741773dc5294c87a1fd6e0"
     },
     {
