@@ -52,8 +52,6 @@ jobs:
     timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
     enablePublishTestResults: ${{ parameters.enablePublishTestResults }}
     testResultsFormat: ${{ parameters.testResultsFormat }}
-    enableMicrobuild: ${{ parameters.isOfficialBuild }}
-    enableMicrobuildForMacAndLinux: ${{ parameters.isOfficialBuild }}
 
     ${{ if ne(parameters.templateContext, '') }}:
       templateContext: ${{ parameters.templateContext }}
@@ -91,12 +89,6 @@ jobs:
         value: -os ${{ parameters.osGroup }}
       - name: _archParameter
         value: -arch ${{ parameters.archType }}
-      
-      - name: _AssetManifestName
-        value: ${{ parameters.osGroup }}${{ parameters.osSubgroup }}_${{ parameters.archType }}_${{ parameters.nameSuffix }}
-
-      - name: _SignType
-        value: $[ coalesce(variables.OfficialSignType, 'real') ]
 
       - ${{ if and(eq(parameters.osGroup, 'linux'), eq(parameters.osSubGroup, '_bionic')) }}:
         - name: _osParameter
@@ -131,7 +123,7 @@ jobs:
 
       - name: _officialBuildParameter
         ${{ if eq(parameters.isOfficialBuild, true) }}:
-          value: /p:OfficialBuildId=$(Build.BuildNumber) /p:DotNetPublishUsingPipelines=true /p:SignType=$(_SignType) /p:DotNetSignType=$(_SignType)
+          value: /p:OfficialBuildId=$(Build.BuildNumber)
         ${{ if ne(parameters.isOfficialBuild, true) }}:
           value: ''
 
