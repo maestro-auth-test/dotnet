@@ -75,7 +75,7 @@
         },
         {
             "name": "efcore",
-            "defaultRemote": "https://github.com/dotnet/efcore"
+            "defaultRemote": "https://github.com/maestro-auth-test/efcore"
         },
         {
             "name": "emsdk",
