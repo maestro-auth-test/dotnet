@@ -27,6 +27,7 @@ parameters:
   displayName: ''
   timeoutInMinutes: ''
   enableMicrobuild: ''
+  gatherAssetManifests: false
   shouldContinueOnError: false
 
 steps:
