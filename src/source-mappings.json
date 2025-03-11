@@ -59,7 +59,7 @@
         },
         {
             "name": "cecil",
-            "defaultRemote": "https://github.com/dotnet/cecil"
+            "defaultRemote": "https://github.com/maestro-auth-test/cecil"
         },
         {
             "name": "command-line-api",
