@@ -121,10 +121,10 @@
     },
     {
       "packageVersion": null,
-      "barId": null,
+      "barId": 1420,
       "path": "sdk",
       "remoteUri": "https://github.com/maestro-auth-test/sdk",
-      "commitSha": "21c97bcada80f32b143ddf7ceac4020e9f9f73e6"
+      "commitSha": "ecb9ef401ac04d215478f3ecd6eafe1420ca662e"
     },
     {
       "packageVersion": "10.0.617501",
