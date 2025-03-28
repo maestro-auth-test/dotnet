@@ -6,7 +6,7 @@
 // Please check the source-manifest.json file for that purpose.
 //
 // More details on this file's mechanics:
-// https://github.com/dotnet/arcade/blob/main/Documentation/UnifiedBuild/VMR-Design-And-Operation.md#repository-source-mappings
+// https://github.com/maestro-auth-test/arcade/blob/main/Documentation/UnifiedBuild/VMR-Design-And-Operation.md#repository-source-mappings
 {
     // Location within the VMR where the source-build patches are stored
     // These patches are applied on top of the code synchronized into the VMR
@@ -43,11 +43,11 @@
     "mappings": [
         {
             "name": "arcade",
-            "defaultRemote": "https://github.com/dotnet/arcade"
+            "defaultRemote": "https://github.com/maestro-auth-test/arcade"
         },
         {
             "name": "aspire",
-            "defaultRemote": "https://github.com/dotnet/aspire",
+            "defaultRemote": "https://github.com/maestro-auth-test/aspire",
             "exclude": [
                 "src/Aspire.Dashboard/**/*",
                 "samples/**/*"
@@ -55,39 +55,39 @@
         },
         {
             "name": "aspnetcore",
-            "defaultRemote": "https://github.com/dotnet/aspnetcore"
+            "defaultRemote": "https://github.com/maestro-auth-test/aspnetcore"
         },
         {
             "name": "cecil",
-            "defaultRemote": "https://github.com/dotnet/cecil"
+            "defaultRemote": "https://github.com/maestro-auth-test/cecil"
         },
         {
             "name": "command-line-api",
-            "defaultRemote": "https://github.com/dotnet/command-line-api"
+            "defaultRemote": "https://github.com/maestro-auth-test/command-line-api"
         },
         {
             "name": "deployment-tools",
-            "defaultRemote": "https://github.com/dotnet/deployment-tools"
+            "defaultRemote": "https://github.com/maestro-auth-test/deployment-tools"
         },
         {
             "name": "diagnostics",
-            "defaultRemote": "https://github.com/dotnet/diagnostics"
+            "defaultRemote": "https://github.com/maestro-auth-test/diagnostics"
         },
         {
             "name": "efcore",
-            "defaultRemote": "https://github.com/dotnet/efcore"
+            "defaultRemote": "https://github.com/maestro-auth-test/efcore"
         },
         {
             "name": "emsdk",
-            "defaultRemote": "https://github.com/dotnet/emsdk"
+            "defaultRemote": "https://github.com/maestro-auth-test/emsdk"
         },
         {
             "name": "fsharp",
-            "defaultRemote": "https://github.com/dotnet/fsharp"
+            "defaultRemote": "https://github.com/maestro-auth-test/fsharp"
         },
         {
             "name": "msbuild",
-            "defaultRemote": "https://github.com/dotnet/msbuild"
+            "defaultRemote": "https://github.com/maestro-auth-test/msbuild"
         },
         {
             "name": "nuget-client",
@@ -96,28 +96,28 @@
         },
         {
             "name": "razor",
-            "defaultRemote": "https://github.com/dotnet/razor"
+            "defaultRemote": "https://github.com/maestro-auth-test/razor"
         },
         {
             "name": "roslyn",
-            "defaultRemote": "https://github.com/dotnet/roslyn"
+            "defaultRemote": "https://github.com/maestro-auth-test/roslyn"
         },
         {
             "name": "roslyn-analyzers",
-            "defaultRemote": "https://github.com/dotnet/roslyn-analyzers"
+            "defaultRemote": "https://github.com/maestro-auth-test/roslyn-analyzers"
         },
         {
             "name": "runtime",
-            "defaultRemote": "https://github.com/dotnet/runtime"
+            "defaultRemote": "https://github.com/maestro-auth-test/runtime"
         },
         {
             "name": "scenario-tests",
-            "defaultRemote": "https://github.com/dotnet/scenario-tests",
+            "defaultRemote": "https://github.com/maestro-auth-test/scenario-tests",
             "disableSynchronization": true
         },
         {
             "name": "sdk",
-            "defaultRemote": "https://github.com/dotnet/sdk",
+            "defaultRemote": "https://github.com/maestro-auth-test/sdk",
             "exclude": [
               // Exclude the VMR content as this is copied to the root of VMR via the synchronization process.
               "src/SourceBuild/content/**/*"
@@ -125,7 +125,7 @@
         },
         {
             "name": "source-build-externals",
-            "defaultRemote": "https://github.com/dotnet/source-build-externals",
+            "defaultRemote": "https://github.com/maestro-auth-test/source-build-externals",
             "exclude": [
                 "src/application-insights/**/*.exe",
                 "src/application-insights/**/*.dll",
@@ -141,19 +141,19 @@
         },
         {
             "name": "source-build-reference-packages",
-            "defaultRemote": "https://github.com/dotnet/source-build-reference-packages"
+            "defaultRemote": "https://github.com/maestro-auth-test/source-build-reference-packages"
         },
         {
             "name": "sourcelink",
-            "defaultRemote": "https://github.com/dotnet/sourcelink"
+            "defaultRemote": "https://github.com/maestro-auth-test/sourcelink"
         },
         {
             "name": "symreader",
-            "defaultRemote": "https://github.com/dotnet/symreader"
+            "defaultRemote": "https://github.com/maestro-auth-test/symreader"
         },
         {
             "name": "templating",
-            "defaultRemote": "https://github.com/dotnet/templating"
+            "defaultRemote": "https://github.com/maestro-auth-test/templating"
         },
         {
             "name": "testfx",
@@ -164,30 +164,30 @@
             "defaultRemote": "https://github.com/microsoft/vstest",
             "exclude": [
                 // Non-OSS license used in VS specific build configurations.
-                // Non-OSS license - https://github.com/dotnet/source-build/issues/4255
+                // Non-OSS license - https://github.com/maestro-auth-test/source-build/issues/4255
                 "src/package/licenses/LICENSE_VS.txt",
                 "test/Microsoft.TestPlatform.CoreUtilities.UnitTests/TestAssets/dotnetWinX86.exe"
             ]
         },
         {
             "name": "xdt",
-            "defaultRemote": "https://github.com/dotnet/xdt"
+            "defaultRemote": "https://github.com/maestro-auth-test/xdt"
         },
         {
             // TODO: Remove the xliff-tasks mapping once the synchronization flags it as unused
             // We no longer synchronize it but we can't remove it yet until
             // it disappears from all of the Version.Details.xml files.
-            // https://github.com/dotnet/source-build/issues/4359
+            // https://github.com/maestro-auth-test/source-build/issues/4359
             "name": "xliff-tasks",
-            "defaultRemote": "https://github.com/dotnet/xliff-tasks",
+            "defaultRemote": "https://github.com/maestro-auth-test/xliff-tasks",
             "ignoreDefaults": true,
             "exclude": [ "**/*" ]
         },
         {
             "name": "winforms",
-            "defaultRemote": "https://github.com/dotnet/winforms",
+            "defaultRemote": "https://github.com/maestro-auth-test/winforms",
             "exclude": [
-                // Non-OSS license - https://github.com/dotnet/source-build/issues/3772
+                // Non-OSS license - https://github.com/maestro-auth-test/source-build/issues/3772
                 "src/test/integration/DesignSurface/**/*.cs",
                 "src/test/integration/DesignSurface/**/*.ico",
                 "src/test/integration/DesignSurface/**/*.resx",
@@ -196,11 +196,11 @@
         },
         {
             "name": "wpf",
-            "defaultRemote": "https://github.com/dotnet/wpf"
+            "defaultRemote": "https://github.com/maestro-auth-test/wpf"
         },
         {
             "name": "windowsdesktop",
-            "defaultRemote": "https://github.com/dotnet/windowsdesktop"
+            "defaultRemote": "https://github.com/maestro-auth-test/windowsdesktop"
         }
     ]
 }
