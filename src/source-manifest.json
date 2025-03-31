@@ -4,77 +4,77 @@
       "packageVersion": "10.0.0-beta.25177.3",
       "barId": null,
       "path": "arcade",
-      "remoteUri": "https://github.com/dotnet/arcade",
+      "remoteUri": "https://github.com/maestro-auth-test/arcade",
       "commitSha": "d66a7cfe1bad9e444b94b8a2a2676f60be07173c"
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
       "barId": null,
       "path": "aspire",
-      "remoteUri": "https://github.com/dotnet/aspire",
+      "remoteUri": "https://github.com/maestro-auth-test/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
     },
     {
       "packageVersion": "10.0.0-preview.4.25177.2",
       "barId": null,
       "path": "aspnetcore",
-      "remoteUri": "https://github.com/dotnet/aspnetcore",
+      "remoteUri": "https://github.com/maestro-auth-test/aspnetcore",
       "commitSha": "d24486fa950e6232b9f73707bf23ef0edf75a76a"
     },
     {
       "packageVersion": "0.11.5-alpha.25125.1",
       "barId": null,
       "path": "cecil",
-      "remoteUri": "https://github.com/dotnet/cecil",
+      "remoteUri": "https://github.com/maestro-auth-test/cecil",
       "commitSha": "f7a78a77069262841fe3c3c6b89ff243fc43cefc"
     },
     {
       "packageVersion": "0.1.607102",
       "barId": null,
       "path": "command-line-api",
-      "remoteUri": "https://github.com/dotnet/command-line-api",
+      "remoteUri": "https://github.com/maestro-auth-test/command-line-api",
       "commitSha": "3bbb940ceeb3254790899d751a8d418348563d40"
     },
     {
       "packageVersion": "9.0.0-preview.1.25124.1",
       "barId": null,
       "path": "deployment-tools",
-      "remoteUri": "https://github.com/dotnet/deployment-tools",
+      "remoteUri": "https://github.com/maestro-auth-test/deployment-tools",
       "commitSha": "3597bfe8e90ef3d99b917b84b05eaef88369d5ef"
     },
     {
       "packageVersion": "9.0.0-preview.25173.1",
       "barId": null,
       "path": "diagnostics",
-      "remoteUri": "https://github.com/dotnet/diagnostics",
+      "remoteUri": "https://github.com/maestro-auth-test/diagnostics",
       "commitSha": "e2f850daa95eea9d675ba0c6d793fd41c4b76f7a"
     },
     {
       "packageVersion": "10.0.0-preview.3.25157.4",
       "barId": null,
       "path": "efcore",
-      "remoteUri": "https://github.com/dotnet/efcore",
+      "remoteUri": "https://github.com/maestro-auth-test/efcore",
       "commitSha": "ce99d821778610e24395bc2c80b9e05c1230dade"
     },
     {
       "packageVersion": "10.0.0-preview.3.25155.1",
       "barId": null,
       "path": "emsdk",
-      "remoteUri": "https://github.com/dotnet/emsdk",
+      "remoteUri": "https://github.com/maestro-auth-test/emsdk",
       "commitSha": "7619d65bf2534a42257d1d8488552e59790475f6"
     },
     {
       "packageVersion": "9.0.300-beta.25176.3",
       "barId": null,
       "path": "fsharp",
-      "remoteUri": "https://github.com/dotnet/fsharp",
+      "remoteUri": "https://github.com/maestro-auth-test/fsharp",
       "commitSha": "46011b970a6b3337596d66f168992051dd134565"
     },
     {
       "packageVersion": "17.15.0-preview-25177-09",
       "barId": null,
       "path": "msbuild",
-      "remoteUri": "https://github.com/dotnet/msbuild",
+      "remoteUri": "https://github.com/maestro-auth-test/msbuild",
       "commitSha": "1888b02a8fb36bea403b09b7863e735b183f72d2"
     },
     {
@@ -88,35 +88,35 @@
       "packageVersion": "9.0.0-preview.25177.6",
       "barId": null,
       "path": "razor",
-      "remoteUri": "https://github.com/dotnet/razor",
+      "remoteUri": "https://github.com/maestro-auth-test/razor",
       "commitSha": "491f0d80aedf516583fe823aaa54f66114a9dc8a"
     },
     {
       "packageVersion": "4.14.0-3.25177.9",
       "barId": null,
       "path": "roslyn",
-      "remoteUri": "https://github.com/dotnet/roslyn",
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn",
       "commitSha": "4b22efb086df05cc03323e776f4d5842111c89b3"
     },
     {
       "packageVersion": "3.12.0-beta1.25177.1",
       "barId": null,
       "path": "roslyn-analyzers",
-      "remoteUri": "https://github.com/dotnet/roslyn-analyzers",
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn-analyzers",
       "commitSha": "d98c60c0da655de406d3c45d0c82bfd82cc15a66"
     },
     {
       "packageVersion": "10.0.0-preview.4.25174.9",
       "barId": null,
       "path": "runtime",
-      "remoteUri": "https://github.com/dotnet/runtime",
+      "remoteUri": "https://github.com/maestro-auth-test/runtime",
       "commitSha": "659321ff5db13026f52aec70cf2a6692bd4be454"
     },
     {
       "packageVersion": "10.0.0-preview.25168.2",
       "barId": 260778,
       "path": "scenario-tests",
-      "remoteUri": "https://github.com/dotnet/scenario-tests",
+      "remoteUri": "https://github.com/maestro-auth-test/scenario-tests",
       "commitSha": "ceac1959c432335d5babb253393dcd7838785a61"
     },
     {
@@ -130,35 +130,35 @@
       "packageVersion": "10.0.617501",
       "barId": null,
       "path": "source-build-externals",
-      "remoteUri": "https://github.com/dotnet/source-build-externals",
+      "remoteUri": "https://github.com/maestro-auth-test/source-build-externals",
       "commitSha": "195acd39568d33ef6e1021c391ed3c3130f0c791"
     },
     {
       "packageVersion": "10.0.617601",
       "barId": null,
       "path": "source-build-reference-packages",
-      "remoteUri": "https://github.com/dotnet/source-build-reference-packages",
+      "remoteUri": "https://github.com/maestro-auth-test/source-build-reference-packages",
       "commitSha": "1556b6c639edcaee959013681afcf2e66b118537"
     },
     {
       "packageVersion": "10.0.0-beta.25176.1",
       "barId": null,
       "path": "sourcelink",
-      "remoteUri": "https://github.com/dotnet/sourcelink",
+      "remoteUri": "https://github.com/maestro-auth-test/sourcelink",
       "commitSha": "0fceecba03c89b34ca7d9fb1a36b7415a2325f7d"
     },
     {
       "packageVersion": "2.2.0-beta.25174.1",
       "barId": null,
       "path": "symreader",
-      "remoteUri": "https://github.com/dotnet/symreader",
+      "remoteUri": "https://github.com/maestro-auth-test/symreader",
       "commitSha": "1860ca72f8ea99dae3b3034e18644a93fdaed8db"
     },
     {
       "packageVersion": "10.0.100-preview.4.25170.1",
       "barId": null,
       "path": "templating",
-      "remoteUri": "https://github.com/dotnet/templating",
+      "remoteUri": "https://github.com/maestro-auth-test/templating",
       "commitSha": "2cbd93ac6b6f9f6b206f5d1bbc4973e36b1824da"
     },
     {
@@ -172,35 +172,35 @@
       "packageVersion": "10.0.0-preview.4.25177.2",
       "barId": null,
       "path": "windowsdesktop",
-      "remoteUri": "https://github.com/dotnet/windowsdesktop",
+      "remoteUri": "https://github.com/maestro-auth-test/windowsdesktop",
       "commitSha": "bed6a81b30d9dabbb5aa6301c9e9152b671aed2a"
     },
     {
       "packageVersion": "10.0.0-preview.4.25174.6",
       "barId": null,
       "path": "winforms",
-      "remoteUri": "https://github.com/dotnet/winforms",
+      "remoteUri": "https://github.com/maestro-auth-test/winforms",
       "commitSha": "5e9dab651de1d8b4e8b379beac70319904ee1538"
     },
     {
       "packageVersion": "10.0.0-preview.4.25177.1",
       "barId": null,
       "path": "wpf",
-      "remoteUri": "https://github.com/dotnet/wpf",
+      "remoteUri": "https://github.com/maestro-auth-test/wpf",
       "commitSha": "cfb8ddc81be25838a0d0c11142e04adbb4fc8903"
     },
     {
       "packageVersion": "10.0.0-preview.25067.1",
       "barId": null,
       "path": "xdt",
-      "remoteUri": "https://github.com/dotnet/xdt",
+      "remoteUri": "https://github.com/maestro-auth-test/xdt",
       "commitSha": "1156b9aac00609107c21cf3458b797c76db6be7a"
     },
     {
       "packageVersion": "1.0.0-beta.23475.1",
       "barId": null,
       "path": "xliff-tasks",
-      "remoteUri": "https://github.com/dotnet/xliff-tasks",
+      "remoteUri": "https://github.com/maestro-auth-test/xliff-tasks",
       "commitSha": "73f0850939d96131c28cf6ea6ee5aacb4da0083a"
     }
   ],
@@ -237,7 +237,7 @@
     },
     {
       "path": "source-build-externals/src/cssparser",
-      "remoteUri": "https://github.com/dotnet/cssparser",
+      "remoteUri": "https://github.com/maestro-auth-test/cssparser",
       "commitSha": "0d59611784841735a7778a67aa6e9d8d000c861f"
     },
     {
