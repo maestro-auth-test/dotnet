@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Changing this to something else
+
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   ScriptRoot="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
