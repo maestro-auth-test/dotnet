@@ -95,7 +95,7 @@
       "packageVersion": "5.0.0-1.25213.1",
       "barId": null,
       "path": "roslyn",
-      "remoteUri": "https://github.com/dotnet/roslyn",
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn",
       "commitSha": "e2700e893c8884ccdcb15bdb294c89d624f597af"
     },
     {
