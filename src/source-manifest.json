@@ -74,7 +74,7 @@
       "packageVersion": "17.15.0-preview-25211-02",
       "barId": null,
       "path": "msbuild",
-      "remoteUri": "https://github.com/dotnet/msbuild",
+      "remoteUri": "https://github.com/maestro-auth-test/msbuild",
       "commitSha": "46b5fa75b0f9a5525846981359daa6850d21ea0f"
     },
     {
