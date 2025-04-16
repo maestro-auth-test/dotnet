@@ -150,7 +150,7 @@
         },
         {
             "name": "sourcelink",
-            "defaultRemote": "https://github.com/dotnet/sourcelink",
+            "defaultRemote": "https://github.com/maestro-auth-test/sourcelink",
             // Migrated onto the flat flow
             "disableSynchronization": true
         },
