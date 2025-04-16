@@ -87,7 +87,7 @@
         },
         {
             "name": "fsharp",
-            "defaultRemote": "https://github.com/dotnet/fsharp"
+            "defaultRemote": "https://github.com/maestro-auth-test/fsharp"
         },
         {
             "name": "msbuild",
