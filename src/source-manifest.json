@@ -149,10 +149,10 @@
     },
     {
       "packageVersion": "2.2.0-beta.25207.2",
-      "barId": null,
+      "barId": 42,
       "path": "symreader",
       "remoteUri": "https://github.com/maestro-auth-test/symreader",
-      "commitSha": "d1c0c096d93db9c45001409afbb3dfec4bce89bb"
+      "commitSha": "f8ca6eb9631fdc015bc59b30f337b909b3d56ded"
     },
     {
       "packageVersion": "10.0.100-preview.4.25214.2",
