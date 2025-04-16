@@ -32,7 +32,7 @@
       "packageVersion": "0.1.607102",
       "barId": null,
       "path": "command-line-api",
-      "remoteUri": "https://github.com/dotnet/command-line-api",
+      "remoteUri": "https://github.com/maestro-auth-test/command-line-api",
       "commitSha": "3bbb940ceeb3254790899d751a8d418348563d40"
     },
     {
