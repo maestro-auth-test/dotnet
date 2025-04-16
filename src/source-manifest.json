@@ -18,7 +18,7 @@
       "packageVersion": "10.0.0-preview.4.25212.2",
       "barId": null,
       "path": "aspnetcore",
-      "remoteUri": "https://github.com/dotnet/aspnetcore",
+      "remoteUri": "https://github.com/maestro-auth-test/aspnetcore",
       "commitSha": "d9c0bed66a470a205dd8885d4306d0ecf3f3e37b"
     },
     {
