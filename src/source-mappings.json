@@ -59,7 +59,7 @@
         },
         {
             "name": "aspnetcore",
-            "defaultRemote": "https://github.com/dotnet/aspnetcore"
+            "defaultRemote": "https://github.com/maestro-auth-test/aspnetcore"
         },
         {
             "name": "cecil",
