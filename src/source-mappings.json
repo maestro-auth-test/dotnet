@@ -95,7 +95,7 @@
         },
         {
             "name": "nuget-client",
-            "defaultRemote": "https://github.com/NuGet/NuGet.Client",
+            "defaultRemote": "https://github.com/maestro-auth-test/NuGet.Client",
             "defaultRef": "dev"
         },
         {
