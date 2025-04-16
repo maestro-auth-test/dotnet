@@ -83,7 +83,7 @@
         },
         {
             "name": "emsdk",
-            "defaultRemote": "https://github.com/dotnet/emsdk"
+            "defaultRemote": "https://github.com/maestro-auth-test/emsdk"
         },
         {
             "name": "fsharp",
