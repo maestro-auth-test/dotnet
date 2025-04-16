@@ -37,10 +37,10 @@
     },
     {
       "packageVersion": "9.0.0-preview.1.25207.1",
-      "barId": null,
+      "barId": 36,
       "path": "deployment-tools",
       "remoteUri": "https://github.com/maestro-auth-test/deployment-tools",
-      "commitSha": "dd4d34c5adceabc4a02c345473a5baaece64d8bd"
+      "commitSha": "5de36de5b8bf75a90cc004304170fa4f0afe360b"
     },
     {
       "packageVersion": "9.0.0-preview.25173.1",
