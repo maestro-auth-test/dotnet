@@ -102,7 +102,7 @@
       "packageVersion": "10.0.0-preview.25214.1",
       "barId": null,
       "path": "roslyn-analyzers",
-      "remoteUri": "https://github.com/dotnet/roslyn-analyzers",
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn-analyzers",
       "commitSha": "729249ec799901c8949ab4eb9394dd35b2f571cd"
     },
     {
