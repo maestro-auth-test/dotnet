@@ -200,7 +200,7 @@
         },
         {
             "name": "wpf",
-            "defaultRemote": "https://github.com/dotnet/wpf"
+            "defaultRemote": "https://github.com/maestro-auth-test/wpf"
         },
         {
             "name": "windowsdesktop",
