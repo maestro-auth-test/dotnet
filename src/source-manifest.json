@@ -184,10 +184,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.4.25211.2",
-      "barId": null,
+      "barId": 45,
       "path": "wpf",
       "remoteUri": "https://github.com/maestro-auth-test/wpf",
-      "commitSha": "66814093b9330d78983599cb4d85254f050eba82"
+      "commitSha": "c1a7a1df74d8cee6b26e7a1ae5b175ba36a6ff2d"
     },
     {
       "packageVersion": "10.0.0-preview.25210.1",
