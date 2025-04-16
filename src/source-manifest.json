@@ -51,10 +51,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.4.25211.2",
-      "barId": null,
+      "barId": 47,
       "path": "efcore",
       "remoteUri": "https://github.com/maestro-auth-test/efcore",
-      "commitSha": "ae4a6bc3cbeb8afda9a59c193f7b16b9ef305c7d"
+      "commitSha": "02f6eec9f67b35019a250cf9ff6f73b4947f4c36"
     },
     {
       "packageVersion": "10.0.0-preview.4.25212.2",
