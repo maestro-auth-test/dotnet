@@ -160,7 +160,7 @@
         },
         {
             "name": "templating",
-            "defaultRemote": "https://github.com/dotnet/templating"
+            "defaultRemote": "https://github.com/maestro-auth-test/templating"
         },
         {
             "name": "vstest",
