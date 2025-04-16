@@ -67,7 +67,7 @@
       "packageVersion": "9.0.300-beta.25207.2",
       "barId": null,
       "path": "fsharp",
-      "remoteUri": "https://github.com/dotnet/fsharp",
+      "remoteUri": "https://github.com/maestro-auth-test/fsharp",
       "commitSha": "4ba36db1f42f33a66d9677f0b9d589d39b204a9c"
     },
     {
