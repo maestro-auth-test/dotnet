@@ -135,10 +135,10 @@
     },
     {
       "packageVersion": "10.0.621401",
-      "barId": null,
+      "barId": 35,
       "path": "source-build-reference-packages",
       "remoteUri": "https://github.com/maestro-auth-test/source-build-reference-packages",
-      "commitSha": "0fb2d0d836dffe32b32e362e86f0dccd6f40bee8"
+      "commitSha": "1e0573006143c87a54be88ce2944b98bcb9a1abb"
     },
     {
       "packageVersion": "10.0.0-beta.25201.1",
