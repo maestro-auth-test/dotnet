@@ -16,10 +16,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.4.25212.2",
-      "barId": null,
+      "barId": 77,
       "path": "aspnetcore",
       "remoteUri": "https://github.com/maestro-auth-test/aspnetcore",
-      "commitSha": "d9c0bed66a470a205dd8885d4306d0ecf3f3e37b"
+      "commitSha": "f52930ebde6d09ed585d4a5ca1be1e28b2f50759"
     },
     {
       "packageVersion": "0.11.5-alpha.25125.1",
@@ -208,7 +208,7 @@
     {
       "path": "aspnetcore/src/submodules/googletest",
       "remoteUri": "https://github.com/google/googletest",
-      "commitSha": "52204f78f94d7512df1f0f3bea1d47437a2c3a58"
+      "commitSha": "e90fe2485641bab0d6af4500192dc503384950d1"
     },
     {
       "path": "aspnetcore/src/submodules/MessagePack-CSharp",
