@@ -142,10 +142,10 @@
     },
     {
       "packageVersion": "10.0.0-beta.25201.1",
-      "barId": null,
+      "barId": 43,
       "path": "sourcelink",
       "remoteUri": "https://github.com/maestro-auth-test/sourcelink",
-      "commitSha": "e57ab887d90305cc9261c8af9fdf87ea8c0b455d"
+      "commitSha": "8179e7afb2060bd86c402a26e853e750aedaf90f"
     },
     {
       "packageVersion": "2.2.0-beta.25207.2",
