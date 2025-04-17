@@ -100,10 +100,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.25214.1",
-      "barId": null,
+      "barId": 29,
       "path": "roslyn-analyzers",
       "remoteUri": "https://github.com/maestro-auth-test/roslyn-analyzers",
-      "commitSha": "729249ec799901c8949ab4eb9394dd35b2f571cd"
+      "commitSha": "bb0653b76d6e0e43db2b7facf387be4647a3eae0"
     },
     {
       "packageVersion": "10.0.0-preview.4.25211.19",

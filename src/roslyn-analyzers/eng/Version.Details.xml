@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Dependencies>
+  <Source Uri="https://github.com/maestro-auth-test/dotnet" Mapping="roslyn-analyzers" Sha="01dd8de498ba1894e872783e54a58fe109f91d84" BarId="8" />
   <ProductDependencies>
-    <Dependency Name="Microsoft.CodeAnalysis" Version="3.11.0">
-      <Uri>https://github.com/dotnet/roslyn</Uri>
-      <Sha>ae1fff344d46976624e68ae17164e0607ab68b10</Sha>
+    <Dependency Name="Microsoft.CodeAnalysis" Version="5.0.0-1.25215.101">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>01dd8de498ba1894e872783e54a58fe109f91d84</Sha>
     </Dependency>
     <!-- Intermediate is necessary for source build. -->
     <Dependency Name="Microsoft.SourceBuild.Intermediate.source-build-reference-packages" Version="8.0.0-alpha.1.23374.3">
@@ -19,9 +20,9 @@
     </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25206.1">
-      <Uri>https://github.com/dotnet/arcade</Uri>
-      <Sha>37f732fbfa006386f89a16be417278ea4fee375e</Sha>
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25215.101">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>01dd8de498ba1894e872783e54a58fe109f91d84</Sha>
     </Dependency>
     <!-- Intermediate is necessary for source build. -->
     <Dependency Name="Microsoft.SourceBuild.Intermediate.arcade" Version="10.0.0-beta.25206.1">
@@ -30,17 +31,17 @@
       <SourceBuild RepoName="arcade" ManagedOnly="true" />
     </Dependency>
     <!-- Used in repo tooling. Not updated automatically -->
-    <Dependency Name="System.Composition" Version="8.0.0-preview.4.23259.5">
-      <Uri>https://github.com/dotnet/runtime</Uri>
-      <Sha>84a3d0e37e8f22b0b55f8bf932cb788b2bdd728f</Sha>
+    <Dependency Name="System.Composition" Version="10.0.0-preview.4.25215.101">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>01dd8de498ba1894e872783e54a58fe109f91d84</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.XliffTasks" Version="10.0.0-beta.25206.1">
-      <Uri>https://github.com/dotnet/arcade</Uri>
-      <Sha>37f732fbfa006386f89a16be417278ea4fee375e</Sha>
+    <Dependency Name="Microsoft.DotNet.XliffTasks" Version="10.0.0-beta.25215.101">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>01dd8de498ba1894e872783e54a58fe109f91d84</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Net.Compilers.Toolset" Version="4.5.0">
-      <Uri>https://github.com/dotnet/roslyn</Uri>
-      <Sha>6a5a63bbc9f4449d9bd1e95a8f9624939c3ccdc3</Sha>
+    <Dependency Name="Microsoft.Net.Compilers.Toolset" Version="5.0.0-1.25215.101">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>01dd8de498ba1894e872783e54a58fe109f91d84</Sha>
     </Dependency>
   </ToolsetDependencies>
 </Dependencies>
