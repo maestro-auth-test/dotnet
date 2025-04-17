@@ -128,10 +128,10 @@
     },
     {
       "packageVersion": "10.0.621401",
-      "barId": null,
+      "barId": 78,
       "path": "source-build-externals",
       "remoteUri": "https://github.com/maestro-auth-test/source-build-externals",
-      "commitSha": "d64d8da45618323a39fb77860d1140bdbcd506ad"
+      "commitSha": "ef9fb4bd9122559f5b8f17415632dcd3d3a17875"
     },
     {
       "packageVersion": "10.0.621401",
