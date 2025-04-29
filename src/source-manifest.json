@@ -165,7 +165,7 @@
       "packageVersion": "17.15.0-preview-25224-01",
       "barId": 265567,
       "path": "vstest",
-      "remoteUri": "https://github.com/microsoft/vstest",
+      "remoteUri": "https://github.com/maestro-auth-test/vstest",
       "commitSha": "2e6d9288d3aa0269ae710844f3aa9e0a3981b26e"
     },
     {
