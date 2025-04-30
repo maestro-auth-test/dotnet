@@ -93,7 +93,7 @@
         },
         {
             "name": "runtime",
-            "defaultRemote": "https://github.com/dotnet/runtime"
+            "defaultRemote": "https://github.com/maestro-auth-test/runtime"
         },
         {
             "name": "scenario-tests",
