@@ -46,7 +46,7 @@
       "packageVersion": "9.0.625501",
       "barId": 266847,
       "path": "diagnostics",
-      "remoteUri": "https://github.com/dotnet/diagnostics",
+      "remoteUri": "https://github.com/maestro-auth-test/diagnostics",
       "commitSha": "8a951ade8ae70e5fc47345958cf716cc8e9cffe5"
     },
     {
