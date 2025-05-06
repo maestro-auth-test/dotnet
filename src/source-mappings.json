@@ -56,7 +56,7 @@
         },
         {
             "name": "diagnostics",
-            "defaultRemote": "https://github.com/dotnet/diagnostics"
+            "defaultRemote": "https://github.com/maestro-auth-test/diagnostics"
         },
         {
             "name": "efcore",
