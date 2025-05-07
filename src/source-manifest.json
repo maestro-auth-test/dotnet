@@ -81,7 +81,7 @@
       "packageVersion": "6.15.0-preview.1.37",
       "barId": 266635,
       "path": "nuget-client",
-      "remoteUri": "https://github.com/nuget/nuget.client",
+      "remoteUri": "https://github.com/maestro-auth-test/nuget.client",
       "commitSha": "41fb88a624e61dce1fa05a5d0771b41ab7aff7a9"
     },
     {
