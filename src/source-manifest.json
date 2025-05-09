@@ -9,7 +9,6 @@
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -18,7 +17,7 @@
       "packageVersion": "10.0.0-preview.5.25257.5",
       "barId": 267292,
       "path": "aspnetcore",
-      "remoteUri": "https://github.com/dotnet/aspnetcore",
+      "remoteUri": "https://github.com/maestro-auth-test/aspnetcore",
       "commitSha": "2f2a94698d8c32e223cd6b7ee5bdaadd0a3810d9"
     },
     {
