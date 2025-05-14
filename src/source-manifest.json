@@ -9,6 +9,7 @@
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
+      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -106,10 +107,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.5.25262.10",
-      "barId": 267901,
+      "barId": 200,
       "path": "runtime",
       "remoteUri": "https://github.com/maestro-auth-test/runtime",
-      "commitSha": "d2c561859bd6474b8ec38bf4ee7296e4e717ce1c"
+      "commitSha": "f76d75739482939fcf2661010bf490a3d81163ed"
     },
     {
       "packageVersion": "10.0.0-preview.25221.1",
