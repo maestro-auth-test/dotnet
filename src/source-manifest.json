@@ -9,7 +9,6 @@
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -81,7 +80,7 @@
       "packageVersion": "6.15.0-preview.1.50",
       "barId": 267707,
       "path": "nuget-client",
-      "remoteUri": "https://github.com/nuget/nuget.client",
+      "remoteUri": "https://github.com/maestro-auth-test/nuget.client",
       "commitSha": "e4e3b79701686199bc804a06533d2df054924d7e"
     },
     {
