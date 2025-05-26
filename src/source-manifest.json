@@ -51,10 +51,10 @@
     },
     {
       "packageVersion": "10.0.0-preview.6.25272.3",
-      "barId": 269367,
+      "barId": 1533,
       "path": "efcore",
-      "remoteUri": "https://github.com/dotnet/efcore",
-      "commitSha": "d56b28449d62dba5d3bd4aa0a5a2de17c5fe7d13"
+      "remoteUri": "https://github.com/maestro-auth-test/efcore",
+      "commitSha": "4f3b398bd0ee2c8965eef882b3f546aa561147be"
     },
     {
       "packageVersion": "10.0.0-preview.6.25270.1",
