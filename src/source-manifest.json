@@ -9,7 +9,6 @@
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -130,7 +129,7 @@
       "packageVersion": "10.0.622801",
       "barId": 269640,
       "path": "source-build-externals",
-      "remoteUri": "https://github.com/dotnet/source-build-externals",
+      "remoteUri": "https://github.com/maestro-auth-test/source-build-externals",
       "commitSha": "9c353b86754dc74d2508aaecca0d68549a601eab"
     },
     {
