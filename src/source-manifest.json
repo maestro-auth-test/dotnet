@@ -9,7 +9,6 @@
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -67,7 +66,7 @@
       "packageVersion": "10.0.100-beta.25278.2",
       "barId": 269887,
       "path": "fsharp",
-      "remoteUri": "https://github.com/dotnet/fsharp",
+      "remoteUri": "https://github.com/maestro-auth-test/fsharp",
       "commitSha": "79ced2b7b6c4a850507fb6ffdc75ab6ffb5e0146"
     },
     {
