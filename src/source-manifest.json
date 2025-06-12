@@ -9,7 +9,6 @@
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -102,7 +101,7 @@
       "packageVersion": "10.0.0-preview.25305.2",
       "barId": 270822,
       "path": "roslyn-analyzers",
-      "remoteUri": "https://github.com/dotnet/roslyn-analyzers",
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn-analyzers",
       "commitSha": "b5c183add7824375fb00c6f4a1614098555b3e62"
     },
     {
