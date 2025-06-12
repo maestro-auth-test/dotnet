@@ -4,12 +4,11 @@
       "packageVersion": "10.0.0-beta.25305.3",
       "barId": 270773,
       "path": "arcade",
-      "remoteUri": "https://github.com/dotnet/arcade",
+      "remoteUri": "https://github.com/maestro-auth-test/arcade",
       "commitSha": "aba421eb78276b26d1a24df7772474806b27aa13"
     },
     {
       "packageVersion": "8.2.2-preview.1.24521.5",
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
