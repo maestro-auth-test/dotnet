@@ -156,10 +156,10 @@
     },
     {
       "packageVersion": "10.0.100-preview.6.25309.2",
-      "barId": 271098,
+      "barId": 1555,
       "path": "templating",
-      "remoteUri": "https://github.com/dotnet/templating",
-      "commitSha": "03d3215a785e223615f9e8f77ea34a34cd9e260f"
+      "remoteUri": "https://github.com/maestro-auth-test/templating",
+      "commitSha": "33896905e6695ed5098050ee17f799ab8c3ccad7"
     },
     {
       "packageVersion": "17.15.0-preview-25302-03",
