@@ -35,7 +35,6 @@
     <Compile Include="GroupByTests.cs" />
     <Compile Include="GroupJoinTests.cs" />
     <Compile Include="IndexTests.cs" />
-    <Compile Include="InfiniteSequenceTests.cs" />
     <Compile Include="IntersectTests.cs" />
     <Compile Include="JoinTests.cs" />
     <Compile Include="LastOrDefaultTests.cs" />
@@ -51,7 +50,6 @@
     <Compile Include="OrderDescendingTests.cs" />
     <Compile Include="OrderedSubsetting.cs" />
     <Compile Include="OrderTests.cs" />
-    <Compile Include="SequenceTests.cs" />
     <Compile Include="RangeTests.cs" />
     <Compile Include="RepeatTests.cs" />
     <Compile Include="ReverseTests.cs" />

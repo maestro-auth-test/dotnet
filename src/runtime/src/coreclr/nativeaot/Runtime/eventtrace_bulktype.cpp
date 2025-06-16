@@ -318,8 +318,7 @@ int BulkTypeEventLogger::LogSingleType(MethodTable * pEEType)
         // So no other type flags are applicable to set
     }
 
-    MethodTable* pTypeForRva = pEEType->IsDynamicType() ? pEEType->GetDynamicTemplateType() : pEEType;
-    ULONGLONG rvaType = ULONGLONG(pTypeForRva) - osModuleHandle;
+    ULONGLONG rvaType = ULONGLONG(pEEType) - osModuleHandle;
     pVal->fixedSizedData.TypeNameID = (DWORD) rvaType;
 
     // Now that we know the full size of this type's data, see if it fits in our

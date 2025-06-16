@@ -1,8 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-#nullable enable
-
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -18,16 +16,16 @@ namespace Microsoft.NET.HostModel.MachO;
 /// </summary>
 internal unsafe partial class MachObjectFile
 {
-    public const uint DefaultPageSize = 0x1000;
+    private const uint PageSize = 0x1000;
     private const uint CodeSignatureAlignment = 0x10;
 
     private MachHeader _header;
-    private (LinkEditLoadCommand Command, long FileOffset) _codeSignatureLoadCommand;
+    private (LinkEditCommand Command, long FileOffset) _codeSignatureLoadCommand;
     private readonly (Segment64LoadCommand Command, long FileOffset) _textSegment64;
     private (Segment64LoadCommand Command, long FileOffset) _linkEditSegment64;
-    private (SymbolTableLoadCommand Command, long FileOffset) _symtabCommand;
+    private (SymbolTableCommand Command, long FileOffset) _symtabCommand;
 
-    private EmbeddedSignatureBlob? _codeSignatureBlob;
+    private CodeSignature _codeSignatureBlob;
     /// <summary>
     /// The offset of the lowest section in the object file. This is to ensure that additional load commands do not overwrite sections.
     /// </summary>
@@ -35,16 +33,16 @@ internal unsafe partial class MachObjectFile
     /// <summary>
     /// The offset in the object file where the next additional load command should be written.
     /// </summary>
-    private long _nextCommandPtr;
+    private readonly long _nextCommandPtr;
 
     private MachObjectFile(
         MachHeader header,
-        (LinkEditLoadCommand Command, long FileOffset) codeSignatureLC,
+        (LinkEditCommand Command, long FileOffset) codeSignatureLC,
         (Segment64LoadCommand Command, long FileOffset) textSegment64,
         (Segment64LoadCommand Command, long FileOffset) linkEditSegment64,
-        (SymbolTableLoadCommand Command, long FileOffset) symtabLC,
+        (SymbolTableCommand Command, long FileOffset) symtabLC,
         long lowestSection,
-        EmbeddedSignatureBlob? codeSignatureBlob,
+        CodeSignature codeSignatureBlob,
         long nextCommandPtr)
     {
         _codeSignatureBlob = codeSignatureBlob;
@@ -60,7 +58,7 @@ internal unsafe partial class MachObjectFile
     /// <summary>
     /// Reads the information from a memory mapped Mach-O file and creates a <see cref="MachObjectFile"/> that represents it.
     /// </summary>
-    public static MachObjectFile Create(IMachOFileReader file)
+    public static MachObjectFile Create(MemoryMappedViewAccessor file)
     {
         long commandsPtr = 0;
         if (!IsMachOImage(file))
@@ -73,14 +71,14 @@ internal unsafe partial class MachObjectFile
         long nextCommandPtr = ReadCommands(
             file,
             in header,
-            out (LinkEditLoadCommand Command, long FileOffset) codeSignatureLC,
+            out (LinkEditCommand Command, long FileOffset) codeSignatureLC,
             out (Segment64LoadCommand Command, long FileOffset) textSegment64,
             out (Segment64LoadCommand Command, long FileOffset) linkEditSegment64,
-            out (SymbolTableLoadCommand Command, long FileOffset) symtabCommand,
+            out (SymbolTableCommand Command, long FileOffset) symtabCommand,
             out long lowestSection);
-        EmbeddedSignatureBlob? codeSignatureBlob = codeSignatureLC.Command.IsDefault
+        CodeSignature codeSignatureBlob = codeSignatureLC.Command.IsDefault
             ? null
-            : (EmbeddedSignatureBlob)BlobParser.ParseBlob(file, codeSignatureLC.Command.GetDataOffset(header));
+            : CodeSignature.Read(file, codeSignatureLC.Command.GetDataOffset(header));
         return new MachObjectFile(
             header,
             codeSignatureLC,
@@ -102,35 +100,17 @@ internal unsafe partial class MachObjectFile
     /// Writes the EmbeddedSignature blob to the file.
     /// Returns the new size of the file (the end of the signature blob).
     /// </summary>
-    public long AdHocSignFile(IMachOFileAccess file, string identifier)
+    public long CreateAdHocSignature(MemoryMappedViewAccessor file, string identifier)
     {
         AllocateCodeSignatureLoadCommand(identifier);
         _codeSignatureBlob = null;
         // The code signature includes hashes of the entire file up to the code signature.
         // In order to calculate the hashes correctly, everything up to the code signature must be written before the signature is built.
         Write(file);
-        _codeSignatureBlob = CreateSignature(this, file, identifier);
+        _codeSignatureBlob = CodeSignature.CreateSignature(this, file, identifier);
         Validate();
-        _codeSignatureBlob.Write(file, _codeSignatureLoadCommand.Command.GetDataOffset(_header));
+        _codeSignatureBlob.WriteToFile(file);
         return GetFileSize();
-    }
-   private static EmbeddedSignatureBlob CreateSignature(MachObjectFile machObject, IMachOFileReader file, string identifier)
-    {
-        Debug.Assert(!machObject._codeSignatureLoadCommand.Command.IsDefault);
-        uint signatureStart = machObject._codeSignatureLoadCommand.Command.GetDataOffset(machObject._header);
-        RequirementsBlob requirementsBlob = RequirementsBlob.Empty;
-        CmsWrapperBlob cmsWrapperBlob = CmsWrapperBlob.Empty;
-
-        var codeDirectory = CodeDirectoryBlob.Create(
-            file,
-            signatureStart,
-            identifier,
-            requirementsBlob);
-
-        return new EmbeddedSignatureBlob(
-            codeDirectoryBlob: codeDirectory,
-            requirementsBlob: requirementsBlob,
-            cmsWrapperBlob: cmsWrapperBlob);
     }
 
     /// <summary>
@@ -139,7 +119,7 @@ internal unsafe partial class MachObjectFile
     /// <param name="fileSize">The total size of the bundle</param>
     /// <param name="file">The bundle file to be processed</param>
     /// <returns>`true` if the headers were adjusted successfully, `false` otherwise.</returns>
-    public bool TryAdjustHeadersForBundle(ulong fileSize, IMachOFileWriter file)
+    public bool TryAdjustHeadersForBundle(ulong fileSize, MemoryMappedViewAccessor file)
     {
         ulong newStringTableSize = fileSize - _symtabCommand.Command.GetStringTableOffset(_header);
         if (newStringTableSize > uint.MaxValue)
@@ -150,13 +130,13 @@ internal unsafe partial class MachObjectFile
         _symtabCommand.Command.SetStringTableSize((uint)newStringTableSize, _header);
         ulong newLinkEditSize = fileSize - _linkEditSegment64.Command.GetFileOffset(_header);
         _linkEditSegment64.Command.SetFileSize(newLinkEditSize, _header);
-        _linkEditSegment64.Command.SetVMSize(AlignUp(newLinkEditSize, DefaultPageSize), _header);
+        _linkEditSegment64.Command.SetVMSize(AlignUp(newLinkEditSize, PageSize), _header);
         Validate();
         Write(file);
         return true;
     }
 
-    public static bool IsMachOImage(IMachOFileReader memoryMappedViewAccessor)
+    public static bool IsMachOImage(MemoryMappedViewAccessor memoryMappedViewAccessor)
     {
         memoryMappedViewAccessor.Read(0, out MachMagic magic);
         return magic is MachMagic.MachHeaderCurrentEndian or MachMagic.MachHeaderOppositeEndian
@@ -194,16 +174,16 @@ internal unsafe partial class MachObjectFile
     /// Returns true and sets <paramref name="newLength"/> to a non-null value if the file is a MachO file and the signature was removed.
     /// Returns false and sets newLength to null otherwise.
     /// </summary>
-    /// <param name="file">The file to remove the signature from.</param>
+    /// <param name="memoryMappedViewAccessor">The file to remove the signature from.</param>
     /// <param name="newLength">The new length of the file if the signature is remove and the method returns true</param>
     /// <returns>True if a signature was present and removed, false otherwise</returns>
-    public static bool RemoveCodeSignatureIfPresent(IMachOFileAccess file, out long? newLength)
+    public static bool RemoveCodeSignatureIfPresent(MemoryMappedViewAccessor memoryMappedViewAccessor, out long? newLength)
     {
         newLength = null;
-        if (!IsMachOImage(file))
+        if (!IsMachOImage(memoryMappedViewAccessor))
             return false;
 
-        MachObjectFile machFile = Create(file);
+        MachObjectFile machFile = Create(memoryMappedViewAccessor);
         if (machFile._codeSignatureLoadCommand.Command.IsDefault)
         {
             Debug.Assert(machFile._codeSignatureBlob is null);
@@ -211,8 +191,7 @@ internal unsafe partial class MachObjectFile
         }
 
         machFile._header.NumberOfCommands -= 1;
-        machFile._header.SizeOfCommands -= (uint)sizeof(LinkEditLoadCommand);
-        machFile._nextCommandPtr -= (uint)sizeof(LinkEditLoadCommand);
+        machFile._header.SizeOfCommands -= (uint)sizeof(LinkEditCommand);
         machFile._linkEditSegment64.Command.SetFileSize(
             machFile._linkEditSegment64.Command.GetFileSize(machFile._header)
                 - machFile._codeSignatureLoadCommand.Command.GetFileSize(machFile._header),
@@ -221,7 +200,7 @@ internal unsafe partial class MachObjectFile
         machFile._codeSignatureLoadCommand = default;
         machFile._codeSignatureBlob = null;
         machFile.Validate();
-        machFile.Write(file);
+        machFile.Write(memoryMappedViewAccessor);
         return true;
     }
 
@@ -236,11 +215,11 @@ internal unsafe partial class MachObjectFile
         using (MemoryMappedFile mmap = MemoryMappedFile.CreateFromFile(bundle, null, 0, MemoryMappedFileAccess.ReadWrite, HandleInheritability.None, true))
         using (MemoryMappedViewAccessor accessor = mmap.CreateViewAccessor(0, 0, MemoryMappedFileAccess.ReadWrite))
         {
-            resized = RemoveCodeSignatureIfPresent(new MemoryMappedMachOViewAccessor(accessor), out newLength);
+            resized = RemoveCodeSignatureIfPresent(accessor, out newLength);
         }
         if (resized)
         {
-            bundle.SetLength(newLength!.Value);
+            bundle.SetLength(newLength.Value);
         }
     }
 
@@ -250,24 +229,27 @@ internal unsafe partial class MachObjectFile
     /// The __LINKEDIT segment size is allowed to be different since codesign adds additional padding at the end.
     /// The difference in __LINKEDIT size causes the first page hash to be different, so the first code hash is ignored.
     /// </summary>
-    public static void AssertEquivalent(MachObjectFile a, MachObjectFile b)
+    public static bool AreEquivalent(MachObjectFile a, MachObjectFile b)
     {
         a.Validate();
         b.Validate();
         if (!a._header.Equals(b._header))
-            throw new InvalidDataException("Mach-O headers are not equivalent.");
+            return false;
         if (!CodeSignatureLCsAreEquivalent(a._codeSignatureLoadCommand, b._codeSignatureLoadCommand, a._header))
-            throw new InvalidDataException("Mach-O code signature load commands are not equivalent.");
+            return false;
         if (!a._textSegment64.Equals(b._textSegment64))
-            throw new InvalidDataException("Mach-O text segments are not equivalent.");
+            return false;
         if (!LinkEditSegmentsAreEquivalent(a._linkEditSegment64, b._linkEditSegment64, a._header))
-            throw new InvalidDataException("Mach-O link edit segments are not equivalent.");
-        if (a._codeSignatureBlob is null ^ b._codeSignatureBlob is null)
-            throw new InvalidDataException("Mach-O code signature blobs are not equivalent.");
+            return false;
+        if (a._codeSignatureBlob is null || b._codeSignatureBlob is null)
+            return false;
         // This may be false if the __LINKEDIT segment load command is not on the first page, but that is unlikely.
-        EmbeddedSignatureBlob.AssertEquivalent(a._codeSignatureBlob, b._codeSignatureBlob);
+        if (!CodeSignature.AreEquivalent(a._codeSignatureBlob, b._codeSignatureBlob))
+            return false;
 
-        static bool CodeSignatureLCsAreEquivalent((LinkEditLoadCommand Command, long FileOffset) a, (LinkEditLoadCommand Command, long FileOffset) b, MachHeader header)
+        return true;
+
+        static bool CodeSignatureLCsAreEquivalent((LinkEditCommand Command, long FileOffset) a, (LinkEditCommand Command, long FileOffset) b, MachHeader header)
         {
             if (a.Command.GetDataOffset(header) != b.Command.GetDataOffset(header))
                 return false;
@@ -290,13 +272,13 @@ internal unsafe partial class MachObjectFile
 
     public static long GetSignatureSizeEstimate(uint fileSize, string identifier)
     {
-        return EmbeddedSignatureBlob.GetLargestSizeEstimate(fileSize, identifier) + (AlignUp(fileSize, CodeSignatureAlignment) - fileSize);
+        return CodeSignature.GetCodeSignatureSize(fileSize, identifier) + (AlignUp(fileSize, CodeSignatureAlignment) - fileSize);
     }
 
     /// <summary>
     /// Writes the entire file to <paramref name="file"/>.
     /// </summary>
-    public long Write(IMachOFileWriter file)
+    private long Write(MemoryMappedViewAccessor file)
     {
         if (file.Capacity < GetFileSize())
             throw new ArgumentException("File is too small", nameof(file));
@@ -306,7 +288,7 @@ internal unsafe partial class MachObjectFile
         if (!_codeSignatureLoadCommand.Command.IsDefault)
         {
             file.Write(_codeSignatureLoadCommand.FileOffset, ref _codeSignatureLoadCommand.Command);
-            _codeSignatureBlob?.Write(file, _codeSignatureLoadCommand.Command.GetDataOffset(_header));
+            _codeSignatureBlob?.WriteToFile(file);
         }
         return GetFileSize();
     }
@@ -316,12 +298,12 @@ internal unsafe partial class MachObjectFile
     /// Fills the content of the commands with the corresponding command if present in the file.
     /// </summary>
     private static long ReadCommands(
-        IMachOFileReader inputFile,
+        MemoryMappedViewAccessor inputFile,
         in MachHeader header,
-        out (LinkEditLoadCommand Command, long FileOffset) codeSignatureLC,
+        out (LinkEditCommand Command, long FileOffset) codeSignatureLC,
         out (Segment64LoadCommand Command, long FileOffset) textSegment64,
         out (Segment64LoadCommand Command, long FileOffset) linkEditSegment64,
-        out (SymbolTableLoadCommand Command, long FileOffset) symtabLC,
+        out (SymbolTableCommand Command, long FileOffset) symtabLC,
         out long lowestSectionOffset)
     {
         codeSignatureLC = default;
@@ -340,7 +322,7 @@ internal unsafe partial class MachObjectFile
                     if (i + 1 != header.NumberOfCommands)
                         throw new AppHostMachOFormatException(MachOFormatError.SignCommandNotLast);
 
-                    inputFile.Read(commandsPtr, out LinkEditLoadCommand leCommand);
+                    inputFile.Read(commandsPtr, out LinkEditCommand leCommand);
                     codeSignatureLC = (leCommand, commandsPtr);
                     break;
                 case MachLoadCommandType.Segment64:
@@ -370,7 +352,7 @@ internal unsafe partial class MachObjectFile
                 case MachLoadCommandType.SymbolTable:
                     if (!symtabLC.Command.IsDefault)
                         throw new AppHostMachOFormatException(MachOFormatError.DuplicateSymtab);
-                    inputFile.Read(commandsPtr, out SymbolTableLoadCommand symtab);
+                    inputFile.Read(commandsPtr, out SymbolTableCommand symtab);
                     symtabLC = (symtab, commandsPtr);
                     break;
             }
@@ -414,13 +396,13 @@ internal unsafe partial class MachObjectFile
     {
         uint csOffset = GetSignatureStart();
         uint csPtr = (uint)(_codeSignatureLoadCommand.Command.IsDefault ? _nextCommandPtr : _codeSignatureLoadCommand.FileOffset);
-        uint csSize = (uint)EmbeddedSignatureBlob.GetSignatureSize(GetSignatureStart(), identifier);
+        uint csSize = CodeSignature.GetCodeSignatureSize(GetSignatureStart(), identifier);
 
         if (_codeSignatureLoadCommand.Command.IsDefault)
         {
             // Update the header to accomodate the new code signature load command
             _header.NumberOfCommands += 1;
-            _header.SizeOfCommands += (uint)sizeof(LinkEditLoadCommand);
+            _header.SizeOfCommands += (uint)sizeof(LinkEditCommand);
             if (_header.SizeOfCommands > _lowestSectionOffset)
             {
                 throw new InvalidOperationException("Mach Object does not have enough space for the code signature load command");
@@ -430,8 +412,8 @@ internal unsafe partial class MachObjectFile
         var currentLinkEditOffset = _linkEditSegment64.Command.GetFileOffset(_header);
         var linkEditSize = csOffset + csSize - currentLinkEditOffset;
         _linkEditSegment64.Command.SetFileSize(linkEditSize, _header);
-        _linkEditSegment64.Command.SetVMSize(AlignUp(linkEditSize, DefaultPageSize), _header);
-        _codeSignatureLoadCommand = (new LinkEditLoadCommand(MachLoadCommandType.CodeSignature, csOffset, csSize, _header), csPtr);
+        _linkEditSegment64.Command.SetVMSize(AlignUp(linkEditSize, PageSize), _header);
+        _codeSignatureLoadCommand = (new LinkEditCommand(MachLoadCommandType.CodeSignature, csOffset, csSize, _header), csPtr);
     }
 
     /// <summary>
@@ -468,6 +450,7 @@ internal unsafe partial class MachObjectFile
             var csStart = _codeSignatureLoadCommand.Command.GetDataOffset(_header);
             var csEnd = csStart + _codeSignatureLoadCommand.Command.GetFileSize(_header);
             Debug.Assert(_codeSignatureBlob is not null);
+            Debug.Assert(_codeSignatureBlob.FileOffset == csStart);
             Debug.Assert(_codeSignatureLoadCommand.Command.GetDataOffset(_header) % CodeSignatureAlignment == 0);
             Debug.Assert(csStart >= linkEditStart);
             Debug.Assert(csEnd <= linkEditStart + linkEditFileSize);

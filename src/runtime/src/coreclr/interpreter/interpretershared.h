@@ -82,7 +82,6 @@ private:
         bool        m_classNameContainsInstantiation;
         bool        m_methodNameContainsInstantiation;
         bool        m_containsSignature;
-        bool        m_containsAssemblyName;
     };
 
     const char* m_listFromConfig = nullptr;

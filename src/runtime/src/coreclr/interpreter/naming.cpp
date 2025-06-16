@@ -7,12 +7,12 @@ void AppendType(COMP_HANDLE comp, TArray<char>* printer, CORINFO_CLASS_HANDLE cl
 void AppendCorInfoType(TArray<char>* printer, CorInfoType corInfoType);
 void AppendTypeOrJitAlias(COMP_HANDLE comp, TArray<char>* printer, CORINFO_CLASS_HANDLE clsHnd, bool includeInstantiation);
 
-void AppendString(TArray<char>* array, const char* str)
+void AppendString(TArray<char>& array, const char* str)
 {
     if (str != nullptr)
     {
         size_t strLen = strlen(str);
-        array->Append(str, static_cast<int32_t>(strLen));
+        array.Append(str, static_cast<int32_t>(strLen));
     }
 }
 
@@ -145,8 +145,6 @@ void AppendMethodName(COMP_HANDLE comp,
                             CORINFO_CLASS_HANDLE  clsHnd,
                             CORINFO_METHOD_HANDLE methHnd,
                             CORINFO_SIG_INFO*     sig,
-                            bool                  includeAssembly,
-                            bool                  includeClass,
                             bool                  includeClassInstantiation,
                             bool                  includeMethodInstantiation,
                             bool                  includeSignature,
@@ -155,14 +153,7 @@ void AppendMethodName(COMP_HANDLE comp,
 {
     TArray<char> result;
 
-    if (includeAssembly)
-    {
-        const char *pAssemblyName = comp->getClassAssemblyName(clsHnd);
-        AppendString(printer, pAssemblyName);
-        printer->Add('!');
-    }
-
-    if (includeClass)
+    if (clsHnd != NO_CLASS_HANDLE)
     {
         AppendType(comp, printer, clsHnd, includeClassInstantiation);
         printer->Add(':');
@@ -277,8 +268,6 @@ TArray<char> PrintMethodName(COMP_HANDLE comp,
                             CORINFO_CLASS_HANDLE  clsHnd,
                             CORINFO_METHOD_HANDLE methHnd,
                             CORINFO_SIG_INFO*     sig,
-                            bool                  includeAssembly,
-                            bool                  includeClass,
                             bool                  includeClassInstantiation,
                             bool                  includeMethodInstantiation,
                             bool                  includeSignature,
@@ -287,7 +276,6 @@ TArray<char> PrintMethodName(COMP_HANDLE comp,
 {
     TArray<char> printer;
     AppendMethodName(comp, &printer, clsHnd, methHnd, sig,
-                     includeAssembly, includeClass,
                      includeClassInstantiation, includeMethodInstantiation,
                      includeSignature, includeReturnType, includeThisSpecifier);
     printer.Add('\0'); // Ensure null-termination

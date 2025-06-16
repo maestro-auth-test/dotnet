@@ -913,12 +913,11 @@ int32_t* interceptor_ICJI::getAddrOfCaptureThreadGlobal(
     return original_ICorJitInfo->getAddrOfCaptureThreadGlobal(ppIndirection);
 }
 
-void interceptor_ICJI::getHelperFtn(
+void* interceptor_ICJI::getHelperFtn(
           CorInfoHelpFunc ftnNum,
-          CORINFO_CONST_LOOKUP* pNativeEntrypoint,
-          CORINFO_METHOD_HANDLE* pMethod)
+          void** ppIndirection)
 {
-    original_ICorJitInfo->getHelperFtn(ftnNum, pNativeEntrypoint, pMethod);
+    return original_ICorJitInfo->getHelperFtn(ftnNum, ppIndirection);
 }
 
 void interceptor_ICJI::getFunctionEntryPoint(
@@ -1006,12 +1005,6 @@ void* interceptor_ICJI::GetCookieForPInvokeCalliSig(
           void** ppIndirection)
 {
     return original_ICorJitInfo->GetCookieForPInvokeCalliSig(szMetaSig, ppIndirection);
-}
-
-void* interceptor_ICJI::GetCookieForInterpreterCalliSig(
-          CORINFO_SIG_INFO* szMetaSig)
-{
-    return original_ICorJitInfo->GetCookieForInterpreterCalliSig(szMetaSig);
 }
 
 bool interceptor_ICJI::canGetCookieForPInvokeCalliSig(

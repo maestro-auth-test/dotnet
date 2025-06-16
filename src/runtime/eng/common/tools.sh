@@ -528,7 +528,6 @@ function GetDarc {
     fi
 
     "$eng_root/common/darc-init.sh" --toolpath "$darc_path" $version
-    darc_tool="$darc_path/darc"
 }
 
 # Returns a full path to an Arcade SDK task project file.

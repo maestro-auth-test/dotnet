@@ -3,8 +3,7 @@
 
 import { loaderHelpers } from "./globals";
 import { load_satellite_assembly } from "./managed-exports";
-import type { AssemblyAsset } from "./types";
-import type { AssetEntryInternal } from "./types/internal";
+import { AssetEntry } from "./types";
 
 export async function loadSatelliteAssemblies (culturesToLoad: string[]): Promise<void> {
     const satelliteResources = loaderHelpers.config.resources!.satelliteResources;
@@ -16,10 +15,14 @@ export async function loadSatelliteAssemblies (culturesToLoad: string[]): Promis
         .filter(culture => Object.prototype.hasOwnProperty.call(satelliteResources, culture))
         .map(culture => {
             const promises: Promise<ArrayBuffer>[] = [];
-            for (let i = 0; i < satelliteResources[culture].length; i++) {
-                const asset = satelliteResources[culture][i] as AssemblyAsset & AssetEntryInternal;
-                asset.behavior = "resource";
-                asset.culture = culture;
+            for (const name in satelliteResources[culture]) {
+                const asset: AssetEntry = {
+                    name,
+                    hash: satelliteResources[culture][name],
+                    behavior: "resource",
+                    culture
+                };
+
                 promises.push(loaderHelpers.retrieve_asset_download(asset));
             }
 

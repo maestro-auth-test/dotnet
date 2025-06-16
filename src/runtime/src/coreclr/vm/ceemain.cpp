@@ -164,10 +164,6 @@
 #include "cdacplatformmetadata.hpp"
 #include "minipal/time.h"
 
-#ifdef FEATURE_INTERPRETER
-#include "callstubgenerator.h"
-#endif
-
 #ifndef TARGET_UNIX
 #include "dwreport.h"
 #endif // !TARGET_UNIX
@@ -662,10 +658,6 @@ void EEStartupHelper()
         }
 
         Thread::StaticInitialize();
-
-#ifdef FEATURE_INTERPRETER
-        InitCallStubGenerator();
-#endif // FEATURE_INTERPRETER
 
         JITInlineTrackingMap::StaticInitialize();
         MethodDescBackpatchInfoTracker::StaticInitialize();
@@ -1672,7 +1664,7 @@ static uint32_t g_flsIndex = FLS_OUT_OF_INDEXES;
 #define FLS_STATE_ARMED 1
 #define FLS_STATE_INVOKED 2
 
-static PLATFORM_THREAD_LOCAL byte t_flsState;
+static thread_local byte t_flsState;
 
 // This is called when each *fiber* is destroyed. When the home fiber of a thread is destroyed,
 // it means that the thread itself is destroyed.

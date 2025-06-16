@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Linq;
+using System.Security.Cryptography.Tests;
 using Test.Cryptography;
 using Xunit;
 
@@ -31,7 +32,7 @@ namespace System.Security.Cryptography.X509Certificates.Tests.CertificateCreatio
             }
         }
 
-        [ConditionalFact(typeof(MLDsa), nameof(MLDsa.IsSupported))]
+        [ConditionalFact(typeof(MLDsaTestHelpers), nameof(MLDsaTestHelpers.CertificatesAreSupported))]
         public static void CreateChain_MLDSA()
         {
             using (MLDsa rootKey = MLDsa.GenerateKey(MLDsaAlgorithm.MLDsa87))

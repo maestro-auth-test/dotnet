@@ -6113,9 +6113,22 @@ GenTree* Lowering::LowerDirectCall(GenTreeCall* call)
     {
         noway_assert(helperNum != CORINFO_HELP_UNDEF);
 
-        CORINFO_CONST_LOOKUP addrInfo = comp->compGetHelperFtn(helperNum);
-        addr                          = addrInfo.addr;
-        accessType                    = addrInfo.accessType;
+        // the convention on getHelperFtn seems to be (it's not documented)
+        // that it returns an address or if it returns null, pAddr is set to
+        // another address, which requires an indirection
+        void* pAddr;
+        addr = comp->info.compCompHnd->getHelperFtn(helperNum, (void**)&pAddr);
+
+        if (addr != nullptr)
+        {
+            assert(pAddr == nullptr);
+            accessType = IAT_VALUE;
+        }
+        else
+        {
+            accessType = IAT_PVALUE;
+            addr       = pAddr;
+        }
     }
     else
     {

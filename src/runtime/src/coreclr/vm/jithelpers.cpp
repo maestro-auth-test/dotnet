@@ -314,11 +314,15 @@ HCIMPLEND
 //
 //========================================================================
 
+// Define the t_ThreadStatics variable here, so that these helpers can use
+// the most optimal TLS access pattern for the platform when inlining the
+// GetThreadLocalStaticBaseIfExistsAndInitialized function.
 // Using compiler specific thread local storage directives due to linkage issues.
 #ifdef _MSC_VER
-__declspec(selectany)
+__declspec(selectany) __declspec(thread) ThreadLocalData t_ThreadStatics;
+#else
+__thread ThreadLocalData t_ThreadStatics;
 #endif // _MSC_VER
-PLATFORM_THREAD_LOCAL ThreadLocalData t_ThreadStatics;
 
 extern "C" void QCALLTYPE GetThreadStaticsByMethodTable(QCall::ByteRefOnStack refHandle, MethodTable* pMT, bool gcStatic)
 {
@@ -538,7 +542,7 @@ HCIMPL2(BOOL, JIT_IsInstanceOfException, CORINFO_CLASS_HANDLE type, Object* obj)
 }
 HCIMPLEND
 
-extern "C" void QCALLTYPE ThrowInvalidCastException(CORINFO_CLASS_HANDLE pSourceType, CORINFO_CLASS_HANDLE pTargetType)
+extern "C" void QCALLTYPE ThrowInvalidCastException(CORINFO_CLASS_HANDLE pTargetType, CORINFO_CLASS_HANDLE pSourceType)
 {
     QCALL_CONTRACT;
 
@@ -546,6 +550,8 @@ extern "C" void QCALLTYPE ThrowInvalidCastException(CORINFO_CLASS_HANDLE pSource
 
     TypeHandle targetType(pTargetType);
     TypeHandle sourceType(pSourceType);
+
+    GCX_COOP();
 
     COMPlusThrowInvalidCastException(sourceType, targetType);
 

@@ -2380,41 +2380,32 @@ void MethodContext::repGetReadyToRunDelegateCtorHelper(CORINFO_RESOLVED_TOKEN* p
     *pLookup = SpmiRecordsHelper::RestoreCORINFO_LOOKUP(value);
 }
 
-void MethodContext::recGetHelperFtn(CorInfoHelpFunc ftnNum, CORINFO_CONST_LOOKUP pNativeEntrypoint,CORINFO_METHOD_HANDLE methodHandle)
+void MethodContext::recGetHelperFtn(CorInfoHelpFunc ftnNum, void** ppIndirection, void* result)
 {
     if (GetHelperFtn == nullptr)
-        GetHelperFtn = new LightWeightMap<DWORD, Agnostic_GetHelperFtn>();
+        GetHelperFtn = new LightWeightMap<DWORD, DLDL>();
 
     DWORD key = (DWORD)ftnNum;
 
-    Agnostic_GetHelperFtn value;
-    value.helperLookup = SpmiRecordsHelper::StoreAgnostic_CORINFO_CONST_LOOKUP(&pNativeEntrypoint);
-    value.helperMethod = CastHandle(methodHandle);
+    DLDL value;
+    value.A = CastPointer(*ppIndirection);
+    value.B = CastPointer(result);
 
     GetHelperFtn->Add(key, value);
     DEBUG_REC(dmpGetHelperFtn(key, value));
 }
-void MethodContext::dmpGetHelperFtn(DWORD key, Agnostic_GetHelperFtn value)
+void MethodContext::dmpGetHelperFtn(DWORD key, DLDL value)
 {
-    printf("GetHelperFtn key ftn-%u nativeEntrypoint {%s}, helperMethod-%016" PRIX64 "", key, 
-        SpmiDumpHelper::DumpAgnostic_CORINFO_CONST_LOOKUP(value.helperLookup).c_str(),
-        value.helperMethod);
+    printf("GetHelperFtn key ftn-%u, value ppi-%016" PRIX64 " res-%016" PRIX64 "", key, value.A, value.B);
 }
-
-void MethodContext::repGetHelperFtn(CorInfoHelpFunc ftnNum, CORINFO_CONST_LOOKUP* pNativeEntrypoint,CORINFO_METHOD_HANDLE *pMethodHandle)
+void* MethodContext::repGetHelperFtn(CorInfoHelpFunc ftnNum, void** ppIndirection)
 {
     DWORD key = (DWORD)ftnNum;
-    Agnostic_GetHelperFtn value = LookupByKeyOrMiss(GetHelperFtn, key, ": key %u", key);
+    DLDL value = LookupByKeyOrMiss(GetHelperFtn, key, ": key %u", key);
     DEBUG_REP(dmpGetHelperFtn(key, value));
 
-    if (pNativeEntrypoint != nullptr)
-    {
-        *pNativeEntrypoint = SpmiRecordsHelper::RestoreCORINFO_CONST_LOOKUP(value.helperLookup);
-    }
-    if (pMethodHandle != nullptr)
-    {
-        *pMethodHandle = (CORINFO_METHOD_HANDLE)value.helperMethod;
-    }
+    *ppIndirection = (void*)value.A;
+    return (void*)value.B;
 }
 
 //
@@ -2439,12 +2430,12 @@ bool MethodContext::fndGetHelperFtn(void* functionAddress, CorInfoHelpFunc* pRes
     {
         for (unsigned int i = 0; i < GetHelperFtn->GetCount(); i++)
         {
-            DWORD                 key = GetHelperFtn->GetKey(i);
-            Agnostic_GetHelperFtn val = GetHelperFtn->GetItem(i);
+            DWORD key = GetHelperFtn->GetKey(i);
+            DLDL  val = GetHelperFtn->GetItem(i);
 
             // TODO-Cleanup: this only compares the function addresses, and doesn't account for
             // ppIndirection, which will break if the helper is a dynamic helper function.
-            if (val.helperLookup.handle == CastPointer(functionAddress))
+            if (val.B == CastPointer(functionAddress))
             {
                 *pResult = (CorInfoHelpFunc)key;
                 return true;
@@ -6176,45 +6167,6 @@ LPVOID MethodContext::repGetCookieForPInvokeCalliSig(CORINFO_SIG_INFO* szMetaSig
     if (ppIndirection != nullptr)
         *ppIndirection = (void*)value.A;
     return (CORINFO_VARARGS_HANDLE)value.B;
-}
-
-void MethodContext::recGetCookieForInterpreterCalliSig(CORINFO_SIG_INFO* szMetaSig, LPVOID result)
-{
-    if (GetCookieForInterpreterCalliSig == nullptr)
-        GetCookieForInterpreterCalliSig = new LightWeightMap<GetCookieForInterpreterCalliSigValue, DLDL>();
-
-    GetCookieForInterpreterCalliSigValue key;
-    ZeroMemory(&key, sizeof(key)); // Zero key including any struct padding
-    key.cbSig      = (DWORD)szMetaSig->cbSig;
-    key.pSig_Index = (DWORD)GetCookieForInterpreterCalliSig->AddBuffer((unsigned char*)szMetaSig->pSig, szMetaSig->cbSig);
-    key.scope      = CastHandle(szMetaSig->scope);
-    key.token      = (DWORD)szMetaSig->token;
-
-    DLDL value;
-    value.A = CastPointer(result);
-
-    GetCookieForInterpreterCalliSig->Add(key, value);
-    DEBUG_REC(dmpGetCookieForInterpreterCalliSig(key, value));
-}
-
-void MethodContext::dmpGetCookieForInterpreterCalliSig(const GetCookieForInterpreterCalliSigValue& key, DLDL value)
-{
-    printf("GetCookieForInterpreterCalliSig NYI");
-}
-LPVOID MethodContext::repGetCookieForInterpreterCalliSig(CORINFO_SIG_INFO* szMetaSig)
-{
-    GetCookieForInterpreterCalliSigValue key;
-    ZeroMemory(&key, sizeof(key)); // Zero key including any struct padding
-    key.cbSig      = (DWORD)szMetaSig->cbSig;
-    key.pSig_Index = (DWORD)GetCookieForInterpreterCalliSig->Contains((unsigned char*)szMetaSig->pSig, szMetaSig->cbSig);
-    key.scope      = CastHandle(szMetaSig->scope);
-    key.token      = (DWORD)szMetaSig->token;
-
-    DLDL value = LookupByKeyOrMissNoMessage(GetCookieForInterpreterCalliSig, key);
-
-    DEBUG_REP(dmpGetCookieForInterpreterCalliSig(key, value));
-
-    return (LPVOID)value.A;
 }
 
 void MethodContext::recCanGetCookieForPInvokeCalliSig(CORINFO_SIG_INFO* szMetaSig, bool result)

@@ -339,6 +339,12 @@ protected:
     friend class LCGMethodResolver;
 
     void FreeMemForCode(void * codeStart);
+
+#if defined(FEATURE_JIT_PITCHING)
+public:
+    PTR_EEJitManager GetJitManager() { return m_pJitManager; }
+#endif
+
 }; // class HostCodeHeap
 
 //---------------------------------------------------------------------------------------

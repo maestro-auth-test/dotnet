@@ -2,110 +2,113 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace System.Linq
 {
     public static partial class Enumerable
     {
-        private sealed partial class RangeIterator<T> : IList<T>, IReadOnlyList<T> where T : INumber<T>
+        private sealed partial class RangeIterator : IList<int>, IReadOnlyList<int>
         {
-            public override IEnumerable<TResult> Select<TResult>(Func<T, TResult> selector)
+            public override IEnumerable<TResult> Select<TResult>(Func<int, TResult> selector)
             {
-                return new RangeSelectIterator<T, TResult>(_start, _endExclusive, selector);
+                return new RangeSelectIterator<TResult>(_start, _end, selector);
             }
 
-            public override T[] ToArray()
+            public override int[] ToArray()
             {
-                T start = _start;
-                T[] array = new T[Count];
+                int start = _start;
+                int[] array = new int[_end - start];
                 FillIncrementing(array, start);
                 return array;
             }
 
-            public override List<T> ToList()
+            public override List<int> ToList()
             {
-                (T start, T end) = (_start, _endExclusive);
-                int count = int.CreateTruncating(end - start);
-                List<T> list = new List<T>(count);
-                FillIncrementing(SetCountAndGetSpan(list, count), start);
+                (int start, int end) = (_start, _end);
+                List<int> list = new List<int>(end - start);
+                FillIncrementing(SetCountAndGetSpan(list, end - start), start);
                 return list;
             }
 
-            public void CopyTo(T[] array, int arrayIndex) =>
-                FillIncrementing(array.AsSpan(arrayIndex, Count), _start);
+            public void CopyTo(int[] array, int arrayIndex) =>
+                FillIncrementing(array.AsSpan(arrayIndex, _end - _start), _start);
 
-            public override int GetCount(bool onlyIfCheap) => Count;
+            public override int GetCount(bool onlyIfCheap) => _end - _start;
 
-            public int Count => int.CreateTruncating(_endExclusive - _start);
+            public int Count => _end - _start;
 
-            public override Iterator<T>? Skip(int count) =>
-                count >= Count ? null :
-                new RangeIterator<T>(_start + T.CreateTruncating(count), _endExclusive);
-
-            public override Iterator<T> Take(int count) =>
-                count >= Count ? this :
-                new RangeIterator<T>(_start, _start + T.CreateTruncating(count));
-
-            public override T TryGetElementAt(int index, out bool found)
+            public override Iterator<int>? Skip(int count)
             {
-                if ((uint)index < (uint)Count)
+                if (count >= _end - _start)
+                {
+                    return null;
+                }
+
+                return new RangeIterator(_start + count, _end - _start - count);
+            }
+
+            public override Iterator<int> Take(int count)
+            {
+                int curCount = _end - _start;
+                if (count >= curCount)
+                {
+                    return this;
+                }
+
+                return new RangeIterator(_start, count);
+            }
+
+            public override int TryGetElementAt(int index, out bool found)
+            {
+                if ((uint)index < (uint)(_end - _start))
                 {
                     found = true;
-                    return _start + T.CreateTruncating(index);
+                    return _start + index;
                 }
 
                 found = false;
-                return T.Zero;
+                return 0;
             }
 
-            public override T TryGetFirst(out bool found)
+            public override int TryGetFirst(out bool found)
             {
                 found = true;
                 return _start;
             }
 
-            public override T TryGetLast(out bool found)
+            public override int TryGetLast(out bool found)
             {
                 found = true;
-                return _endExclusive - T.One;
+                return _end - 1;
             }
 
-            public override bool Contains(T item) =>
-                uint.CreateTruncating(item - _start) < (uint)Count;
+            public override bool Contains(int item) =>
+                (uint)(item - _start) < (uint)(_end - _start);
 
-            public int IndexOf(T item)
-            {
-                uint index = uint.CreateTruncating(item - _start);
-                if (index < (uint)Count)
-                {
-                    return (int)index;
-                }
+            public int IndexOf(int item) =>
+                Contains(item) ? item - _start : -1;
 
-                return -1;
-            }
-
-            public T this[int index]
+            public int this[int index]
             {
                 get
                 {
-                    if ((uint)index >= (uint)Count)
+                    if ((uint)index >= (uint)(_end - _start))
                     {
                         ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index);
                     }
 
-                    return _start + T.CreateTruncating(index);
+                    return _start + index;
                 }
                 set => ThrowHelper.ThrowNotSupportedException();
             }
 
             public bool IsReadOnly => true;
 
-            void ICollection<T>.Add(T item) => ThrowHelper.ThrowNotSupportedException();
-            void ICollection<T>.Clear() => ThrowHelper.ThrowNotSupportedException();
-            void IList<T>.Insert(int index, T item) => ThrowHelper.ThrowNotSupportedException();
-            bool ICollection<T>.Remove(T item) => ThrowHelper.ThrowNotSupportedException_Boolean();
-            void IList<T>.RemoveAt(int index) => ThrowHelper.ThrowNotSupportedException();
+            void ICollection<int>.Add(int item) => ThrowHelper.ThrowNotSupportedException();
+            void ICollection<int>.Clear() => ThrowHelper.ThrowNotSupportedException();
+            void IList<int>.Insert(int index, int item) => ThrowHelper.ThrowNotSupportedException();
+            bool ICollection<int>.Remove(int item) => ThrowHelper.ThrowNotSupportedException_Boolean();
+            void IList<int>.RemoveAt(int index) => ThrowHelper.ThrowNotSupportedException();
         }
     }
 }

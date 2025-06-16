@@ -5,6 +5,7 @@ import { mono_log_error } from "./logging";
 import { GlobalizationMode, MonoConfig } from "../types";
 import { ENVIRONMENT_IS_WEB, loaderHelpers } from "./globals";
 import { mono_log_info, mono_log_debug } from "./logging";
+import { getNonFingerprintedAssetName } from "./assets";
 
 export function init_globalization () {
     loaderHelpers.preferredIcuAsset = getIcuResourceName(loaderHelpers.config);
@@ -47,13 +48,24 @@ export function getIcuResourceName (config: MonoConfig): string | null {
         // TODO: when starting on sidecar, we should pass default culture from UI thread
         const culture = config.applicationCulture || (ENVIRONMENT_IS_WEB ? (globalThis.navigator && globalThis.navigator.languages && globalThis.navigator.languages[0]) : Intl.DateTimeFormat().resolvedOptions().locale);
 
-        const icuFiles = config.resources.icu;
+        const icuFiles = Object.keys(config.resources.icu);
+        const fileMapping: {
+            [k: string]: string
+        } = {};
+        for (let index = 0; index < icuFiles.length; index++) {
+            const icuFile = icuFiles[index];
+            if (config.resources.fingerprinting) {
+                fileMapping[getNonFingerprintedAssetName(icuFile)] = icuFile;
+            } else {
+                fileMapping[icuFile] = icuFile;
+            }
+        }
 
         let icuFile = null;
         if (config.globalizationMode === GlobalizationMode.Custom) {
             // custom ICU file is saved in the resources with fingerprinting and does not require mapping
             if (icuFiles.length >= 1) {
-                return icuFiles[0].name;
+                return icuFiles[0];
             }
         } else if (!culture || config.globalizationMode === GlobalizationMode.All) {
             icuFile = "icudt.dat";
@@ -61,13 +73,8 @@ export function getIcuResourceName (config: MonoConfig): string | null {
             icuFile = getShardedIcuResourceName(culture);
         }
 
-        if (icuFile) {
-            for (let i = 0; i < icuFiles.length; i++) {
-                const asset = icuFiles[i];
-                if (asset.virtualPath === icuFile) {
-                    return asset.name;
-                }
-            }
+        if (icuFile && fileMapping[icuFile]) {
+            return fileMapping[icuFile];
         }
     }
 

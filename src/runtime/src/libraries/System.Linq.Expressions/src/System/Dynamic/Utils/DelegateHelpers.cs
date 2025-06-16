@@ -29,8 +29,7 @@ namespace System.Dynamic.Utils
             {
                 return CreateObjectArrayDelegate(null, delegateType, handler);
 
-                [UnsafeAccessor(UnsafeAccessorKind.StaticMethod, Name = "CreateObjectArrayDelegate")]
-                [MethodImpl(MethodImplOptions.NoInlining)]
+                [UnsafeAccessor(UnsafeAccessorKind.StaticMethod, Name="CreateObjectArrayDelegate")]
                 static extern Delegate CreateObjectArrayDelegate(
                     [UnsafeAccessorType("Internal.Runtime.Augments.DynamicDelegateAugments, System.Private.CoreLib")] object? _,
                     Type delegateType,

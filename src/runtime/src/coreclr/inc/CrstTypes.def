@@ -528,7 +528,3 @@ End
 
 Crst InterfaceDispatchGlobalLists
 End
-
-Crst CallStubCache
-    AcquiredBefore LoaderHeap
-End

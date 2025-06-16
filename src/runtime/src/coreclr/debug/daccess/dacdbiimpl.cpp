@@ -5646,11 +5646,7 @@ void DacDbiInterfaceImpl::GetContext(VMPTR_Thread vmThread, DT_CONTEXT * pContex
                 {
                     UpdateContextFromRegDisp(&tmpRd, &tmpContext);
                     CopyMemory(pContextBuffer, &tmpContext, sizeof(*pContextBuffer));
-                    pContextBuffer->ContextFlags = DT_CONTEXT_CONTROL 
-#ifdef TARGET_AMD64
-                                                | DT_CONTEXT_INTEGER  // On AMD64, we also need to save RBP for stackwalking
-#endif
-                    ;
+                    pContextBuffer->ContextFlags = DT_CONTEXT_CONTROL;
                     return;
                 }
                 frame = frame->Next();

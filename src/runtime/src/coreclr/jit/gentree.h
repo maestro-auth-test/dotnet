@@ -1894,7 +1894,6 @@ public:
 
     ExceptionSetFlags OperExceptions(Compiler* comp);
     bool              OperMayThrow(Compiler* comp);
-    bool              NodeOrContainedOperandsMayThrow(Compiler* comp);
 
     bool OperRequiresGlobRefFlag(Compiler* comp) const;
 

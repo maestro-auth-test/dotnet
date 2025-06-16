@@ -1616,16 +1616,7 @@ void CodeGen::genEmitHelperCall(unsigned helper, int argSize, emitAttr retSize, 
     else
 #endif
     {
-        CORINFO_CONST_LOOKUP helperFunction = compiler->compGetHelperFtn((CorInfoHelpFunc)helper);
-        if (helperFunction.accessType == IAT_VALUE)
-        {
-            addr = helperFunction.addr;
-        }
-        else
-        {
-            assert(helperFunction.accessType == IAT_PVALUE);
-            pAddr = (void**)helperFunction.addr;
-        }
+        addr = compiler->compGetHelperFtn((CorInfoHelpFunc)helper, (void**)&pAddr);
     }
 
     EmitCallParams params;

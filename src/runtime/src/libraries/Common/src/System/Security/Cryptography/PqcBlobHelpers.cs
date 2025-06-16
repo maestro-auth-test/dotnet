@@ -35,6 +35,25 @@ namespace System.Security.Cryptography
             throw new PlatformNotSupportedException();
         }
 
+        internal static MLDsaAlgorithm GetMLDsaAlgorithmFromParameterSet(ReadOnlySpan<char> parameterSet)
+        {
+            if (parameterSet.SequenceEqual(BCRYPT_MLDSA_PARAMETER_SET_44))
+            {
+                return MLDsaAlgorithm.MLDsa44;
+            }
+            else if (parameterSet.SequenceEqual(BCRYPT_MLDSA_PARAMETER_SET_65))
+            {
+                return MLDsaAlgorithm.MLDsa65;
+            }
+            else if (parameterSet.SequenceEqual(BCRYPT_MLDSA_PARAMETER_SET_87))
+            {
+                return MLDsaAlgorithm.MLDsa87;
+            }
+
+            Debug.Fail($"Unknown parameter set: {parameterSet.ToString()}");
+            throw new PlatformNotSupportedException();
+        }
+
         internal delegate TResult EncodeBlobFunc<TResult>(ReadOnlySpan<byte> blob);
 
         internal static TResult EncodeMLDsaBlob<TResult>(
@@ -122,7 +141,7 @@ namespace System.Security.Cryptography
                 int index = 0;
 
                 // Write header
-                ref BCRYPT_PQDSA_KEY_BLOB blobHeader = ref MemoryMarshal.Cast<byte, BCRYPT_PQDSA_KEY_BLOB>(blobBytes)[0];
+                ref BCRYPT_PQDSA_KEY_BLOB blobHeader = ref MemoryMarshal.AsRef<BCRYPT_PQDSA_KEY_BLOB>(blobBytes);
                 blobHeader.Magic = magic;
                 blobHeader.cbParameterSet = parameterSetLengthWithNullTerminator;
                 blobHeader.cbKey = data.Length;
@@ -157,7 +176,7 @@ namespace System.Security.Cryptography
         {
             int index = 0;
 
-            ref readonly BCRYPT_PQDSA_KEY_BLOB blob = ref MemoryMarshal.Cast<byte, BCRYPT_PQDSA_KEY_BLOB>(blobBytes)[0];
+            ref readonly BCRYPT_PQDSA_KEY_BLOB blob = ref MemoryMarshal.AsRef<BCRYPT_PQDSA_KEY_BLOB>(blobBytes);
             magic = blob.Magic;
             int parameterSetLength = blob.cbParameterSet - 2; // Null terminator char, '\0'
             int keyLength = blob.cbKey;

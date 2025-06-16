@@ -12,7 +12,6 @@ public static class EndianConversionExtensions
     {
         return BitConverter.IsLittleEndian ? BinaryPrimitives.ReverseEndianness(value) : value;
     }
-
     public static ulong ConvertToBigEndian(this ulong value)
     {
         return BitConverter.IsLittleEndian ? BinaryPrimitives.ReverseEndianness(value) : value;

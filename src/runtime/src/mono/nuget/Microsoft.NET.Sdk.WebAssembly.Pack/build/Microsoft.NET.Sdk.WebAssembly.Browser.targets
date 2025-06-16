@@ -215,9 +215,6 @@ Copyright (c) .NET Foundation. All rights reserved.
       <_WasmFingerprintBootConfig Condition="'$(_WasmFingerprintBootConfig)' == ''">false</_WasmFingerprintBootConfig>
       <_WasmPreloadAssets>$(WasmPreloadAssets)</_WasmPreloadAssets>
       <_WasmPreloadAssets Condition="'$(_WasmPreloadAssets)' == ''">true</_WasmPreloadAssets>
-      
-      <_WasmBundlerFriendlyBootConfig>$(WasmBundlerFriendlyBootConfig)</_WasmBundlerFriendlyBootConfig>
-      <_WasmBundlerFriendlyBootConfig Condition="'$(_WasmBundlerFriendlyBootConfig)' == ''">false</_WasmBundlerFriendlyBootConfig>
 
       <!-- Workaround for https://github.com/dotnet/sdk/issues/12114-->
       <PublishDir Condition="'$(AppendRuntimeIdentifierToOutputPath)' != 'true' AND '$(PublishDir)' == '$(OutputPath)$(RuntimeIdentifier)\$(PublishDirName)\'">$(OutputPath)$(PublishDirName)\</PublishDir>
@@ -415,8 +412,7 @@ Copyright (c) .NET Foundation. All rights reserved.
       IsPublish="false"
       IsAot="$(RunAOTCompilation)"
       IsMultiThreaded="$(WasmEnableThreads)"
-      FingerprintAssets="$(_WasmFingerprintAssets)"
-      BundlerFriendly="$(_WasmBundlerFriendlyBootConfig)" />
+      FingerprintAssets="$(_WasmFingerprintAssets)" />
 
     <ItemGroup>
       <FileWrites Include="$(_WasmBuildBootJsonPath)" />
@@ -824,8 +820,7 @@ Copyright (c) .NET Foundation. All rights reserved.
       IsPublish="true"
       IsAot="$(RunAOTCompilation)"
       IsMultiThreaded="$(WasmEnableThreads)"
-      FingerprintAssets="$(_WasmFingerprintAssets)"
-      BundlerFriendly="$(_WasmBundlerFriendlyBootConfig)" />
+      FingerprintAssets="$(_WasmFingerprintAssets)" />
 
     <ItemGroup>
       <FileWrites Include="$(IntermediateOutputPath)$(_WasmPublishBootConfigFileName)" />

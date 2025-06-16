@@ -59,7 +59,8 @@ public:
     : m_deadlock(description),
         m_pList(pList),
         m_data(data),
-        m_Crst(CrstListLock, CRST_REENTRANCY),
+        m_Crst(CrstListLock,
+        (CrstFlags)(CRST_REENTRANCY | (pList->IsHostBreakable() ? CRST_HOST_BREAKABLE : 0))),
         m_pszDescription(description),
         m_pNext(NULL),
         m_dwRefCount(1),
@@ -241,6 +242,7 @@ class ListLockBase
  protected:
     CrstStatic          m_Crst;
     BOOL                m_fInited;
+    BOOL                m_fHostBreakable;        // Lock can be broken by a host for deadlock detection
     Entry_t *           m_pHead;
 
  public:
@@ -257,12 +259,13 @@ class ListLockBase
     }
 
     // DO NOT MAKE A CONSTRUCTOR FOR THIS CLASS - There are global instances
-    void Init(CrstType crstType, CrstFlags flags)
+    void Init(CrstType crstType, CrstFlags flags, BOOL fHostBreakable = FALSE)
     {
 	 WRAPPER_NO_CONTRACT;
         PreInit();
         m_Crst.Init(crstType, flags);
         m_fInited = TRUE;
+        m_fHostBreakable = fHostBreakable;
     }
 
     void Destroy()
@@ -276,6 +279,12 @@ class ListLockBase
             m_fInited = FALSE;
             m_Crst.Destroy();
         }
+    }
+
+    BOOL IsHostBreakable () const
+    {
+        LIMITED_METHOD_CONTRACT;
+        return m_fHostBreakable;
     }
 
     void AddElement(Entry_t* pElement)

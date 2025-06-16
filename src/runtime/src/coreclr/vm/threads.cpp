@@ -72,7 +72,7 @@ TailCallTls::TailCallTls()
 }
 
 #ifndef _MSC_VER
-PLATFORM_THREAD_LOCAL RuntimeThreadLocals t_runtime_thread_locals;
+__thread RuntimeThreadLocals t_runtime_thread_locals;
 #endif
 
 Thread* STDCALL GetThreadHelper()
@@ -345,7 +345,7 @@ bool Thread::DetectHandleILStubsForDebugger()
 }
 
 #ifndef _MSC_VER
-PLATFORM_THREAD_LOCAL ThreadLocalInfo t_CurrentThreadInfo;
+__thread ThreadLocalInfo t_CurrentThreadInfo;
 #endif // _MSC_VER
 
 #ifndef DACCESS_COMPILE
@@ -1322,7 +1322,7 @@ Thread::Thread()
     dbg_m_cSuspendedThreads = 0;
     dbg_m_cSuspendedThreadsWithoutOSLock = 0;
     m_Creator.Clear();
-    m_dwLockCount = 0;
+    m_dwUnbreakableLockCount = 0;
 #endif
 
     m_dwForbidSuspendThread = 0;

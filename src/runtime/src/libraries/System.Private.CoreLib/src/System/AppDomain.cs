@@ -406,13 +406,16 @@ namespace System
                         principal = (IPrincipal)GetDefaultPrincipal(null);
                         break;
                     case PrincipalPolicy.WindowsPrincipal:
-#if TARGET_WINDOWS
-                        principal = (IPrincipal)GetDefaultWindowsPrincipal(null);
-                        break;
-#else
-                        // WindowsPrincipal is not available, throw PNSE
-                        throw new PlatformNotSupportedException(SR.PlatformNotSupported_Principal);
-#endif
+                        try
+                        {
+                            principal = (IPrincipal)GetDefaultWindowsPrincipal(null);
+                            break;
+                        }
+                        catch (MissingMethodException ex)
+                        {
+                            // WindowsPrincipal is not available, throw PNSE
+                            throw new PlatformNotSupportedException(SR.PlatformNotSupported_Principal, ex);
+                        }
                 }
             }
 
@@ -423,12 +426,10 @@ namespace System
             static extern object GetDefaultPrincipal(
                 [UnsafeAccessorType("System.Security.Principal.GenericPrincipal, System.Security.Claims")] object? _);
 
-#if TARGET_WINDOWS
             [UnsafeAccessor(UnsafeAccessorKind.StaticMethod, Name = "GetDefaultInstance")]
             [return: UnsafeAccessorType("System.Security.Principal.WindowsPrincipal, System.Security.Principal.Windows")]
             static extern object GetDefaultWindowsPrincipal(
                 [UnsafeAccessorType("System.Security.Principal.WindowsPrincipal, System.Security.Principal.Windows")] object? _);
-#endif
         }
     }
 }

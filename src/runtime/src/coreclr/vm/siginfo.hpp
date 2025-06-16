@@ -613,7 +613,7 @@ class MetaSig
         // Does not count the "this" argument (which is not reflected on the
         // sig.) 64-bit arguments are counted as one argument.
         //------------------------------------------------------------------------
-        UINT NumFixedArgs() const
+        UINT NumFixedArgs()
         {
             LIMITED_METHOD_DAC_CONTRACT;
             return m_nArgs;
@@ -698,7 +698,7 @@ class MetaSig
         //----------------------------------------------------------
         // Has a 'this' pointer?
         //----------------------------------------------------------
-        BOOL HasThis() const
+        BOOL HasThis()
         {
             LIMITED_METHOD_CONTRACT;
 

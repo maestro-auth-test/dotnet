@@ -3,8 +3,7 @@
 
 import { loaderHelpers } from "./globals";
 import { load_lazy_assembly } from "./managed-exports";
-import { type AssemblyAsset, type PdbAsset } from "./types";
-import { type AssetEntryInternal } from "./types/internal";
+import { AssetEntry } from "./types";
 
 export async function loadLazyAssembly (assemblyNameToLoad: string): Promise<boolean> {
     const resources = loaderHelpers.config.resources!;
@@ -21,35 +20,50 @@ export async function loadLazyAssembly (assemblyNameToLoad: string): Promise<boo
 
     const assemblyNameToLoadDll = assemblyNameWithoutExtension + ".dll";
     const assemblyNameToLoadWasm = assemblyNameWithoutExtension + ".wasm";
-
-    let dllAsset: (AssemblyAsset & AssetEntryInternal) | null = null;
-    for (let i = 0; i < lazyAssemblies.length; i++) {
-        const asset = lazyAssemblies[i];
-        if (asset.virtualPath === assemblyNameToLoadDll || asset.virtualPath === assemblyNameToLoadWasm) {
-            dllAsset = asset as AssemblyAsset & AssetEntryInternal;
-            dllAsset.behavior = "assembly";
-            break;
+    if (loaderHelpers.config.resources!.fingerprinting) {
+        const map = loaderHelpers.config.resources!.fingerprinting;
+        for (const fingerprintedName in map) {
+            const nonFingerprintedName = map[fingerprintedName];
+            if (nonFingerprintedName == assemblyNameToLoadDll || nonFingerprintedName == assemblyNameToLoadWasm) {
+                assemblyNameToLoad = fingerprintedName;
+                break;
+            }
         }
     }
 
-    if (dllAsset == null) {
-        throw new Error(`${assemblyNameToLoad} must be marked with 'BlazorWebAssemblyLazyLoad' item group in your project file to allow lazy-loading.`);
+    if (!lazyAssemblies[assemblyNameToLoad]) {
+        if (lazyAssemblies[assemblyNameToLoadDll]) {
+            assemblyNameToLoad = assemblyNameToLoadDll;
+        } else if (lazyAssemblies[assemblyNameToLoadWasm]) {
+            assemblyNameToLoad = assemblyNameToLoadWasm;
+        } else {
+            throw new Error(`${assemblyNameToLoad} must be marked with 'BlazorWebAssemblyLazyLoad' item group in your project file to allow lazy-loading.`);
+        }
     }
 
-    if (loaderHelpers.loadedAssemblies.includes(dllAsset.name)) {
+    const dllAsset: AssetEntry = {
+        name: assemblyNameToLoad,
+        hash: lazyAssemblies[assemblyNameToLoad],
+        behavior: "assembly",
+    };
+
+    if (loaderHelpers.loadedAssemblies.includes(assemblyNameToLoad)) {
         return false;
     }
 
-    const pdbNameToLoad = assemblyNameWithoutExtension + ".pdb";
+    let pdbNameToLoad = assemblyNameWithoutExtension + ".pdb";
     let shouldLoadPdb = false;
-    let pdbAsset: (PdbAsset & AssetEntryInternal) | null = null;
     if (loaderHelpers.config.debugLevel != 0 && loaderHelpers.isDebuggingSupported()) {
-        for (let i = 0; i < lazyAssemblies.length; i++) {
-            if (lazyAssemblies[i].virtualPath === pdbNameToLoad) {
-                shouldLoadPdb = true;
-                pdbAsset = lazyAssemblies[i] as PdbAsset & AssetEntryInternal;
-                pdbAsset.behavior = "pdb";
-                break;
+        shouldLoadPdb = Object.prototype.hasOwnProperty.call(lazyAssemblies, pdbNameToLoad);
+        if (loaderHelpers.config.resources!.fingerprinting) {
+            const map = loaderHelpers.config.resources!.fingerprinting;
+            for (const fingerprintedName in map) {
+                const nonFingerprintedName = map[fingerprintedName];
+                if (nonFingerprintedName == pdbNameToLoad) {
+                    pdbNameToLoad = fingerprintedName;
+                    shouldLoadPdb = true;
+                    break;
+                }
             }
         }
     }
@@ -59,8 +73,12 @@ export async function loadLazyAssembly (assemblyNameToLoad: string): Promise<boo
     let dll = null;
     let pdb = null;
     if (shouldLoadPdb) {
-        const pdbBytesPromise = pdbAsset != null
-            ? loaderHelpers.retrieve_asset_download(pdbAsset)
+        const pdbBytesPromise = lazyAssemblies[pdbNameToLoad]
+            ? loaderHelpers.retrieve_asset_download({
+                name: pdbNameToLoad,
+                hash: lazyAssemblies[pdbNameToLoad],
+                behavior: "pdb"
+            })
             : Promise.resolve(null);
 
         const [dllBytes, pdbBytes] = await Promise.all([dllBytesPromise, pdbBytesPromise]);

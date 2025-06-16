@@ -548,7 +548,7 @@ namespace System.Text.Json
             {
                 _bytePositionInLine += FindMismatch(span, literal);
 
-                int amountToWrite = AmountToWrite(span, _bytePositionInLine, readSoFar, written);
+                int amountToWrite = Math.Min(span.Length, (int)_bytePositionInLine + 1);
                 span.Slice(0, amountToWrite).CopyTo(readSoFar);
                 written += amountToWrite;
                 goto Throw;
@@ -558,7 +558,7 @@ namespace System.Text.Json
                 if (!literal.StartsWith(span))
                 {
                     _bytePositionInLine += FindMismatch(span, literal);
-                    int amountToWrite = AmountToWrite(span, _bytePositionInLine, readSoFar, written);
+                    int amountToWrite = Math.Min(span.Length, (int)_bytePositionInLine + 1);
                     span.Slice(0, amountToWrite).CopyTo(readSoFar);
                     written += amountToWrite;
                     goto Throw;
@@ -605,7 +605,7 @@ namespace System.Text.Json
                     {
                         _bytePositionInLine += FindMismatch(span, leftToMatch);
 
-                        amountToWrite = AmountToWrite(span, _bytePositionInLine, readSoFar, written);
+                        amountToWrite = Math.Min(span.Length, (int)_bytePositionInLine + 1);
                         span.Slice(0, amountToWrite).CopyTo(readSoFar.Slice(written));
                         written += amountToWrite;
 
@@ -615,13 +615,6 @@ namespace System.Text.Json
                     leftToMatch = leftToMatch.Slice(span.Length);
                     alreadyMatched = span.Length;
                 }
-            }
-
-            static int AmountToWrite(ReadOnlySpan<byte> span, long bytePositionInLine, ReadOnlySpan<byte> readSoFar, int written)
-            {
-                return Math.Min(
-                    readSoFar.Length - written,
-                    Math.Min(span.Length, (int)bytePositionInLine + 1));
             }
         Throw:
             _totalConsumed = prevTotalConsumed;

@@ -604,9 +604,7 @@ namespace System.Net.Security
                     _sslAuthenticationOptions.EncryptionPolicy,
                     _sslAuthenticationOptions.CertificateRevocationCheckMode != X509RevocationMode.NoCheck,
                     _sslAuthenticationOptions.AllowTlsResume,
-                    sendTrustList: false,
-                    _sslAuthenticationOptions.AllowRsaPssPadding,
-                    _sslAuthenticationOptions.AllowRsaPkcs1Padding);
+                    sendTrustList: false);
 
                 // We can probably do some optimization here. If the selectedCert is returned by the delegate
                 // we can always go ahead and use the certificate to create our credential
@@ -744,16 +742,15 @@ namespace System.Net.Security
             //
             // Note selectedCert is a safe ref possibly cloned from the user passed Cert object
             //
-            byte[] guessedThumbPrint = selectedCert.GetCertHash(HashAlgorithmName.SHA512); bool sendTrustedList = _sslAuthenticationOptions.CertificateContext!.Trust?._sendTrustInHandshake ?? false;
+            byte[] guessedThumbPrint = selectedCert.GetCertHash(HashAlgorithmName.SHA512);
+            bool sendTrustedList = _sslAuthenticationOptions.CertificateContext!.Trust?._sendTrustInHandshake ?? false;
             SafeFreeCredentials? cachedCredentialHandle = SslSessionsCache.TryCachedCredential(guessedThumbPrint,
                                                                 _sslAuthenticationOptions.EnabledSslProtocols,
                                                                 _sslAuthenticationOptions.IsServer,
                                                                 _sslAuthenticationOptions.EncryptionPolicy,
                                                                 _sslAuthenticationOptions.CertificateRevocationCheckMode != X509RevocationMode.NoCheck,
                                                                 _sslAuthenticationOptions.AllowTlsResume,
-                                                                sendTrustedList,
-                                                                _sslAuthenticationOptions.AllowRsaPssPadding,
-                                                                _sslAuthenticationOptions.AllowRsaPkcs1Padding);
+                                                                sendTrustedList);
             if (cachedCredentialHandle != null)
             {
                 _credentialsHandle = cachedCredentialHandle;
@@ -955,9 +952,7 @@ namespace System.Net.Security
                             _sslAuthenticationOptions.EncryptionPolicy,
                             _sslAuthenticationOptions.CertificateRevocationCheckMode != X509RevocationMode.NoCheck,
                             _sslAuthenticationOptions.AllowTlsResume,
-                            sendTrustList,
-                            _sslAuthenticationOptions.AllowRsaPssPadding,
-                            _sslAuthenticationOptions.AllowRsaPkcs1Padding);
+                            sendTrustList);
                     }
                 }
             }

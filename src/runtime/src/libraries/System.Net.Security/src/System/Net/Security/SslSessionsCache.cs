@@ -29,8 +29,6 @@ namespace System.Net.Security
             private readonly bool _sendTrustList;
             private readonly bool _checkRevocation;
             private readonly bool _allowTlsResume;
-            private readonly bool _allowRsaPssPadding;
-            private readonly bool _allowRsaPkcs1Padding;
 
             //
             // SECURITY: X509Certificate.GetCertHash() is virtual hence before going here,
@@ -44,9 +42,7 @@ namespace System.Net.Security
                 EncryptionPolicy encryptionPolicy,
                 bool sendTrustList,
                 bool checkRevocation,
-                bool allowTlsResume,
-                bool allowRsaPssPadding,
-                bool allowRsaPkcs1Padding)
+                bool allowTlsResume)
             {
                 _thumbPrint = thumbPrint ?? Array.Empty<byte>();
                 _allowedProtocols = allowedProtocols;
@@ -55,24 +51,23 @@ namespace System.Net.Security
                 _checkRevocation = checkRevocation;
                 _sendTrustList = sendTrustList;
                 _allowTlsResume = allowTlsResume;
-                _allowRsaPssPadding = allowRsaPssPadding;
-                _allowRsaPkcs1Padding = allowRsaPkcs1Padding;
             }
 
             public override int GetHashCode()
             {
-                HashCode hash = default;
-                hash.AddBytes(_thumbPrint);
-                hash.Add(_allowedProtocols);
-                hash.Add((int)_encryptionPolicy);
-                hash.Add(_isServerMode);
-                hash.Add(_sendTrustList);
-                hash.Add(_checkRevocation);
-                hash.Add(_allowTlsResume);
-                hash.Add(_allowRsaPssPadding);
-                hash.Add(_allowRsaPkcs1Padding);
+                int hashCode = 0;
+                if (_thumbPrint.Length > 3)
+                {
+                    hashCode ^= _thumbPrint[0] | (_thumbPrint[1] << 8) | (_thumbPrint[2] << 16) | (_thumbPrint[3] << 24);
+                }
 
-                return hash.ToHashCode();
+                return HashCode.Combine(_allowedProtocols,
+                                        (int)_encryptionPolicy,
+                                        _isServerMode,
+                                        _sendTrustList,
+                                        _checkRevocation,
+                                        _allowedProtocols,
+                                        hashCode);
             }
 
             public override bool Equals([NotNullWhen(true)] object? obj) =>
@@ -91,8 +86,6 @@ namespace System.Net.Security
                     _sendTrustList == other._sendTrustList &&
                     _checkRevocation == other._checkRevocation &&
                     _allowTlsResume == other._allowTlsResume &&
-                    _allowRsaPssPadding == other._allowRsaPssPadding &&
-                    _allowRsaPkcs1Padding == other._allowRsaPkcs1Padding &&
                     thumbPrint.AsSpan().SequenceEqual(otherThumbPrint);
             }
         }
@@ -110,9 +103,7 @@ namespace System.Net.Security
             EncryptionPolicy encryptionPolicy,
             bool checkRevocation,
             bool allowTlsResume,
-            bool sendTrustList,
-            bool allowRsaPssPadding,
-            bool allowRsaPkcs1Padding)
+            bool sendTrustList)
         {
             if (s_cachedCreds.IsEmpty)
             {
@@ -120,7 +111,7 @@ namespace System.Net.Security
                 return null;
             }
 
-            var key = new SslCredKey(thumbPrint, (int)sslProtocols, isServer, encryptionPolicy, sendTrustList, checkRevocation, allowTlsResume, allowRsaPssPadding, allowRsaPkcs1Padding);
+            var key = new SslCredKey(thumbPrint, (int)sslProtocols, isServer, encryptionPolicy, sendTrustList, checkRevocation, allowTlsResume);
 
             //SafeCredentialReference? cached;
             SafeFreeCredentials? credentials = GetCachedCredential(key);
@@ -153,9 +144,7 @@ namespace System.Net.Security
             EncryptionPolicy encryptionPolicy,
             bool checkRevocation,
             bool allowTlsResume,
-            bool sendTrustList,
-            bool allowRsaPssPadding,
-            bool allowRsaPkcs1Padding)
+            bool sendTrustList)
         {
             Debug.Assert(creds != null, "creds == null");
 
@@ -165,7 +154,7 @@ namespace System.Net.Security
                 return;
             }
 
-            SslCredKey key = new SslCredKey(thumbPrint, (int)sslProtocols, isServer, encryptionPolicy, sendTrustList, checkRevocation, allowTlsResume, allowRsaPssPadding, allowRsaPkcs1Padding);
+            SslCredKey key = new SslCredKey(thumbPrint, (int)sslProtocols, isServer, encryptionPolicy, sendTrustList, checkRevocation, allowTlsResume);
 
             SafeFreeCredentials? credentials = GetCachedCredential(key);
 

@@ -2737,6 +2737,9 @@ HRESULT EEToProfInterfaceImpl::Initialize()
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -2775,6 +2778,9 @@ HRESULT EEToProfInterfaceImpl::InitializeForAttach(void * pvClientData, UINT cbC
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -2826,6 +2832,9 @@ HRESULT EEToProfInterfaceImpl::ProfilerAttachComplete()
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -2882,6 +2891,9 @@ HRESULT EEToProfInterfaceImpl::ThreadCreated(ThreadID threadId)
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -2993,6 +3005,9 @@ HRESULT EEToProfInterfaceImpl::ThreadAssignedToOSThread(ThreadID managedThreadId
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -3035,6 +3050,9 @@ HRESULT EEToProfInterfaceImpl::ThreadNameChanged(ThreadID managedThreadId,
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -3073,6 +3091,9 @@ HRESULT EEToProfInterfaceImpl::Shutdown()
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -3614,6 +3635,9 @@ HRESULT EEToProfInterfaceImpl::ModuleLoadStarted(ModuleID moduleId)
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -3651,7 +3675,9 @@ HRESULT EEToProfInterfaceImpl::ModuleLoadFinished(
         // Yay!
         CAN_TAKE_LOCK;
 
-        // The file load lock can be held here.
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -3688,6 +3714,9 @@ HRESULT EEToProfInterfaceImpl::ModuleUnloadStarted(
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -3726,6 +3755,9 @@ HRESULT EEToProfInterfaceImpl::ModuleUnloadFinished(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -3760,6 +3792,9 @@ HRESULT EEToProfInterfaceImpl::ModuleAttachedToAssembly(
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -4001,6 +4036,9 @@ HRESULT EEToProfInterfaceImpl::AppDomainCreationStarted(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4038,6 +4076,9 @@ HRESULT EEToProfInterfaceImpl::AppDomainCreationFinished(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4074,6 +4115,9 @@ HRESULT EEToProfInterfaceImpl::AppDomainShutdownStarted(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4109,6 +4153,9 @@ HRESULT EEToProfInterfaceImpl::AppDomainShutdownFinished(
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -4152,6 +4199,9 @@ HRESULT EEToProfInterfaceImpl::AssemblyLoadStarted(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4190,6 +4240,9 @@ HRESULT EEToProfInterfaceImpl::AssemblyLoadFinished(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4226,6 +4279,9 @@ HRESULT EEToProfInterfaceImpl::AssemblyUnloadStarted(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4261,6 +4317,9 @@ HRESULT EEToProfInterfaceImpl::AssemblyUnloadFinished(
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -4303,6 +4362,9 @@ HRESULT EEToProfInterfaceImpl::UnmanagedToManagedTransition(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4338,6 +4400,10 @@ HRESULT EEToProfInterfaceImpl::ManagedToUnmanagedTransition(
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4377,6 +4443,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionThrown(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4411,6 +4480,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionSearchFunctionEnter(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4444,6 +4516,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionSearchFunctionLeave()
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4475,6 +4550,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionSearchFilterEnter(FunctionID functionId)
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -4509,6 +4587,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionSearchFilterLeave()
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4540,6 +4621,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionSearchCatcherFound(FunctionID functionId
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -4586,6 +4670,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionUnwindFunctionEnter(FunctionID functionI
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4622,6 +4709,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionUnwindFunctionLeave()
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4656,6 +4746,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionUnwindFinallyEnter(FunctionID functionId
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -4693,6 +4786,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionUnwindFinallyLeave()
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4728,6 +4824,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionCatcherEnter(FunctionID functionId, Obje
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4762,6 +4861,9 @@ HRESULT EEToProfInterfaceImpl::ExceptionCatcherLeave()
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;
@@ -4805,6 +4907,9 @@ HRESULT EEToProfInterfaceImpl::COMClassicVTableCreated(
         // Yay!
         CAN_TAKE_LOCK;
 
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
+
     }
     CONTRACTL_END;
 
@@ -4842,6 +4947,9 @@ HRESULT EEToProfInterfaceImpl::COMClassicVTableDestroyed(
 
         // Yay!
         CAN_TAKE_LOCK;
+
+        // Yay!
+        ASSERT_NO_EE_LOCKS_HELD();
 
     }
     CONTRACTL_END;

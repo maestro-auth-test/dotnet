@@ -66,6 +66,10 @@ void CrstBase::Destroy()
     _ASSERTE(holderthreadid.IsUnknown() || IsAtProcessExit() || g_fEEShutDown);
 #endif
 
+    // If a lock is host breakable, a host is required to block the release call until
+    // deadlock detection is finished.
+    GCPreemp __gcHolder((m_dwFlags & CRST_HOST_BREAKABLE) == CRST_HOST_BREAKABLE);
+
     minipal_mutex_destroy(&m_lock._mtx);
 
     LOG((LF_SYNC, INFO3, "CrstBase::Destroy %p\n", this));
@@ -150,6 +154,15 @@ void CrstBase::Enter(INDEBUG(NoLevelCheckFlag noLevelCheckFlag/* = CRST_LEVEL_CH
     //
     // What's worse, the implied contract differs for different flavors of crst.
     //
+    // THROWS/FAULT
+    //
+    //     A crst can be HOST_BREAKBALE or not. A HOST_BREAKABLE crst can throw on an attempt to enter
+    //     (due to deadlock breaking by the host.) A non-breakable crst will never
+    //     throw or OOM or fail an enter.
+    //
+    //
+    //
+    //
     // GC/MODE
     //     Orthogonally, a crst can be one of the following flavors. We only want to see the
     //     "normal" type used in new code. Other types, kept for legacy reasons, are listed in
@@ -183,6 +196,30 @@ void CrstBase::Enter(INDEBUG(NoLevelCheckFlag noLevelCheckFlag/* = CRST_LEVEL_CH
     ClrDebugState *pClrDebugState = CheckClrDebugState();
     if (pClrDebugState)
     {
+        if (m_dwFlags & CRST_HOST_BREAKABLE)
+        {
+            if (pClrDebugState->IsFaultForbid() &&
+                !(pClrDebugState->ViolationMask() & (FaultViolation|FaultNotFatal|BadDebugState)))
+            {
+                CONTRACT_ASSERT("You cannot enter a HOST_BREAKABLE lock in a FAULTFORBID region.",
+                                Contract::FAULT_Forbid,
+                                Contract::FAULT_Mask,
+                                __FUNCTION__,
+                                __FILE__,
+                                __LINE__);
+            }
+
+            if (!(pClrDebugState->CheckOkayToThrowNoAssert()))
+            {
+                CONTRACT_ASSERT("You cannot enter a HOST_BREAKABLE lock in a NOTHROW region.",
+                                Contract::THROWS_No,
+                                Contract::THROWS_Mask,
+                                __FUNCTION__,
+                                __FILE__,
+                                __LINE__);
+            }
+        }
+
         // If we might want to toggle the GC mode, then we better not be in a GC_NOTRIGGERS region
         if (!(m_dwFlags & (CRST_UNSAFE_COOPGC | CRST_UNSAFE_ANYMODE | CRST_GC_NOTRIGGER_WHEN_TAKEN)))
         {
@@ -387,7 +424,14 @@ void CrstBase::PostEnter()
     STATIC_CONTRACT_NOTHROW;
     STATIC_CONTRACT_GC_NOTRIGGER;
 
-    EE_LOCK_TAKEN(this);
+    if ((m_dwFlags & CRST_HOST_BREAKABLE) != 0)
+    {
+        HOST_BREAKABLE_CRST_TAKEN(this);
+    }
+    else
+    {
+        EE_LOCK_TAKEN(this);
+    }
 
     _ASSERTE((m_entercount == 0 && m_holderthreadid.IsUnknown()) ||
              m_holderthreadid.IsCurrentThread() ||
@@ -415,9 +459,12 @@ void CrstBase::PostEnter()
     }
 
     Thread * pThread = GetThreadNULLOk();
-    if (pThread)
+    if ((m_dwFlags & CRST_HOST_BREAKABLE) == 0)
     {
-        pThread->IncLockCount();
+        if (pThread)
+        {
+            pThread->IncUnbreakableLockCount();
+        }
     }
 
     if ((ThreadStore::s_pThreadStore != NULL)
@@ -469,9 +516,12 @@ void CrstBase::PreLeave()
 
     Thread * pThread = GetThreadNULLOk();
 
-    if (pThread)
+    if ((m_dwFlags & CRST_HOST_BREAKABLE) == 0)
     {
-        pThread->DecLockCount();
+        if (pThread)
+        {
+            pThread->DecUnbreakableLockCount();
+        }
     }
 
     if (m_countNoTriggerGC > 0 && !ThreadStore::s_pThreadStore->IsCrstForThreadStore(this))
@@ -483,7 +533,14 @@ void CrstBase::PreLeave()
         }
     }
 
-    EE_LOCK_RELEASED(this);
+    if ((m_dwFlags & CRST_HOST_BREAKABLE) != 0)
+    {
+        HOST_BREAKABLE_CRST_RELEASED(this);
+    }
+    else
+    {
+        EE_LOCK_RELEASED(this);
+    }
 
     // Are we in the shutdown sequence and in phase 2 of it?
     if (IsAtProcessExit() && (g_fEEShutDown & ShutDown_Phase2))
@@ -524,6 +581,7 @@ void CrstBase::DebugInit(CrstType crstType, CrstFlags flags)
                           CRST_UNSAFE_COOPGC |
                           CRST_UNSAFE_ANYMODE |
                           CRST_DEBUGGER_THREAD |
+                          CRST_HOST_BREAKABLE |
                           CRST_INITIALIZED |
                           CRST_TAKEN_DURING_SHUTDOWN |
                           CRST_GC_NOTRIGGER_WHEN_TAKEN |

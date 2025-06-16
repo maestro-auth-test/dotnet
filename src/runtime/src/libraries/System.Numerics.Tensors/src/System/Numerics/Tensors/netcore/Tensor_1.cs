@@ -226,9 +226,6 @@ namespace System.Numerics.Tensors
             }
         }
 
-        /// <inheritdoc cref="ITensor{TSelf, T}.GetDimensionSpan(int)" />
-        public TensorDimensionSpan<T> GetDimensionSpan(int dimension) => AsTensorSpan().GetDimensionSpan(dimension);
-
         /// <summary>Gets an enumerator for the readonly tensor.</summary>
         public Enumerator GetEnumerator() => new Enumerator(this);
 
@@ -361,8 +358,7 @@ namespace System.Numerics.Tensors
 
         ref readonly T IReadOnlyTensor<Tensor<T>, T>.this[params ReadOnlySpan<NIndex> indexes] => ref this[indexes];
 
-        ReadOnlyTensorDimensionSpan<T> IReadOnlyTensor<Tensor<T>, T>.GetDimensionSpan(int dimension) => AsReadOnlyTensorSpan().GetDimensionSpan(dimension);
-
+        [EditorBrowsable(EditorBrowsableState.Never)]
         ref readonly T IReadOnlyTensor<Tensor<T>, T>.GetPinnableReference() => ref GetPinnableReference();
 
         //
@@ -455,7 +451,7 @@ namespace System.Numerics.Tensors
             // IDisposable
             //
 
-            void IDisposable.Dispose() { }
+            readonly void IDisposable.Dispose() { }
 
             //
             // IEnumerator

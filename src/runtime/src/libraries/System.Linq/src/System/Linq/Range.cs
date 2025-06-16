@@ -24,41 +24,40 @@ namespace System.Linq
                 return [];
             }
 
-            return new RangeIterator<int>(start, start + count);
+            return new RangeIterator(start, count);
         }
 
         /// <summary>
         /// An iterator that yields a range of consecutive integers.
         /// </summary>
         [DebuggerDisplay("Count = {CountForDebugger}")]
-        private sealed partial class RangeIterator<T> : Iterator<T> where T : INumber<T>
+        private sealed partial class RangeIterator : Iterator<int>
         {
-            private readonly T _start;
-            private readonly T _endExclusive;
+            private readonly int _start;
+            private readonly int _end;
 
-            public RangeIterator(T start, T endExclusive)
+            public RangeIterator(int start, int count)
             {
-                Debug.Assert(int.CreateChecked(endExclusive - start) >= 0);
+                Debug.Assert(count > 0);
                 _start = start;
-                _endExclusive = endExclusive;
+                _end = start + count;
             }
 
-            private int CountForDebugger => int.CreateTruncating(_endExclusive - _start);
+            private int CountForDebugger => _end - _start;
 
-            private protected override Iterator<T> Clone() => new RangeIterator<T>(_start, _endExclusive);
+            private protected override Iterator<int> Clone() => new RangeIterator(_start, _end - _start);
 
             public override bool MoveNext()
             {
                 switch (_state)
                 {
                     case 1:
-                        Debug.Assert(_start != _endExclusive);
+                        Debug.Assert(_start != _end);
                         _current = _start;
                         _state = 2;
                         return true;
-
                     case 2:
-                        if (++_current == _endExclusive)
+                        if (++_current == _end)
                         {
                             break;
                         }
@@ -77,25 +76,24 @@ namespace System.Linq
         }
 
         /// <summary>Fills the <paramref name="destination"/> with incrementing numbers, starting from <paramref name="value"/>.</summary>
-        private static void FillIncrementing<T>(Span<T> destination, T value) where T : INumber<T>
+        private static void FillIncrementing(Span<int> destination, int value)
         {
-            ref T pos = ref MemoryMarshal.GetReference(destination);
-            ref T end = ref Unsafe.Add(ref pos, destination.Length);
+            ref int pos = ref MemoryMarshal.GetReference(destination);
+            ref int end = ref Unsafe.Add(ref pos, destination.Length);
 
             if (Vector.IsHardwareAccelerated &&
-                Vector<T>.IsSupported &&
-                destination.Length >= Vector<T>.Count)
+                destination.Length >= Vector<int>.Count)
             {
-                Vector<T> init = Vector<T>.Indices;
-                Vector<T> current = new Vector<T>(value) + init;
-                Vector<T> increment = new Vector<T>(T.CreateTruncating(Vector<T>.Count));
+                Vector<int> init = Vector<int>.Indices;
+                Vector<int> current = new Vector<int>(value) + init;
+                Vector<int> increment = new Vector<int>(Vector<int>.Count);
 
-                ref T oneVectorFromEnd = ref Unsafe.Subtract(ref end, Vector<T>.Count);
+                ref int oneVectorFromEnd = ref Unsafe.Subtract(ref end, Vector<int>.Count);
                 do
                 {
                     current.StoreUnsafe(ref pos);
                     current += increment;
-                    pos = ref Unsafe.Add(ref pos, Vector<T>.Count);
+                    pos = ref Unsafe.Add(ref pos, Vector<int>.Count);
                 }
                 while (!Unsafe.IsAddressGreaterThan(ref pos, ref oneVectorFromEnd));
 

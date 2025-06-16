@@ -2123,12 +2123,16 @@ bool Compiler::optTryInvertWhileLoop(FlowGraphNaturalLoop* loop)
         newPreheader->setBBProfileWeight(newCondToNewPreheader->getLikelyWeight());
         exit->decreaseBBProfileWeight(newCondToNewExit->getLikelyWeight());
 
-        // Update the duplicated blocks' weights
+        // Update the weight for the duplicated blocks. Normally, this reduces
+        // the weight of condBlock, except in odd cases of stress modes with
+        // inconsistent weights.
 
         for (int i = 0; i < (duplicatedBlocks.Height() - 1); i++)
         {
             BasicBlock* block = duplicatedBlocks.Bottom(i);
-            block->setBBProfileWeight(block->computeIncomingWeight());
+            JITDUMP("Reducing profile weight of " FMT_BB " from " FMT_WT " to " FMT_WT "\n", block->bbNum, weightCond,
+                    weightStayInLoopSucc);
+            block->setBBProfileWeight(weightStayInLoopSucc);
         }
 
         condBlock->setBBProfileWeight(condBlock->computeIncomingWeight());
@@ -2184,38 +2188,20 @@ PhaseStatus Compiler::optInvertLoops()
     }
 #endif // OPT_CONFIG
 
-    if (compCodeOpt() == SMALL_CODE)
+    if (compCodeOpt() != SMALL_CODE)
     {
-        return PhaseStatus::MODIFIED_NOTHING;
-    }
-
-    bool madeChanges = false;
-    for (FlowGraphNaturalLoop* loop : m_loops->InPostOrder())
-    {
-        madeChanges |= optTryInvertWhileLoop(loop);
-    }
-
-    if (Metrics.LoopsInverted > 0)
-    {
-        assert(madeChanges);
-        fgInvalidateDfsTree();
-        m_dfsTree = fgComputeDfs();
-        m_loops   = FlowGraphNaturalLoops::Find(m_dfsTree);
-
-        // In normal cases no further canonicalization will be required as we
-        // try to ensure loops stay canonicalized during inversion. However,
-        // duplicating the condition outside an inner loop can introduce new
-        // exits in the parent loop, so we may rarely need to recanonicalize
-        // exit blocks.
-        if (optCanonicalizeLoops())
+        fgDfsBlocksAndRemove();
+        optFindLoops();
+        for (FlowGraphNaturalLoop* loop : m_loops->InPostOrder())
         {
-            fgInvalidateDfsTree();
-            m_dfsTree = fgComputeDfs();
-            m_loops   = FlowGraphNaturalLoops::Find(m_dfsTree);
+            optTryInvertWhileLoop(loop);
         }
+
+        fgInvalidateDfsTree();
+        return PhaseStatus::MODIFIED_EVERYTHING;
     }
 
-    return madeChanges ? PhaseStatus::MODIFIED_EVERYTHING : PhaseStatus::MODIFIED_NOTHING;
+    return PhaseStatus::MODIFIED_NOTHING;
 }
 
 //-----------------------------------------------------------------------------

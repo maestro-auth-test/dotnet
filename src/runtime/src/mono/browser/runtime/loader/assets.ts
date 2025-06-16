@@ -4,7 +4,7 @@
 import WasmEnableThreads from "consts:wasmEnableThreads";
 
 import { PThreadPtrNull, type AssetEntryInternal, type PThreadWorker, type PromiseAndController } from "../types/internal";
-import { type Asset, type AssemblyAsset, type BootModule, type AssetBehaviors, type AssetEntry, type LoadingResource, type SingleAssetBehaviors as SingleAssetBehaviors, type WebAssemblyBootResourceType } from "../types";
+import { BootModule, type AssetBehaviors, type AssetEntry, type LoadingResource, type ResourceList, type SingleAssetBehaviors as SingleAssetBehaviors, type WebAssemblyBootResourceType } from "../types";
 import { ENVIRONMENT_IS_NODE, ENVIRONMENT_IS_SHELL, ENVIRONMENT_IS_WEB, ENVIRONMENT_IS_WORKER, loaderHelpers, mono_assert, runtimeHelpers } from "./globals";
 import { createPromiseController } from "./promise-controller";
 import { mono_log_debug, mono_log_warn } from "./logging";
@@ -94,18 +94,23 @@ export function shouldLoadIcuAsset (asset: AssetEntryInternal): boolean {
     return !(asset.behavior == "icu" && asset.name != loaderHelpers.preferredIcuAsset);
 }
 
-function convert_single_asset (assetsCollection: AssetEntryInternal[], resource: Asset[] | undefined, behavior: SingleAssetBehaviors): AssetEntryInternal {
-    resource ??= [];
-    mono_assert(resource.length == 1, `Expect to have one ${behavior} asset in resources`);
+function convert_single_asset (assetsCollection: AssetEntryInternal[], resource: ResourceList | undefined, behavior: SingleAssetBehaviors): AssetEntryInternal {
+    const keys = Object.keys(resource || {});
+    mono_assert(keys.length == 1, `Expect to have one ${behavior} asset in resources`);
 
-    const assetEntry = resource[0] as AssetEntryInternal;
-    assetEntry.behavior = behavior;
+    const name = keys[0];
 
-    set_single_asset(assetEntry);
+    const asset = {
+        name,
+        hash: resource![name],
+        behavior,
+    };
+
+    set_single_asset(asset);
 
     // so that we can use it on the worker too
-    assetsCollection.push(assetEntry);
-    return assetEntry;
+    assetsCollection.push(asset);
+    return asset;
 }
 
 function set_single_asset (asset: AssetEntryInternal) {
@@ -305,86 +310,121 @@ export function prepareAssets () {
             convert_single_asset(modulesAssets, resources.jsModuleWorker, "js-module-threads");
         }
 
-        const addAsset = (asset: Asset, behavior: AssetBehaviors, isCore: boolean) => {
-            const assetEntry = asset as AssetEntryInternal;
-            assetEntry.behavior = behavior;
+        const addAsset = (asset: AssetEntryInternal, isCore: boolean) => {
+            if (resources.fingerprinting && (asset.behavior == "assembly" || asset.behavior == "pdb" || asset.behavior == "resource")) {
+                asset.virtualPath = getNonFingerprintedAssetName(asset.name);
+            }
             if (isCore) {
-                assetEntry.isCore = true;
-                coreAssetsToLoad.push(assetEntry);
+                asset.isCore = true;
+                coreAssetsToLoad.push(asset);
             } else {
-                assetsToLoad.push(assetEntry);
+                assetsToLoad.push(asset);
             }
         };
 
         if (resources.coreAssembly) {
-            for (let i = 0; i < resources.coreAssembly.length; i++) {
-                const asset = resources.coreAssembly[i];
-                addAsset(asset, "assembly", true);
+            for (const name in resources.coreAssembly) {
+                addAsset({
+                    name,
+                    hash: resources.coreAssembly[name],
+                    behavior: "assembly"
+                }, true);
             }
         }
 
         if (resources.assembly) {
-            for (let i = 0; i < resources.assembly.length; i++) {
-                const asset = resources.assembly[i];
-                addAsset(asset, "assembly", !resources.coreAssembly);
+            for (const name in resources.assembly) {
+                addAsset({
+                    name,
+                    hash: resources.assembly[name],
+                    behavior: "assembly"
+                }, !resources.coreAssembly); // if there are no core assemblies, then all assemblies are core
             }
         }
 
 
         if (config.debugLevel != 0 && loaderHelpers.isDebuggingSupported()) {
             if (resources.corePdb) {
-                for (let i = 0; i < resources.corePdb.length; i++) {
-                    const asset = resources.corePdb[i];
-                    addAsset(asset, "pdb", true);
+                for (const name in resources.corePdb) {
+                    addAsset({
+                        name,
+                        hash: resources.corePdb[name],
+                        behavior: "pdb"
+                    }, true);
                 }
             }
 
             if (resources.pdb) {
-                for (let i = 0; i < resources.pdb.length; i++) {
-                    const asset = resources.pdb[i];
-                    addAsset(asset, "pdb", !resources.corePdb);
+                for (const name in resources.pdb) {
+                    addAsset({
+                        name,
+                        hash: resources.pdb[name],
+                        behavior: "pdb"
+                    }, !resources.corePdb); // if there are no core pdbs, then all pdbs are core
                 }
             }
         }
 
         if (config.loadAllSatelliteResources && resources.satelliteResources) {
             for (const culture in resources.satelliteResources) {
-                for (let i = 0; i < resources.satelliteResources[culture].length; i++) {
-                    const asset = resources.satelliteResources[culture][i] as AssemblyAsset & AssetEntryInternal;
-                    asset.culture = culture;
-                    addAsset(asset, "resource", !resources.coreAssembly);
+                for (const name in resources.satelliteResources[culture]) {
+                    addAsset({
+                        name,
+                        hash: resources.satelliteResources[culture][name],
+                        behavior: "resource",
+                        culture
+                    }, !resources.coreAssembly);
                 }
             }
         }
 
         if (resources.coreVfs) {
-            for (let i = 0; i < resources.coreVfs.length; i++) {
-                const asset = resources.coreVfs[i];
-                addAsset(asset, "vfs", true);
+            for (const virtualPath in resources.coreVfs) {
+                for (const name in resources.coreVfs[virtualPath]) {
+                    addAsset({
+                        name,
+                        hash: resources.coreVfs[virtualPath][name],
+                        behavior: "vfs",
+                        virtualPath
+                    }, true);
+                }
             }
         }
 
         if (resources.vfs) {
-            for (let i = 0; i < resources.vfs.length; i++) {
-                const asset = resources.vfs[i];
-                addAsset(asset, "vfs", !resources.coreVfs);
+            for (const virtualPath in resources.vfs) {
+                for (const name in resources.vfs[virtualPath]) {
+                    addAsset({
+                        name,
+                        hash: resources.vfs[virtualPath][name],
+                        behavior: "vfs",
+                        virtualPath
+                    }, !resources.coreVfs);
+                }
             }
         }
 
         const icuDataResourceName = getIcuResourceName(config);
         if (icuDataResourceName && resources.icu) {
-            for (let i = 0; i < resources.icu.length; i++) {
-                const asset = resources.icu[i];
-                if (asset.name === icuDataResourceName) {
-                    addAsset(asset, "icu", false);
+            for (const name in resources.icu) {
+                if (name === icuDataResourceName) {
+                    assetsToLoad.push({
+                        name,
+                        hash: resources.icu[name],
+                        behavior: "icu",
+                        loadRemote: true
+                    });
                 }
             }
         }
 
         if (resources.wasmSymbols) {
-            for (let i = 0; i < resources.wasmSymbols.length; i++) {
-                const asset = resources.wasmSymbols[i];
-                addAsset(asset, "symbols", false);
+            for (const name in resources.wasmSymbols) {
+                coreAssetsToLoad.push({
+                    name,
+                    hash: resources.wasmSymbols[name],
+                    behavior: "symbols"
+                });
             }
         }
     }
@@ -408,6 +448,15 @@ export function prepareAssets () {
     }
 
     config.assets = [...coreAssetsToLoad, ...assetsToLoad, ...modulesAssets];
+}
+
+export function getNonFingerprintedAssetName (assetName: string) {
+    const fingerprinting = loaderHelpers.config.resources?.fingerprinting;
+    if (fingerprinting && fingerprinting[assetName]) {
+        return fingerprinting[assetName];
+    }
+
+    return assetName;
 }
 
 export function prepareAssetsWorker () {
