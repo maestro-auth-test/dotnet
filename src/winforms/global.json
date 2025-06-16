@@ -22,5 +22,6 @@
   },
   "native-tools": {
     "cmake": "latest"
-  }
+  },
+  "new": "new"
 }
