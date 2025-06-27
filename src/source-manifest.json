@@ -7,7 +7,6 @@
       "commitSha": "f70d32d77df8544117bd659512a9087619c1de6e"
     },
     {
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -81,7 +80,7 @@
     {
       "barId": 272940,
       "path": "roslyn",
-      "remoteUri": "https://github.com/dotnet/roslyn",
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn",
       "commitSha": "d92a029dfde276aa7cb9a576c351d29d43c4c320"
     },
     {
