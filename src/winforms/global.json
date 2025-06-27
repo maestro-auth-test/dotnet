@@ -1,9 +1,10 @@
 {
   "tools": {
-    "dotnet": "10.0.100-preview.6.25315.102",
+    "dotnet": "10.0.100-preview.6.25315.104",
     "runtimes": {
       "dotnet/x64": [
-        "$(MicrosoftNETCorePlatformsPackageVersion)"
+        "$(MicrosoftNETCorePlatformsPackageVersion)",
+        "10.0"
       ],
       "dotnet/x86": [
         "$(MicrosoftNETCorePlatformsPackageVersion)"
@@ -17,6 +18,7 @@
     "Microsoft.DotNet.Arcade.Sdk": "10.0.0-beta.25320.118",
     "Microsoft.DotNet.CMake.Sdk": "10.0.0-beta.25320.118",
     "Microsoft.DotNet.Helix.Sdk": "10.0.0-beta.25320.118",
+    "new.file.2": "2.0.0"
     "FIX-85B6-MERGE-9C38-CONFLICT": "1.0.0",
     "Microsoft.NET.Sdk.IL": "10.0.0-preview.7.25320.118"
   },
