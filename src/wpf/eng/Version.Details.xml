@@ -14,10 +14,6 @@
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>0b99617c5b5a95c9da470ab9cd38f4a39753bf41</Sha>
     </Dependency>
-    <Dependency Name="System.Windows.Extensions" Version="10.0.0-preview.7.25323.102">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>0b99617c5b5a95c9da470ab9cd38f4a39753bf41</Sha>
-    </Dependency>
     <Dependency Name="Microsoft.NETCore.Platforms" Version="10.0.0-preview.7.25323.102">
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>0b99617c5b5a95c9da470ab9cd38f4a39753bf41</Sha>
@@ -99,6 +95,10 @@
     <Dependency Name="Microsoft.SourceLink.GitHub" Version="10.0.0-beta.25323.102">
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>0b99617c5b5a95c9da470ab9cd38f4a39753bf41</Sha>
+    </Dependency>
+    <Dependency Name="something" Version="1.0.">
+      <Uri>https://github.com/dotnet/wow</Uri>
+      <Sha>123</Sha>
     </Dependency>
   </ToolsetDependencies>
 </Dependencies>
