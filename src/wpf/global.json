@@ -3,14 +3,15 @@
     "dotnet": "10.0.100-preview.6.25315.102",
     "runtimes": {
       "dotnet/x64": [
-        "$(MicrosoftNETCorePlatformsVersion)"
+        "$(MicrosoftNETCorePlatformsVersion)",
+        "2.0"
       ],
       "dotnet/x86": [
         "$(MicrosoftNETCorePlatformsVersion)"
       ]
     },
     "vs": {
-      "version": "17.2"
+      "version": "17.19"
     }
   },
   "msbuild-sdks": {
