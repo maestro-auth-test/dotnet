@@ -7,7 +7,6 @@
       "commitSha": "0e335649fe2d2f98ea51e55cc1a0899af3617eba"
     },
     {
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -93,7 +92,7 @@
     {
       "barId": 273675,
       "path": "runtime",
-      "remoteUri": "https://github.com/dotnet/runtime",
+      "remoteUri": "https://github.com/maestro-auth-test/runtime",
       "commitSha": "61f2ad644f82a7208eb925bedc3bae49754e4440"
     },
     {
