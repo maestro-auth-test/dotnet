@@ -7,7 +7,6 @@
       "commitSha": "d1834121068b0df7974a380cebadb781e58ff098"
     },
     {
-      "barId": null,
       "path": "aspire",
       "remoteUri": "https://github.com/dotnet/aspire",
       "commitSha": "5fa9337a84a52e9bd185d04d156eccbdcf592f74"
@@ -75,7 +74,7 @@
     {
       "barId": 274090,
       "path": "razor",
-      "remoteUri": "https://github.com/dotnet/razor",
+      "remoteUri": "https://github.com/maestro-auth-test/razor",
       "commitSha": "0286b0e118d2ab3589ca64fb0ad4cc0bf49e1a74"
     },
     {
