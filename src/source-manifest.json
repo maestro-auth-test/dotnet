@@ -93,7 +93,7 @@
     {
       "barId": 272343,
       "path": "scenario-tests",
-      "remoteUri": "https://github.com/dotnet/scenario-tests",
+      "remoteUri": "https://github.com/maestro-auth-test/scenario-tests",
       "commitSha": "6ab0ec29e4e346465c767a6e04c37b179ee287f8"
     },
     {
