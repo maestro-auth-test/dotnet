@@ -69,7 +69,7 @@
     {
       "barId": 274528,
       "path": "razor",
-      "remoteUri": "https://github.com/dotnet/razor",
+      "remoteUri": "https://github.com/maestro-auth-test/razor",
       "commitSha": "dc47633c6e0f8c940b8c6b0c6adb50e44693ee20"
     },
     {
