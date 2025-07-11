@@ -73,10 +73,10 @@
       "commitSha": "0286b0e118d2ab3589ca64fb0ad4cc0bf49e1a74"
     },
     {
-      "barId": 272940,
+      "barId": 535,
       "path": "roslyn",
-      "remoteUri": "https://github.com/dotnet/roslyn",
-      "commitSha": "9eec48b9253e5c65e22dbe4a41cc30191ee6c974"
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn",
+      "commitSha": "01e9518db0e10f4a1886b0613b5bf63dbd2caa4a"
     },
     {
       "barId": 273285,
