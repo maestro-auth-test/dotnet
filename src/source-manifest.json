@@ -73,10 +73,10 @@
       "commitSha": "0286b0e118d2ab3589ca64fb0ad4cc0bf49e1a74"
     },
     {
-      "barId": 534,
+      "barId": 535,
       "path": "roslyn",
       "remoteUri": "https://github.com/maestro-auth-test/roslyn",
-      "commitSha": "5622568efa8a7d0e0c7bf5681cf6c4bad88fdc57"
+      "commitSha": "01e9518db0e10f4a1886b0613b5bf63dbd2caa4a"
     },
     {
       "barId": 273285,
