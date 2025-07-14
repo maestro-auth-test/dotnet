@@ -300,9 +300,9 @@ namespace Microsoft.Build.Evaluation
                         i--;
                     }
 
-                    // Grab the name boundaries, but continue to verify it's a well-formed expression
+                    // Grab the name, but continue to verify it's a well-formed expression
                     // before we store it.
-                    int nameLength = i - startOfName;
+                    string name = expression.Substring(startOfName, i - startOfName);
 
                     SinkWhitespace(expression, ref i);
 
@@ -378,7 +378,7 @@ namespace Microsoft.Build.Evaluation
                     if ((whatToShredFor & ShredderOptions.ItemTypes) != 0)
                     {
                         pair.Items ??= new HashSet<string>(MSBuildNameIgnoreCaseComparer.Default);
-                        pair.Items.Add(expression.Substring(startOfName, nameLength));
+                        pair.Items.Add(name);
                     }
 
                     i--;

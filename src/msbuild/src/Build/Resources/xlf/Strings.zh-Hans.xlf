@@ -630,11 +630,6 @@
         <target state="translated">无法使用包含 null 或空目标名称的集合调用方法 {0}。</target>
         <note />
       </trans-unit>
-      <trans-unit id="OpenTelemetryLoadFailed">
-        <source>Loading telemetry libraries failed with exception: {0}.</source>
-        <target state="translated">加载遥测库失败，出现异常: {0}。</target>
-        <note />
-      </trans-unit>
       <trans-unit id="OutputPropertyLogMessagePrefix">
         <source>Output Property: </source>
         <target state="translated">输出属性: </target>
@@ -860,26 +855,6 @@ Errors: {3}</source>
         <target state="translated">SDK 解析程序“{0}”返回 null。</target>
         <note />
       </trans-unit>
-      <trans-unit id="SdkEnvironmentVariableAlreadySet">
-        <source>An SDK attempted to set the environment variable "{0}" to "{1}" but it was already set as an environment variable.</source>
-        <target state="new">An SDK attempted to set the environment variable "{0}" to "{1}" but it was already set as an environment variable.</target>
-        <note />
-      </trans-unit>
-      <trans-unit id="SdkEnvironmentVariableAlreadySetBySdk">
-        <source>An SDK attempted to set the environment variable "{0}" to "{1}" but it was already set by another SDK.</source>
-        <target state="new">An SDK attempted to set the environment variable "{0}" to "{1}" but it was already set by another SDK.</target>
-        <note />
-      </trans-unit>
-      <trans-unit id="SdkEnvironmentVariableSet">
-        <source>An SDK attempted set the environment variable "{0}" to "{1}".</source>
-        <target state="new">An SDK attempted set the environment variable "{0}" to "{1}".</target>
-        <note />
-      </trans-unit>
-      <trans-unit id="SingleResolverFailedToResolveSDK">
-        <source>SDK '{0}' could not be resolved by the SDK resolver '{1}'. {2}</source>
-        <target state="translated">SDK 解析程序“{1}”无法解析 SDK“{0}”。{2}</target>
-        <note />
-      </trans-unit>
       <trans-unit id="SkippedConstraintsOnRequest">
         <source>MSB4260: Project "{0}" skipped graph isolation constraints on referenced project "{1}"</source>
         <target state="translated">MSB4260: 项目“{0}”已跳过所引用的项目“{1}”上的图形隔离约束</target>
@@ -902,11 +877,6 @@ Errors: {3}</source>
       <trans-unit id="StaticGraphConstructionMetrics">
         <source>Static graph loaded in {0} seconds: {1} nodes, {2} edges</source>
         <target state="translated">静态图形已在 {0} 秒内加载: {1} 个节点、{2} 个边</target>
-        <note />
-      </trans-unit>
-      <trans-unit id="StaticGraphConstructionStarted">
-        <source>Static graph construction started.</source>
-        <target state="new">Static graph construction started.</target>
         <note />
       </trans-unit>
       <trans-unit id="StaticGraphDoesNotSupportSlnReferences">

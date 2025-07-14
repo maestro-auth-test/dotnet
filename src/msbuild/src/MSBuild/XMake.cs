@@ -35,7 +35,6 @@ using Microsoft.Build.Logging;
 using Microsoft.Build.Shared;
 using Microsoft.Build.Shared.Debugging;
 using Microsoft.Build.Shared.FileSystem;
-using Microsoft.Build.Tasks.AssemblyDependency;
 using BinaryLogger = Microsoft.Build.Logging.BinaryLogger;
 using ConsoleLogger = Microsoft.Build.Logging.ConsoleLogger;
 using FileLogger = Microsoft.Build.Logging.FileLogger;
@@ -656,9 +655,6 @@ namespace Microsoft.Build.CommandLine
         {
             DebuggerLaunchCheck();
 
-            // Resets the build completion event, signaling that a new build process is starting.
-            s_buildComplete.Reset();
-
             // Initialize new build telemetry and record start of this build, if not initialized already
             KnownTelemetry.PartialBuildTelemetry ??= new BuildTelemetry { StartAt = DateTime.UtcNow };
 
@@ -1046,13 +1042,6 @@ namespace Microsoft.Build.CommandLine
             {
                 Console.WriteLine(
                     $"MSBUILD : error {e.ErrorCode}: {e.Message}{(e.InnerException != null ? $" {e.InnerException.Message}" : string.Empty)}");
-
-                exitType = ExitType.Unexpected;
-            }
-            catch (PathTooLongException e)
-            {
-                Console.WriteLine(
-                    $"{e.Message}{(e.InnerException != null ? $" {e.InnerException.Message}" : string.Empty)}");
 
                 exitType = ExitType.Unexpected;
             }
@@ -1538,11 +1527,6 @@ namespace Microsoft.Build.CommandLine
                         {
                             parameters.MemoryUseLimit = parameters.MaxNodeCount;
                         }
-                    }
-
-                    if (Traits.Instance.EnableRarNode)
-                    {
-                        parameters.EnableRarNode = true;
                     }
 
                     List<BuildManager.DeferredBuildMessage> messagesToLogInBuildLoggers = new();
@@ -2619,7 +2603,7 @@ namespace Microsoft.Build.CommandLine
                 {
                     ShowVersion();
                 }
-                // if feature availability switch is set, just show the feature availability and quit (ignore the other switches)
+                // if featureavailability switch is set, just show the feature availability and quit (ignore the other switches)
                 else if (commandLineSwitches.IsParameterizedSwitchSet(CommandLineSwitches.ParameterizedSwitch.FeatureAvailability))
                 {
                     ShowFeatureAvailability(commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.FeatureAvailability]);
@@ -2764,23 +2748,43 @@ namespace Microsoft.Build.CommandLine
 
                     outputResultsCache = ProcessOutputResultsCache(commandLineSwitches);
 
+                    // figure out which loggers are going to listen to build events
+                    string[][] groupedFileLoggerParameters = commandLineSwitches.GetFileLoggerParameters();
+
                     loggers = ProcessLoggingSwitches(
-                        commandLineSwitches,
+                        commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.Logger],
+                        commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.DistributedLogger],
+                        commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.Verbosity],
+                        commandLineSwitches[CommandLineSwitches.ParameterlessSwitch.NoConsoleLogger],
+                        commandLineSwitches[CommandLineSwitches.ParameterlessSwitch.DistributedFileLogger],
                         useTerminalLogger,
                         aggregatedTerminalLoggerParameters,
+                        commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.FileLoggerParameters], // used by DistributedFileLogger
+                        commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.ConsoleLoggerParameters],
+                        commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.BinaryLogger],
+                        commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.ProfileEvaluation],
+                        groupedFileLoggerParameters,
                         minimizeStdOutOutput,
                         out distributedLoggerRecords,
                         out verbosity,
                         out originalVerbosity,
                         cpuCount,
                         out profilerLogger,
-                        out enableProfiler,
-                        ref detailedSummary);
+                        out enableProfiler);
 
                     // We're finished with defining individual loggers' verbosity at this point, so we don't need to worry about messing them up.
                     if (Traits.Instance.DebugEngine)
                     {
                         verbosity = LoggerVerbosity.Diagnostic;
+                    }
+
+                    if (commandLineSwitches.IsParameterizedSwitchSet(CommandLineSwitches.ParameterizedSwitch.DetailedSummary))
+                    {
+                        detailedSummary = ProcessBooleanSwitch(commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.DetailedSummary], defaultValue: true, resourceName: "InvalidDetailedSummaryValue");
+                    }
+                    else if (verbosity == LoggerVerbosity.Diagnostic)
+                    {
+                        detailedSummary = true;
                     }
 
                     if (originalVerbosity == LoggerVerbosity.Diagnostic)
@@ -2842,14 +2846,6 @@ namespace Microsoft.Build.CommandLine
 
             static bool CheckIfTerminalIsSupportedAndTryEnableAnsiColorCodes()
             {
-                // TerminalLogger is not used in automated environments (CI, GitHub Actions, GitHub Copilot, etc.)
-                if (IsAutomatedEnvironment())
-                {
-                    s_globalMessagesToLogInBuildLoggers.Add(
-                        new BuildManager.DeferredBuildMessage(ResourceUtilities.GetResourceString("TerminalLoggerNotUsedAutomated"), MessageImportance.Low));
-                    return false;
-                }
-
                 (var acceptAnsiColorCodes, var outputIsScreen, s_originalConsoleMode) = NativeMethodsShared.QueryIsScreenAndTryEnableAnsiColorCodes();
 
                 if (!outputIsScreen)
@@ -3022,38 +3018,6 @@ namespace Microsoft.Build.CommandLine
 
                 useTerminalLogger = CheckIfTerminalIsSupportedAndTryEnableAnsiColorCodes();
             }
-        }
-
-        /// <summary>
-        /// Determines if the current environment is an automated environment where terminal logger should be disabled.
-        /// This includes CI systems, GitHub Actions, GitHub Copilot, and other automated build environments.
-        /// </summary>
-        /// <returns>True if running in an automated environment, false otherwise.</returns>
-        private static bool IsAutomatedEnvironment()
-        {
-            // Check for common CI environment indicators that use boolean values
-            if (Traits.IsEnvVarOneOrTrue("CI") || Traits.IsEnvVarOneOrTrue("GITHUB_ACTIONS"))
-            {
-                return true;
-            }
-
-            // Check for environment variables that indicate automated environments
-            string[] automatedEnvironmentVariables = 
-            {
-                "COPILOT_API_URL",    // GitHub Copilot
-                "BUILD_ID",           // Jenkins, Google Cloud Build
-                "BUILDKITE",          // Buildkite
-                "CIRCLECI",           // CircleCI
-                "TEAMCITY_VERSION",   // TeamCity
-                "TF_BUILD",           // Azure DevOps
-                "APPVEYOR",           // AppVeyor
-                "TRAVIS",             // Travis CI
-                "GITLAB_CI",          // GitLab CI
-                "JENKINS_URL",        // Jenkins
-                "BAMBOO_BUILD_NUMBER" // Atlassian Bamboo
-            };
-
-            return automatedEnvironmentVariables.Any(envVar => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(envVar)));
         }
 
         private static CommandLineSwitches CombineSwitchesRespectingPriority(CommandLineSwitches switchesFromAutoResponseFile, CommandLineSwitches switchesNotFromAutoResponseFile, string commandLine)
@@ -3468,21 +3432,6 @@ namespace Microsoft.Build.CommandLine
                     OutOfProcTaskHostNode node = new OutOfProcTaskHostNode();
                     shutdownReason = node.Run(out nodeException);
                 }
-                else if (nodeModeNumber == 3)
-                {
-                    // The RAR service persists between builds, and will continue to process requests until terminated.
-                    OutOfProcRarNode rarNode = new();
-                    RarNodeShutdownReason rarShutdownReason = rarNode.Run(out nodeException, s_buildCancellationSource.Token);
-
-                    shutdownReason = rarShutdownReason switch
-                    {
-                        RarNodeShutdownReason.Complete => NodeEngineShutdownReason.BuildComplete,
-                        RarNodeShutdownReason.Error => NodeEngineShutdownReason.Error,
-                        RarNodeShutdownReason.AlreadyRunning => NodeEngineShutdownReason.Error,
-                        RarNodeShutdownReason.ConnectionTimedOut => NodeEngineShutdownReason.ConnectionFailed,
-                        _ => throw new ArgumentOutOfRangeException(nameof(rarShutdownReason), $"Unexpected value: {rarShutdownReason}"),
-                    };
-                }
                 else if (nodeModeNumber == 8)
                 {
                     // Since build function has to reuse code from *this* class and OutOfProcServerNode is in different assembly
@@ -3841,39 +3790,29 @@ namespace Microsoft.Build.CommandLine
         /// </summary>
         /// <returns>List of loggers.</returns>
         private static ILogger[] ProcessLoggingSwitches(
-            CommandLineSwitches commandLineSwitches,
+            string[] loggerSwitchParameters,
+            string[] distributedLoggerSwitchParameters,
+            string[] verbositySwitchParameters,
+            bool noConsoleLogger,
+            bool distributedFileLogger,
             bool terminalloggerOptIn,
             string aggregatedTerminalLoggerParameters,
+            string[] fileLoggerParameters,
+            string[] consoleLoggerParameters,
+            string[] binaryLoggerParameters,
+            string[] profileEvaluationParameters,
+            string[][] groupedFileLoggerParameters,
             bool useSimpleErrorLogger,
             out List<DistributedLoggerRecord> distributedLoggerRecords,
             out LoggerVerbosity verbosity,
             out LoggerVerbosity originalVerbosity,
             int cpuCount,
             out ProfilerLogger profilerLogger,
-            out bool enableProfiler,
-            ref bool detailedSummary)
+            out bool enableProfiler)
         {
-            string[] loggerSwitchParameters = commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.Logger];
-            string[] distributedLoggerSwitchParameters = commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.DistributedLogger];
-            string[] verbositySwitchParameters = commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.Verbosity];
-            bool noConsoleLogger = commandLineSwitches[CommandLineSwitches.ParameterlessSwitch.NoConsoleLogger];
-            bool distributedFileLogger = commandLineSwitches[CommandLineSwitches.ParameterlessSwitch.DistributedFileLogger];
-            string[] fileLoggerParameters = commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.FileLoggerParameters]; // used by DistributedFileLogger
-            string[] consoleLoggerParameters = commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.ConsoleLoggerParameters];
-            string[] binaryLoggerParameters = commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.BinaryLogger];
-            string[] profileEvaluationParameters = commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.ProfileEvaluation];
-
-            // figure out which loggers are going to listen to build events
-            string[][] groupedFileLoggerParameters = commandLineSwitches.GetFileLoggerParameters();
-
             // if verbosity level is not specified, use the default
             originalVerbosity = LoggerVerbosity.Normal;
             verbosity = originalVerbosity;
-
-            if (commandLineSwitches.IsParameterizedSwitchSet(CommandLineSwitches.ParameterizedSwitch.DetailedSummary))
-            {
-                detailedSummary = ProcessBooleanSwitch(commandLineSwitches[CommandLineSwitches.ParameterizedSwitch.DetailedSummary], defaultValue: true, resourceName: "InvalidDetailedSummaryValue");
-            }
 
             if (verbositySwitchParameters.Length > 0)
             {
@@ -3881,11 +3820,10 @@ namespace Microsoft.Build.CommandLine
                 originalVerbosity = ProcessVerbositySwitch(verbositySwitchParameters[verbositySwitchParameters.Length - 1]);
                 verbosity = originalVerbosity;
             }
-
             var loggers = new List<ILogger>();
 
-            var binlogVerbosity = verbosity;
-            ProcessBinaryLogger(binaryLoggerParameters, loggers, ref binlogVerbosity);
+            var outVerbosity = verbosity;
+            ProcessBinaryLogger(binaryLoggerParameters, loggers, ref outVerbosity);
 
             // When returning the result of evaluation from the command line, do not use custom loggers.
             if (!useSimpleErrorLogger)
@@ -3893,7 +3831,7 @@ namespace Microsoft.Build.CommandLine
                 ProcessLoggerSwitch(loggerSwitchParameters, loggers, verbosity);
             }
 
-            // Add any loggers which have been specified on the command line
+            // Add any loggers which have been specified on the commandline
             distributedLoggerRecords = ProcessDistributedLoggerSwitch(distributedLoggerSwitchParameters, verbosity);
 
             // Otherwise choose default console logger: None, TerminalLogger, or the older ConsoleLogger
@@ -3914,13 +3852,7 @@ namespace Microsoft.Build.CommandLine
 
             ProcessFileLoggers(groupedFileLoggerParameters, distributedLoggerRecords, cpuCount, loggers);
 
-            // Show detailed summary but not for BinaryLogger.
-            if (verbosity == LoggerVerbosity.Diagnostic)
-            {
-                detailedSummary = true;
-            }
-
-            verbosity = binlogVerbosity;
+            verbosity = outVerbosity;
 
             profilerLogger = ProcessProfileEvaluationSwitch(profileEvaluationParameters, loggers, out enableProfiler);
 
@@ -3945,7 +3877,7 @@ namespace Microsoft.Build.CommandLine
             // Join the logger parameters into one string separated by semicolons
             string result = anyPrefixingParameter ?? string.Empty;
 
-            // Ensure trailing ';' so parametersToAggregate are properly separated
+            // Ensure traling ';' so parametersToAggregate are properly separated
             if (!string.IsNullOrEmpty(result) && result[result.Length - 1] != ';')
             {
                 result += ';';
@@ -3989,7 +3921,7 @@ namespace Microsoft.Build.CommandLine
                 }
 
                 FileLogger fileLogger = new FileLogger();
-                // Set to detailed by default, can be overridden by fileLoggerParameters
+                // Set to detailed by default, can be overidden by fileLoggerParameters
                 LoggerVerbosity defaultFileLoggerVerbosity = LoggerVerbosity.Detailed;
                 fileLogger.Verbosity = defaultFileLoggerVerbosity;
 
@@ -4472,6 +4404,7 @@ namespace Microsoft.Build.CommandLine
             out ILogger logger)
         {
             logger = null;
+
             try
             {
                 logger = loggerDescription.CreateLogger();
@@ -4480,23 +4413,23 @@ namespace Microsoft.Build.CommandLine
             }
             catch (IOException e) when (!loggerDescription.IsOptional)
             {
-                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false, [loggerDescription.Name, (e == null) ? String.Empty : e.Message]);
+                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false);
             }
             catch (BadImageFormatException e) when (!loggerDescription.IsOptional)
             {
-                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false, [loggerDescription.Name, (e == null) ? String.Empty : e.Message]);
+                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false);
             }
             catch (SecurityException e) when (!loggerDescription.IsOptional)
             {
-                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false, [loggerDescription.Name, (e == null) ? String.Empty : e.Message]);
+                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false);
             }
             catch (ReflectionTypeLoadException e) when (!loggerDescription.IsOptional)
             {
-                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false, [loggerDescription.Name, (e == null) ? String.Empty : e.Message]);
+                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false);
             }
             catch (MemberAccessException e) when (!loggerDescription.IsOptional)
             {
-                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false, [loggerDescription.Name, (e == null) ? String.Empty : e.Message]);
+                InitializationException.Throw("XMake.LoggerCreationError", unquotedParameter, e, false);
             }
             catch (TargetInvocationException e) when (!loggerDescription.IsOptional)
             {
@@ -4593,7 +4526,6 @@ namespace Microsoft.Build.CommandLine
             }
         }
 
-#if FEATURE_XML_SCHEMA_VALIDATION
         /// <summary>
         /// Figures out if the project needs to be validated against a schema.
         /// </summary>
@@ -4614,7 +4546,6 @@ namespace Microsoft.Build.CommandLine
 
             return schemaFile;
         }
-#endif
 
         /// <summary>
         /// Given an invalid ToolsVersion string and the collection of valid toolsets,

@@ -459,8 +459,7 @@ namespace Microsoft.Build.Execution
         /// <exception cref="InvalidOperationException">Thrown if a build is already in progress.</exception>
         public void BeginBuild(BuildParameters parameters)
         {
-            InitializeTelemetry();
-
+            OpenTelemetryManager.Instance.Initialize(isStandalone: false);
             if (_previousLowPriority != null)
             {
                 if (parameters.LowPriority != _previousLowPriority)
@@ -558,21 +557,6 @@ namespace Microsoft.Build.Execution
                 if (_buildParameters.UsesOutputCache() && string.IsNullOrWhiteSpace(_buildParameters.OutputResultsCacheFile))
                 {
                     _buildParameters.OutputResultsCacheFile = FileUtilities.NormalizePath("msbuild-cache");
-                }
-
-                // Launch the RAR node before the detoured launcher overrides the default node launcher.
-                if (_buildParameters.EnableRarNode)
-                {
-                    NodeLauncher nodeLauncher = ((IBuildComponentHost)this).GetComponent<NodeLauncher>(BuildComponentType.NodeLauncher);
-                    _ = Task.Run(() =>
-                    {
-                        RarNodeLauncher rarNodeLauncher = new(nodeLauncher);
-
-                        if (!rarNodeLauncher.Start())
-                        {
-                            _buildParameters.EnableRarNode = false;
-                        }
-                    });
                 }
 
 #if FEATURE_REPORTFILEACCESSES
@@ -693,7 +677,7 @@ namespace Microsoft.Build.Execution
 
                 var logger = new BinaryLogger { Parameters = binlogPath };
 
-                return (loggers ?? []).Concat([logger]);
+                return (loggers ?? [logger]);
             }
 
             void InitializeCaches()
@@ -736,26 +720,6 @@ namespace Microsoft.Build.Execution
 
                     _buildParameters.ProjectRootElementCache.DiscardImplicitReferences();
                 }
-            }
-        }
-
-        private void InitializeTelemetry()
-        {
-            OpenTelemetryManager.Instance.Initialize(isStandalone: false);
-            string? failureMessage = OpenTelemetryManager.Instance.LoadFailureExceptionMessage;
-            if (_deferredBuildMessages != null &&
-                failureMessage != null &&
-                _deferredBuildMessages is ICollection<DeferredBuildMessage> deferredBuildMessagesCollection)
-            {
-                deferredBuildMessagesCollection.Add(
-                    new DeferredBuildMessage(
-                        ResourceUtilities.FormatResourceStringIgnoreCodeAndKeyword(
-                            "OpenTelemetryLoadFailed",
-                            failureMessage),
-                    MessageImportance.Low));
-
-                // clean up the message from OpenTelemetryManager to avoid double logging it
-                OpenTelemetryManager.Instance.LoadFailureExceptionMessage = null;
             }
         }
 
@@ -815,7 +779,6 @@ namespace Microsoft.Build.Execution
         /// </summary>
         public void CancelAllSubmissions()
         {
-            MSBuildEventSource.Log.CancelSubmissionsStart();
             CancelAllSubmissions(true);
         }
 
@@ -1960,10 +1923,6 @@ namespace Microsoft.Build.Execution
                 throw new BuildAbortedException();
             }
 
-            LogMessage(
-                ResourceUtilities.FormatResourceStringIgnoreCodeAndKeyword(
-                    "StaticGraphConstructionStarted"));
-
             var projectGraph = submission.BuildRequestData.ProjectGraph;
             if (projectGraph == null)
             {
@@ -2431,8 +2390,8 @@ namespace Microsoft.Build.Execution
                 }
             }
 
-            IEnumerable<ScheduleResponse> responses = _scheduler!.ReportRequestBlocked(node, blocker);
-            PerformSchedulingActions(responses);
+            IEnumerable<ScheduleResponse> response = _scheduler!.ReportRequestBlocked(node, blocker);
+            PerformSchedulingActions(response);
         }
 
         /// <summary>
@@ -2446,7 +2405,7 @@ namespace Microsoft.Build.Execution
             {
                 // Resource request requires a response and may be blocking. Our continuation is effectively a callback
                 // to be called once at least one core becomes available.
-                _scheduler!.RequestCores(request.GlobalRequestId, request.NumCores, request.IsBlocking).ContinueWith((task) =>
+                _scheduler!.RequestCores(request.GlobalRequestId, request.NumCores, request.IsBlocking).ContinueWith((Task<int> task) =>
                 {
                     var response = new ResourceResponse(request.GlobalRequestId, task.Result);
                     _nodeManager!.SendData(node, response);
@@ -2821,7 +2780,7 @@ namespace Microsoft.Build.Execution
                     // part of the import graph.
                     _buildParameters?.ProjectRootElementCache?.Clear();
 
-                    FileMatcher.ClearCaches();
+                    FileMatcher.ClearFileEnumerationsCache();
 #if !CLR2COMPATIBILITY
                     FileUtilities.ClearFileExistenceCache();
 #endif

@@ -1,8 +1,7 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
-using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -132,7 +131,7 @@ namespace Microsoft.Build.BackEnd
         /// <summary>
         /// Holds a snapshot of the environment at the time we blocked.
         /// </summary>
-        private FrozenDictionary<string, string> _savedEnvironmentVariables;
+        private Dictionary<string, string> _savedEnvironmentVariables;
 
         /// <summary>
         /// Holds a snapshot of the current working directory at the time we blocked.
@@ -329,11 +328,6 @@ namespace Microsoft.Build.BackEnd
                 return _isTraversalProject.Value;
             }
         }
-
-        /// <summary>
-        /// Flag indicating whether SDK-resolved environment variables have been set for this configuration.
-        /// </summary>
-        internal bool SdkResolvedEnvironmentVariablesSet { get; set; }
 
         /// <summary>
         /// Returns true if this configuration was generated on a node and has not yet been resolved.
@@ -617,7 +611,7 @@ namespace Microsoft.Build.BackEnd
         /// <summary>
         /// Holds a snapshot of the environment at the time we blocked.
         /// </summary>
-        public FrozenDictionary<string, string> SavedEnvironmentVariables
+        public Dictionary<string, string> SavedEnvironmentVariables
         {
             get => _savedEnvironmentVariables;
 

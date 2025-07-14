@@ -14,11 +14,7 @@ using System.Threading;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Shared;
 using Microsoft.Build.Utilities;
-
-#if ENABLE_TRACKER_TESTS // https://github.com/dotnet/msbuild/issues/12063
 using Microsoft.CodeAnalysis.BuildTasks;
-#endif
-
 using Xunit;
 using BackEndNativeMethods = Microsoft.Build.BackEnd.NativeMethods;
 
@@ -286,8 +282,6 @@ namespace Microsoft.Build.UnitTests.FileTracking
             Assert.True(foundCreateFileW || foundCreateFileA);
         }
 
-
-#if ENABLE_TRACKER_TESTS // https://github.com/dotnet/msbuild/issues/12063
         [Fact(Skip = "FileTracker tests require VS2015 Update 3 or a packaged version of Tracker.exe https://github.com/dotnet/msbuild/issues/649")]
         public void FileTrackerExtendedDirectoryTracking()
         {
@@ -516,7 +510,6 @@ class X
             FileTrackerTestHelper.AssertDidntFindStringInTLog("CreateFileW, Desired Access=0xc0000000, Creation Disposition=0x1:" + writeFile.ToUpperInvariant(), "writenoread.read.1.tlog");
             FileTrackerTestHelper.AssertFoundStringInTLog("CreateFileW, Desired Access=0xc0000000, Creation Disposition=0x1:" + writeFile.ToUpperInvariant(), "writenoread.write.1.tlog");
         }
-#endif // ENABLE_TRACKER_TESTS
 
         [Fact(Skip = "FileTracker tests require VS2015 Update 3 or a packaged version of Tracker.exe https://github.com/dotnet/msbuild/issues/649")]
         public void FileTrackerFindStrInCommandLine()
@@ -1742,7 +1735,9 @@ class X
                 var buffer = new byte[10];
                 using (FileStream fs = File.Open(readFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
                 {
-                    fs.ReadExactly(buffer, 0, 10);
+#pragma warning disable CA2022
+                    fs.Read(buffer, 0, 10);
+#pragma warning restore CA2022
                 }
 
                 FileTracker.WriteContextTLogs(testDir, tlogRootName);
@@ -2232,7 +2227,6 @@ class X
             }
         }
 
-#if ENABLE_TRACKER_TESTS // https://github.com/dotnet/msbuild/issues/12063
         [Fact(Skip = "Needs investigation")]
         public void LaunchMultipleOfSameTool_ToolLaunchesOthers()
         {
@@ -2318,7 +2312,6 @@ namespace ConsoleApplication4
                 }
             }
         }
-#endif // ENABLE_TRACKER_TESTS
 
         private static void InProcTrackingSpawnsToolWithTracker(bool useTrackerResponseFile)
         {

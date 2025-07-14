@@ -226,7 +226,7 @@ namespace Microsoft.Build.BackEnd.SdkResolution
             resolvers = GetResolvers(
                 _generalResolversManifestsRegistry,
                 loggingContext,
-                sdkReferenceLocation);
+                sdkReferenceLocation).ToList();
 
             if (TryResolveSdkUsingSpecifiedResolvers(
                 resolvers,
@@ -250,16 +250,7 @@ namespace Microsoft.Build.BackEnd.SdkResolution
 
             if (failOnUnresolvedSdk)
             {
-                if (resolvers.Count == 1) // Check if only one resolver was used
-                {
-                    // Log the single resolver's error message directly
-                    loggingContext.LogError(new BuildEventFileInfo(sdkReferenceLocation), "SingleResolverFailedToResolveSDK", sdk.Name, resolvers[0].Name, string.Join(Environment.NewLine, errors));
-                }
-                else
-                {
-                    // Log the error with the MSBuild wrapper
-                    loggingContext.LogError(new BuildEventFileInfo(sdkReferenceLocation), "FailedToResolveSDK", sdk.Name, string.Join($"{Environment.NewLine}  ", errors));
-                }
+                loggingContext.LogError(new BuildEventFileInfo(sdkReferenceLocation), "FailedToResolveSDK", sdk.Name, string.Join($"{Environment.NewLine}  ", errors));
             }
 
             LogWarnings(loggingContext, sdkReferenceLocation, warnings);
@@ -274,14 +265,16 @@ namespace Microsoft.Build.BackEnd.SdkResolution
             List<SdkResolver> resolvers = new List<SdkResolver>();
             foreach (var resolverManifest in resolversManifests)
             {
-                IReadOnlyList<SdkResolver> newResolvers;
-                lock (_lockObject)
+                if (!_manifestToResolvers.TryGetValue(resolverManifest, out IReadOnlyList<SdkResolver> newResolvers))
                 {
-                    if (!_manifestToResolvers.TryGetValue(resolverManifest, out newResolvers))
+                    lock (_lockObject)
                     {
-                        // Loading of the needed resolvers.
-                        newResolvers = _sdkResolverLoader.LoadResolversFromManifest(resolverManifest, sdkReferenceLocation);
-                        _manifestToResolvers[resolverManifest] = newResolvers;
+                        if (!_manifestToResolvers.TryGetValue(resolverManifest, out newResolvers))
+                        {
+                            // Loading of the needed resolvers.
+                            newResolvers = _sdkResolverLoader.LoadResolversFromManifest(resolverManifest, sdkReferenceLocation);
+                            _manifestToResolvers[resolverManifest] = newResolvers;
+                        }
                     }
                 }
 

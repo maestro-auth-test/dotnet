@@ -43,21 +43,19 @@ namespace Microsoft.Build.Tasks.UnitTests
             var baseOutputPath = "bin";
 
             var projectFilePath = ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath,
-            $"""
-            <Project DefaultTargets="Build" xmlns="msbuildnamespace" ToolsVersion="msbuilddefaulttoolsversion">
+$@"<Project DefaultTargets=`Build` xmlns=`msbuildnamespace` ToolsVersion=`msbuilddefaulttoolsversion`>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.props"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.props`/>
 
-                <PropertyGroup>
-                    <Platform>AnyCPU</Platform>
-                    <Configuration>Debug</Configuration>
-                </PropertyGroup>
+    <PropertyGroup>
+        <Platform>AnyCPU</Platform>
+        <Configuration>Debug</Configuration>
+    </PropertyGroup>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets"/>
-                <Target Name="Build"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.targets`/>
+    <Target Name=`Build`/>
 
-            </Project>
-            """);
+</Project>");
 
             // Act
             Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(projectFilePath, touchProject: false);
@@ -80,22 +78,20 @@ namespace Microsoft.Build.Tasks.UnitTests
             var baseOutputPath = Path.Combine("build", "bin");
 
             var projectFilePath = ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath,
-            $"""
-            <Project DefaultTargets="Build" xmlns="msbuildnamespace" ToolsVersion="msbuilddefaulttoolsversion">
+$@"<Project DefaultTargets=`Build` xmlns=`msbuildnamespace` ToolsVersion=`msbuilddefaulttoolsversion`>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.props"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.props`/>
 
-                <PropertyGroup>
-                    <Platform>AnyCPU</Platform>
-                    <Configuration>Debug</Configuration>
-                    <BaseOutputPath>{baseOutputPath}</BaseOutputPath>
-                </PropertyGroup>
+    <PropertyGroup>
+        <Platform>AnyCPU</Platform>
+        <Configuration>Debug</Configuration>
+        <BaseOutputPath>{baseOutputPath}</BaseOutputPath>
+    </PropertyGroup>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets"/>
-                <Target Name="Build"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.targets`/>
+    <Target Name=`Build`/>
 
-            </Project>
-            """);
+</Project>");
 
             // Act
             Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(projectFilePath, touchProject: false);
@@ -120,27 +116,25 @@ namespace Microsoft.Build.Tasks.UnitTests
             var outputPathAlt = Path.Combine("bin", "Release");
 
             var projectFilePath = ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath,
-            $"""
-            <Project DefaultTargets="Build" xmlns="msbuildnamespace" ToolsVersion="msbuilddefaulttoolsversion">
+$@"<Project DefaultTargets=`Build` xmlns=`msbuildnamespace` ToolsVersion=`msbuilddefaulttoolsversion`>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.props"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.props`/>
 
-                <PropertyGroup>
-                    <Platform>AnyCPU</Platform>
-                    <Configuration>Debug</Configuration>
-                </PropertyGroup>
+    <PropertyGroup>
+        <Platform>AnyCPU</Platform>
+        <Configuration>Debug</Configuration>
+    </PropertyGroup>
 
-                <PropertyGroup>
-                    <BaseOutputPath>{baseOutputPath}</BaseOutputPath>
-                    <OutputPath Condition="'$(Platform)|$(Configuration)' == 'AnyCPU|Debug'">{outputPath}</OutputPath>
-                    <OutputPath Condition="'$(Platform)|$(Configuration)' == 'AnyCPU|Release'">{outputPathAlt}</OutputPath>
-                </PropertyGroup>
+    <PropertyGroup>
+        <BaseOutputPath>{baseOutputPath}</BaseOutputPath>
+        <OutputPath Condition=`'$(Platform)|$(Configuration)' == 'AnyCPU|Debug'`>{outputPath}</OutputPath>
+        <OutputPath Condition=`'$(Platform)|$(Configuration)' == 'AnyCPU|Release'`>{outputPathAlt}</OutputPath>
+    </PropertyGroup>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets"/>
-                <Target Name="Build"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.targets`/>
+    <Target Name=`Build`/>
 
-            </Project>
-            """);
+</Project>");
 
             // Act
             Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(projectFilePath, touchProject: false);
@@ -165,20 +159,18 @@ namespace Microsoft.Build.Tasks.UnitTests
             var baseOutputPath = "bin";
 
             var projectFilePath = ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath,
-            $"""
-            <Project DefaultTargets="Build" xmlns="msbuildnamespace" ToolsVersion="msbuilddefaulttoolsversion">
+$@"<Project DefaultTargets=`Build` xmlns=`msbuildnamespace` ToolsVersion=`msbuilddefaulttoolsversion`>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.props"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.props`/>
 
-                <PropertyGroup Condition="'$(OutputPath)' == ''">
-                    <OutputPath>$([MSBuild]::NormalizeDirectory('{baseOutputPath}', '{configuration}'))</OutputPath>
-                </PropertyGroup>
+    <PropertyGroup Condition=`'$(OutputPath)' == ''`>
+        <OutputPath>$([MSBuild]::NormalizeDirectory('{baseOutputPath}', '{configuration}'))</OutputPath>
+    </PropertyGroup>
 
-                <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets"/>
-                <Target Name="Build"/>
+    <Import Project=`$(MSBuildToolsPath)\Microsoft.Common.targets`/>
+    <Target Name=`Build`/>
 
-            </Project>
-            """);
+</Project>");
 
             // Act
             Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(projectFilePath, touchProject: false);

@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -498,7 +497,7 @@ namespace Microsoft.Build.BackEnd
             // a queue of pending requests.
             ResourceResponse responseObject = null;
             using AutoResetEvent responseEvent = new AutoResetEvent(false);
-            _pendingResourceRequests.Enqueue((response) =>
+            _pendingResourceRequests.Enqueue((ResourceResponse response) =>
             {
                 responseObject = response;
                 responseEvent.Set();
@@ -1107,6 +1106,8 @@ namespace Microsoft.Build.BackEnd
             // logged with the node logging context
             _projectLoggingContext = null;
 
+            MSBuildEventSource.Log.BuildProjectStart(_requestEntry.RequestConfiguration.ProjectFullPath);
+
             try
             {
                 // Load the project
@@ -1122,21 +1123,6 @@ namespace Microsoft.Build.BackEnd
                         RequestEntry.Request.BuildRequestDataFlags,
                         RequestEntry.Request.SubmissionId,
                         _nodeLoggingContext.BuildEventContext.NodeId);
-                }
-
-                // Set SDK-resolved environment variables if they haven't been set yet for this configuration
-                if (!_requestEntry.RequestConfiguration.SdkResolvedEnvironmentVariablesSet &&
-                     _requestEntry.RequestConfiguration.Project is IEvaluatorData<ProjectPropertyInstance, ProjectItemInstance, ProjectMetadataInstance, ProjectItemDefinitionInstance> project)
-                {
-                    if (project.SdkResolvedEnvironmentVariablePropertiesDictionary is PropertyDictionary<ProjectPropertyInstance> environmentProperties)
-                    {
-                        foreach (ProjectPropertyInstance environmentProperty in environmentProperties)
-                        {
-                            Environment.SetEnvironmentVariable(environmentProperty.Name, environmentProperty.EvaluatedValue, EnvironmentVariableTarget.Process);
-                        }
-                    }
-
-                    _requestEntry.RequestConfiguration.SdkResolvedEnvironmentVariablesSet = true;
                 }
             }
             catch
@@ -1159,13 +1145,6 @@ namespace Microsoft.Build.BackEnd
 
             try
             {
-                // Determine the set of targets we need to build
-                (string name, TargetBuiltReason reason)[] allTargets = _requestEntry.RequestConfiguration
-   .GetTargetsUsedToBuildRequest(_requestEntry.Request).ToArray();
-                if (MSBuildEventSource.Log.IsEnabled())
-                {
-                    MSBuildEventSource.Log.BuildProjectStart(_requestEntry.RequestConfiguration.ProjectFullPath, string.Join(", ", allTargets));
-                }
                 HandleProjectStarted(buildCheckManager);
 
                 // Make sure to extract known immutable folders from properties and register them for fast up-to-date check
@@ -1183,6 +1162,9 @@ namespace Microsoft.Build.BackEnd
 
                 _requestEntry.Request.BuildEventContext = _projectLoggingContext.BuildEventContext;
 
+                // Determine the set of targets we need to build
+                (string name, TargetBuiltReason reason)[] allTargets = _requestEntry.RequestConfiguration
+                    .GetTargetsUsedToBuildRequest(_requestEntry.Request).ToArray();
 
                 ProjectErrorUtilities.VerifyThrowInvalidProject(allTargets.Length > 0,
                     _requestEntry.RequestConfiguration.Project.ProjectFileLocation, "NoTargetSpecified");
@@ -1394,7 +1376,7 @@ namespace Microsoft.Build.BackEnd
             else
             {
                 // Restore the original build environment variables.
-                SetEnvironmentVariableBlock(_componentHost.BuildParameters.BuildProcessEnvironmentInternal);
+                SetEnvironmentVariableBlock(_componentHost.BuildParameters.BuildProcessEnvironment);
             }
         }
 
@@ -1417,9 +1399,9 @@ namespace Microsoft.Build.BackEnd
         /// <summary>
         /// Sets the environment block to the set of saved variables.
         /// </summary>
-        private void SetEnvironmentVariableBlock(FrozenDictionary<string, string> savedEnvironment)
+        private void SetEnvironmentVariableBlock(IDictionary<string, string> savedEnvironment)
         {
-            FrozenDictionary<string, string> currentEnvironment = CommunicationsUtilities.GetEnvironmentVariables();
+            IDictionary<string, string> currentEnvironment = CommunicationsUtilities.GetEnvironmentVariables();
             ClearVariablesNotInEnvironment(savedEnvironment, currentEnvironment);
             UpdateEnvironmentVariables(savedEnvironment, currentEnvironment);
         }
@@ -1427,7 +1409,7 @@ namespace Microsoft.Build.BackEnd
         /// <summary>
         /// Clears from the current environment any variables which do not exist in the saved environment
         /// </summary>
-        private void ClearVariablesNotInEnvironment(FrozenDictionary<string, string> savedEnvironment, FrozenDictionary<string, string> currentEnvironment)
+        private void ClearVariablesNotInEnvironment(IDictionary<string, string> savedEnvironment, IDictionary<string, string> currentEnvironment)
         {
             foreach (KeyValuePair<string, string> entry in currentEnvironment)
             {
@@ -1441,7 +1423,7 @@ namespace Microsoft.Build.BackEnd
         /// <summary>
         /// Updates the current environment with values in the saved environment which differ or are not yet set.
         /// </summary>
-        private void UpdateEnvironmentVariables(FrozenDictionary<string, string> savedEnvironment, FrozenDictionary<string, string> currentEnvironment)
+        private void UpdateEnvironmentVariables(IDictionary<string, string> savedEnvironment, IDictionary<string, string> currentEnvironment)
         {
             foreach (KeyValuePair<string, string> entry in savedEnvironment)
             {

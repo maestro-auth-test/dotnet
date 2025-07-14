@@ -2,13 +2,12 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 #if NET
 using System.Linq;
-#else
-using System.Collections.Generic;
-using Microsoft.Build.Shared;
 #endif
+using Microsoft.Build.Shared;
 
 #nullable disable
 
@@ -33,7 +32,6 @@ namespace Microsoft.Build.Tasks
         // installed cultures, even if the registry keys are set. Therefore, add them to the list manually.
         private static readonly string[] pseudoLocales = ["qps-ploc", "qps-ploca", "qps-plocm", "qps-Latn-x-sh"];
 
-#if !NET
         private static HashSet<string> InitializeValidCultureNames()
         {
 #if !FEATURE_CULTUREINFO_GETCULTURES
@@ -56,7 +54,6 @@ namespace Microsoft.Build.Tasks
 
             return validCultureNames;
         }
-#endif
 
         /// <summary>
         /// Determine if a culture string represents a valid <see cref="CultureInfo"/> instance.
@@ -82,7 +79,7 @@ namespace Microsoft.Build.Tasks
 #endif
         }
 
-#if !NET && !FEATURE_CULTUREINFO_GETCULTURES
+#if !FEATURE_CULTUREINFO_GETCULTURES
         // Copied from https://github.com/aspnet/Localization/blob/5e1fb16071affd15f15b9c732833f3ae2ac46e10/src/Microsoft.Framework.Globalization.CultureInfoCache/CultureInfoList.cs
         // Regenerated using the tool (removed by https://github.com/aspnet/Localization/pull/130)
         //   * Removed the empty string from the list

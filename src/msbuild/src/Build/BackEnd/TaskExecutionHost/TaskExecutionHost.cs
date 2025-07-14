@@ -24,7 +24,6 @@ using Microsoft.Build.Shared;
 
 using TaskItem = Microsoft.Build.Execution.ProjectItemInstance.TaskItem;
 using Task = System.Threading.Tasks.Task;
-using Microsoft.Build.Collections;
 
 #nullable disable
 
@@ -337,11 +336,11 @@ namespace Microsoft.Build.BackEnd
                 return false;
             }
 
-            string realTaskAssemblyLocation = TaskInstance.GetType().Assembly.Location;
-            if (!string.IsNullOrWhiteSpace(realTaskAssemblyLocation) &&
-                realTaskAssemblyLocation != _taskFactoryWrapper.TaskFactoryLoadedType.Path)
+            string realTaskAssemblyLoaction = TaskInstance.GetType().Assembly.Location;
+            if (!string.IsNullOrWhiteSpace(realTaskAssemblyLoaction) &&
+                realTaskAssemblyLoaction != _taskFactoryWrapper.TaskFactoryLoadedType.Path)
             {
-                _taskLoggingContext.LogComment(MessageImportance.Normal, "TaskAssemblyLocationMismatch", realTaskAssemblyLocation, _taskFactoryWrapper.TaskFactoryLoadedType.Path);
+                _taskLoggingContext.LogComment(MessageImportance.Normal, "TaskAssemblyLocationMismatch", realTaskAssemblyLoaction, _taskFactoryWrapper.TaskFactoryLoadedType.Path);
             }
 
             TaskInstance.BuildEngine = _buildEngine;
@@ -1226,9 +1225,8 @@ namespace Microsoft.Build.BackEnd
 
             parameter.Initialized = true;
 
-            // PERF: Be careful to avoid unnecessary string allocations. Appending '_taskName + "_" + parameter.Name' happens in both paths,
-            // but we don't want to allocate the string if we don't need to.
-            string key = "DisableLogTaskParameter_" + _taskName + "_" + parameter.Name;
+            string taskAndParameterName = _taskName + "_" + parameter.Name;
+            string key = "DisableLogTaskParameter_" + taskAndParameterName;
 
             if (string.Equals(lookup.GetProperty(key)?.EvaluatedValue, "true", StringComparison.OrdinalIgnoreCase))
             {
@@ -1236,7 +1234,7 @@ namespace Microsoft.Build.BackEnd
             }
             else
             {
-                string metadataKey = "DisableLogTaskParameterItemMetadata_" + _taskName + "_" + parameter.Name;
+                string metadataKey = "DisableLogTaskParameterItemMetadata_" + taskAndParameterName;
                 if (string.Equals(lookup.GetProperty(metadataKey)?.EvaluatedValue, "true", StringComparison.OrdinalIgnoreCase))
                 {
                     parameter.LogItemMetadata = false;
@@ -1425,26 +1423,9 @@ namespace Microsoft.Build.BackEnd
 
                                     static IEnumerable<KeyValuePair<string, string>> EnumerateMetadata(IDictionary customMetadata)
                                     {
-                                        if (customMetadata is CopyOnWriteDictionary<string> copyOnWriteDictionary)
+                                        foreach (DictionaryEntry de in customMetadata)
                                         {
-                                            foreach (KeyValuePair<string, string> kvp in copyOnWriteDictionary)
-                                            {
-                                                yield return new KeyValuePair<string, string>(kvp.Key, EscapingUtilities.Escape(kvp.Value));
-                                            }
-                                        }
-                                        else if (customMetadata is Dictionary<string, string> dictionary)
-                                        {
-                                            foreach (KeyValuePair<string, string> kvp in dictionary)
-                                            {
-                                                yield return new KeyValuePair<string, string>(kvp.Key, EscapingUtilities.Escape(kvp.Value));
-                                            }
-                                        }
-                                        else
-                                        {
-                                            foreach (DictionaryEntry de in customMetadata)
-                                            {
-                                                yield return new KeyValuePair<string, string>((string)de.Key, EscapingUtilities.Escape((string)de.Value));
-                                            }
+                                            yield return new KeyValuePair<string, string>((string)de.Key, EscapingUtilities.Escape((string)de.Value));
                                         }
                                     }
                                 }

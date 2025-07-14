@@ -13,7 +13,7 @@ using SdkResultBase = Microsoft.Build.Framework.SdkResult;
 namespace Microsoft.Build.BackEnd.SdkResolution
 {
     /// <summary>
-    /// An internal implementation of <see cref="Framework.SdkResult"/>.
+    /// An internal implementation of <see cref="Microsoft.Build.Framework.SdkResult"/>.
     /// </summary>
     internal sealed class SdkResult : SdkResultBase, INodePacket
     {
@@ -31,7 +31,7 @@ namespace Microsoft.Build.BackEnd.SdkResolution
         }
 
         public SdkResult(SdkReference sdkReference, string path, string version, IEnumerable<string> warnings,
-            IDictionary<string, string> propertiesToAdd = null, IDictionary<string, SdkResultItem> itemsToAdd = null, IDictionary<string, string> environmentVariablesToAdd = null)
+            IDictionary<string, string> propertiesToAdd = null, IDictionary<string, SdkResultItem> itemsToAdd = null)
         {
             Success = true;
             SdkReference = sdkReference;
@@ -40,7 +40,6 @@ namespace Microsoft.Build.BackEnd.SdkResolution
             Warnings = warnings;
             PropertiesToAdd = propertiesToAdd;
             ItemsToAdd = itemsToAdd;
-            EnvironmentVariablesToAdd = environmentVariablesToAdd;
         }
 
         public SdkResult()
@@ -48,7 +47,7 @@ namespace Microsoft.Build.BackEnd.SdkResolution
         }
 
         public SdkResult(SdkReference sdkReference, IEnumerable<string> paths, string version, IDictionary<string, string> propertiesToAdd,
-                         IDictionary<string, SdkResultItem> itemsToAdd, IEnumerable<string> warnings, IDictionary<string, string> environmentVariablesToAdd = null)
+                         IDictionary<string, SdkResultItem> itemsToAdd, IEnumerable<string> warnings)
         {
             Success = true;
             SdkReference = sdkReference;
@@ -70,7 +69,6 @@ namespace Microsoft.Build.BackEnd.SdkResolution
             // Note: these dictionaries should use StringComparison.OrdinalIgnoreCase
             PropertiesToAdd = propertiesToAdd;
             ItemsToAdd = itemsToAdd;
-            EnvironmentVariablesToAdd = environmentVariablesToAdd;
 
             Warnings = warnings;
         }

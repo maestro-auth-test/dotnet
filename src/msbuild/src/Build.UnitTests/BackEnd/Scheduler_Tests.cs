@@ -18,13 +18,13 @@ using TaskItem = Microsoft.Build.Execution.ProjectItemInstance.TaskItem;
 
 namespace Microsoft.Build.UnitTests.BackEnd
 {
-    using System.Linq;
-    using FluentAssertions;
     using Microsoft.Build.Unittest;
 
     /// <summary>
     /// Tests of the scheduler.
     /// </summary>
+    // Ignore: Causing issues with other tests
+    // NOTE: marked as "internal" to disable the entire test class, as was done for MSTest.
     public class Scheduler_Tests : IDisposable
     {
         /// <summary>
@@ -58,11 +58,6 @@ namespace Microsoft.Build.UnitTests.BackEnd
         private BuildParameters _parameters;
 
         /// <summary>
-        /// Configuration ID.
-        /// </summary>
-        private const int DefaultConfigId = 99;
-
-        /// <summary>
         /// Set up
         /// </summary>
         public Scheduler_Tests()
@@ -75,8 +70,8 @@ namespace Microsoft.Build.UnitTests.BackEnd
             _host = new MockHost();
             _scheduler = new Scheduler();
             _scheduler.InitializeComponent(_host);
-            CreateConfiguration(DefaultConfigId, "parent.proj");
-            _defaultParentRequest = CreateBuildRequest(99, DefaultConfigId, Array.Empty<string>(), null);
+            CreateConfiguration(99, "parent.proj");
+            _defaultParentRequest = CreateBuildRequest(99, 99, Array.Empty<string>(), null);
 
             // Set up the scheduler with one node to start with.
             _scheduler.ReportNodesCreated(new NodeInfo[] { new NodeInfo(1, NodeProviderType.InProc) });
@@ -106,7 +101,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that when a single request is submitted, we get a request assigned back out.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestSimpleRequest()
         {
             CreateConfiguration(1, "foo.proj");
@@ -122,7 +117,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that when we submit a request and we already have results, we get the results back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestSimpleRequestWithCachedResultsSuccess()
         {
             CreateConfiguration(1, "foo.proj");
@@ -146,7 +141,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that when we submit a request with failing results, we get the results back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestSimpleRequestWithCachedResultsFail()
         {
             CreateConfiguration(1, "foo.proj");
@@ -170,7 +165,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that when we submit a child request with results cached, we get those results back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestChildRequest()
         {
             CreateConfiguration(1, "foo.proj");
@@ -200,7 +195,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that when multiple requests are submitted, the first one in is the first one out.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestMultipleRequests()
         {
             CreateConfiguration(1, "foo.proj");
@@ -218,7 +213,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that when multiple requests are submitted with results cached, we get the results back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestMultipleRequestsWithSomeResults()
         {
             CreateConfiguration(1, "foo.proj");
@@ -240,7 +235,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that when multiple requests are submitted with results cached, we get the results back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestMultipleRequestsWithAllResults()
         {
             CreateConfiguration(1, "foo.proj");
@@ -271,7 +266,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// Verify that if the affinity of one of the requests is out-of-proc, we create an out-of-proc node (but only one)
         /// even if the max node count = 1.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestOutOfProcNodeCreatedWhenAffinityIsOutOfProc()
         {
             CreateConfiguration(1, "foo.proj");
@@ -293,7 +288,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// Verify that if the affinity of our requests is out-of-proc, that many out-of-proc nodes will
         /// be made (assuming it does not exceed MaxNodeCount)
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestOutOfProcNodesCreatedWhenAffinityIsOutOfProc()
         {
             _host.BuildParameters.MaxNodeCount = 4;
@@ -318,7 +313,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// we still won't create any new nodes if they're all for the same configuration --
         /// they'd end up all being assigned to the same node.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestNoNewNodesCreatedForMultipleRequestsWithSameConfiguration()
         {
             _host.BuildParameters.MaxNodeCount = 3;
@@ -341,7 +336,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// Verify that if the affinity of our requests is "any", we will not create more than
         /// MaxNodeCount nodes (1 IP node + MaxNodeCount - 1 OOP nodes)
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestMaxNodeCountNotExceededWithRequestsOfAffinityAny()
         {
             _host.BuildParameters.MaxNodeCount = 3;
@@ -371,7 +366,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// node will service an Any request instead of an inproc request, leaving only one non-inproc request for the second round
         /// of node creation.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void VerifyRequestOrderingDoesNotAffectNodeCreationCountWithInProcAndAnyRequests()
         {
             // Since we're creating our own BuildManager, we need to make sure that the default
@@ -391,8 +386,8 @@ namespace Microsoft.Build.UnitTests.BackEnd
             _parameters.ShutdownInProcNodeOnBuildFinish = true;
             _buildManager = new BuildManager();
 
-            CreateConfiguration(DefaultConfigId, "parent.proj");
-            _defaultParentRequest = CreateBuildRequest(99, DefaultConfigId, Array.Empty<string>(), null);
+            CreateConfiguration(99, "parent.proj");
+            _defaultParentRequest = CreateBuildRequest(99, 99, Array.Empty<string>(), null);
 
             CreateConfiguration(1, "foo.proj");
             BuildRequest request1 = CreateBuildRequest(1, 1, new string[] { "foo" }, NodeAffinity.Any, _defaultParentRequest);
@@ -419,7 +414,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// Verify that if the affinity of our requests is out-of-proc, we will create as many as
         /// MaxNodeCount out-of-proc nodes
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestMaxNodeCountOOPNodesCreatedForOOPAffinitizedRequests()
         {
             _host.BuildParameters.MaxNodeCount = 3;
@@ -449,7 +444,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// is less than MaxNodeCount, that we only create MaxNodeCount - 1 OOP nodes (for a total of MaxNodeCount
         /// nodes, when the inproc node is included)
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestMaxNodeCountNodesNotExceededWithSomeOOPRequests1()
         {
             _host.BuildParameters.MaxNodeCount = 3;
@@ -479,7 +474,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// is less than MaxNodeCount, that we only create MaxNodeCount - 1 OOP nodes (for a total of MaxNodeCount
         /// nodes, when the inproc node is included)
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestMaxNodeCountNodesNotExceededWithSomeOOPRequests2()
         {
             _host.BuildParameters.MaxNodeCount = 3;
@@ -516,7 +511,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// Make sure that traversal projects are marked with an affinity of "InProc", which means that
         /// even if multiple are available, we should still only have the single inproc node.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestTraversalAffinityIsInProc()
         {
             _host.BuildParameters.MaxNodeCount = 3;
@@ -565,7 +560,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// With something approximating the BuildManager's build loop, make sure that we don't end up
         /// trying to create more nodes than we can actually support.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void VerifyNoOverCreationOfNodesWithBuildLoop()
         {
             // Since we're creating our own BuildManager, we need to make sure that the default
@@ -583,8 +578,8 @@ namespace Microsoft.Build.UnitTests.BackEnd
             _parameters.ShutdownInProcNodeOnBuildFinish = true;
             _buildManager = new BuildManager();
 
-            CreateConfiguration(DefaultConfigId, "parent.proj");
-            _defaultParentRequest = CreateBuildRequest(99, DefaultConfigId, Array.Empty<string>(), null);
+            CreateConfiguration(99, "parent.proj");
+            _defaultParentRequest = CreateBuildRequest(99, 99, Array.Empty<string>(), null);
 
             CreateConfiguration(1, "foo.proj");
             BuildRequest request1 = CreateBuildRequest(1, 1, new string[] { "foo" }, NodeAffinity.OutOfProc, _defaultParentRequest);
@@ -620,7 +615,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that if we get two requests but one of them is a failure, we only get the failure result back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestTwoRequestsWithFirstFailure()
         {
             CreateConfiguration(1, "foo.proj");
@@ -639,7 +634,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that if we get two requests but one of them is a failure, we only get the failure result back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestTwoRequestsWithSecondFailure()
         {
             CreateConfiguration(1, "foo.proj");
@@ -658,7 +653,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that if we get three requests but one of them is a failure, we only get the failure result back.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestThreeRequestsWithOneFailure()
         {
             CreateConfiguration(1, "foo.proj");
@@ -678,7 +673,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Verify that providing a result to the only outstanding request results in build complete.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestResult()
         {
             CreateConfiguration(1, "foo.proj");
@@ -702,7 +697,7 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Tests that the detailed summary setting causes the summary to be produced.
         /// </summary>
-        [Fact]
+        [Fact(Skip = "https://github.com/dotnet/msbuild/issues/515")]
         public void TestDetailedSummary()
         {
             string contents = ObjectModelHelpers.CleanupFileContents(@"
@@ -773,13 +768,12 @@ namespace Microsoft.Build.UnitTests.BackEnd
         }
 
         /// <summary>
-        /// Creates a build result for a request.
+        /// Creates a build result for a request
         /// </summary>
         private BuildResult CreateBuildResult(BuildRequest request, string target, WorkUnitResult workUnitResult)
         {
             BuildResult result = new BuildResult(request);
             result.AddResultsForTarget(target, new TargetResult(Array.Empty<TaskItem>(), workUnitResult));
-
             return result;
         }
 
@@ -794,30 +788,23 @@ namespace Microsoft.Build.UnitTests.BackEnd
         /// <summary>
         /// Creates a build request.
         /// </summary>
-        private BuildRequest CreateBuildRequest(int nodeRequestId, int configId, string[] targets, BuildRequestDataFlags buildRequestDataFlags = BuildRequestDataFlags.None)
+        private BuildRequest CreateBuildRequest(int nodeRequestId, int configId, string[] targets)
         {
-            return CreateBuildRequest(nodeRequestId, configId, targets, _defaultParentRequest, buildRequestDataFlags);
+            return CreateBuildRequest(nodeRequestId, configId, targets, _defaultParentRequest);
         }
 
         /// <summary>
         /// Creates a build request.
         /// </summary>
-        private BuildRequest CreateBuildRequest(int nodeRequestId, int configId, string[] targets, BuildRequest parentRequest, BuildRequestDataFlags buildRequestDataFlags = BuildRequestDataFlags.None)
+        private BuildRequest CreateBuildRequest(int nodeRequestId, int configId, string[] targets, BuildRequest parentRequest)
         {
-            return CreateBuildRequest(nodeRequestId, configId, targets, NodeAffinity.Any, parentRequest, buildRequestDataFlags: buildRequestDataFlags);
+            return CreateBuildRequest(nodeRequestId, configId, targets, NodeAffinity.Any, parentRequest);
         }
 
         /// <summary>
         /// Creates a build request.
         /// </summary>
-        private BuildRequest CreateBuildRequest(
-            int nodeRequestId,
-            int configId,
-            string[] targets,
-            NodeAffinity nodeAffinity,
-            BuildRequest parentRequest,
-            ProxyTargets proxyTargets = null,
-            BuildRequestDataFlags buildRequestDataFlags = BuildRequestDataFlags.None)
+        private BuildRequest CreateBuildRequest(int nodeRequestId, int configId, string[] targets, NodeAffinity nodeAffinity, BuildRequest parentRequest, ProxyTargets proxyTargets = null)
         {
             (targets == null ^ proxyTargets == null).ShouldBeTrue();
 
@@ -838,19 +825,16 @@ namespace Microsoft.Build.UnitTests.BackEnd
                     targets,
                     hostServices,
                     BuildEventContext.Invalid,
-                    parentRequest,
-                    buildRequestDataFlags: buildRequestDataFlags);
+                    parentRequest);
             }
 
             parentRequest.ShouldBeNull();
-
             return new BuildRequest(
                 submissionId: 1,
                 nodeRequestId,
                 configId,
                 proxyTargets,
-                hostServices,
-                buildRequestDataFlags: buildRequestDataFlags);
+                hostServices);
         }
 
         private BuildRequest CreateProxyBuildRequest(int nodeRequestId, int configId, ProxyTargets proxyTargets, BuildRequest parentRequest)
@@ -862,69 +846,6 @@ namespace Microsoft.Build.UnitTests.BackEnd
                 NodeAffinity.Any,
                 parentRequest,
                 proxyTargets);
-        }
-
-        /// <summary>
-        /// The test checks how scheduler handles the duplicated requests and cache MISS for this case.
-        /// It's expected to have the duplicated request rescheduled for the execution.
-        /// </summary>
-        [Fact]
-        public void ReportResultTest_NoCacheHitForDupes()
-        {
-            // Create a duplicate of the existing _defaultParentRequest, but with a different build request flag, so we can't get the result from the cache.
-            BuildRequest duplicateRequest = CreateBuildRequest(2, configId: DefaultConfigId, Array.Empty<string>(), parentRequest: null, BuildRequestDataFlags.ProvideSubsetOfStateAfterBuild);
-
-            // Schedule the duplicate request -> it goes to unscheduled request due to duplicated configId
-            _scheduler.ReportRequestBlocked(2, new BuildRequestBlocker(-1, Array.Empty<string>(), [duplicateRequest]));
-
-            // try to get a result for the parent request and see if we get a result for the duplicate request
-            var results = _scheduler.ReportResult(1, CreateBuildResult(_defaultParentRequest, "", BuildResultUtilities.GetSuccessResult()))
-                .ToList();
-
-            results.ShouldNotBeNull();
-            results.Count.ShouldBe(2);
-
-            // Completed _defaultParentRequest
-            results[0].BuildResult.ShouldNotBeNull();
-            results[0].BuildResult.BuildRequestDataFlags.ShouldBe(BuildRequestDataFlags.None);
-            results[0].Action.ShouldBe(ScheduleActionType.SubmissionComplete);
-
-            // The automatically scheduled duplicated request.
-            results[1].BuildResult.ShouldBeNull();
-            results[1].NodeId.Should().Be(1);
-            results[1].Action.ShouldBe(ScheduleActionType.Schedule);
-            results[1].BuildRequest.BuildRequestDataFlags.ShouldBe(BuildRequestDataFlags.ProvideSubsetOfStateAfterBuild);
-        }
-
-        /// <summary>
-        /// The test checks how scheduler handles the duplicated requests and cache HIT for this case.
-        /// It's expected to have an immediate result for the duplicated request.
-        /// </summary>
-        [Fact]
-        public void ReportResultTest_CacheHitForDupes()
-        {
-            // Create a duplicate of the existing _defaultParentRequest.
-            BuildRequest duplicateRequest = CreateBuildRequest(2, configId: DefaultConfigId, Array.Empty<string>(), parentRequest: null, BuildRequestDataFlags.None);
-
-            // Schedule the duplicate request -> it goes to unscheduled request due to duplicated configId
-            _scheduler.ReportRequestBlocked(1, new BuildRequestBlocker(-1, Array.Empty<string>(), [duplicateRequest]));
-
-            // try to get a result for the parent request and see if we get a result for the duplicate request.
-            var results = _scheduler.ReportResult(1, CreateBuildResult(duplicateRequest, "", BuildResultUtilities.GetSuccessResult()))
-                .ToList();
-
-            results.ShouldNotBeNull();
-            results.Count.ShouldBe(2);
-
-            // Completed _defaultParentRequest
-            results[0].BuildResult.ShouldNotBeNull();
-            results[0].BuildResult.BuildRequestDataFlags.ShouldBe(BuildRequestDataFlags.None);
-            results[0].Action.ShouldBe(ScheduleActionType.SubmissionComplete);
-
-            // We hit cache and completed the duplicate request.
-            results[1].BuildResult.ShouldNotBeNull();
-            results[1].BuildResult.BuildRequestDataFlags.ShouldBe(BuildRequestDataFlags.None);
-            results[1].Action.ShouldBe(ScheduleActionType.SubmissionComplete);
         }
 
         /// <summary>
