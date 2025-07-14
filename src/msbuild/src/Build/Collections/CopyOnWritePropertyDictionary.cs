@@ -135,21 +135,14 @@ namespace Microsoft.Build.Collections
 
         /// <summary>
         /// Gets an enumerator over all the properties in the collection
-        /// Enumeration is in undefined order. This overload exposes the struct enumerator
-        /// directly to avoid an allocation due to boxing.
-        /// </summary>
-        public ImmutableDictionary<string, T>.Enumerator GetEnumerator() => _backing.GetEnumerator();
-
-        /// <summary>
-        /// Gets an enumerator over all the properties in the collection
         /// Enumeration is in undefined order
         /// </summary>
-        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator(this);
+        public IEnumerator<T> GetEnumerator() => _backing.Values.GetEnumerator();
 
         /// <summary>
         /// Get an enumerator over entries
         /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() => new Enumerator(this);
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #region IEquatable<CopyOnWritePropertyDictionary<T>> Members
 
@@ -354,28 +347,14 @@ namespace Microsoft.Build.Collections
         /// <param name="other">An enumerator over the properties to add.</param>
         public void ImportProperties(IEnumerable<T> other)
         {
-            ImmutableDictionary<string, T>.Builder builder = null;
+            _backing = _backing.SetItems(Items());
 
-            if (other is CopyOnWritePropertyDictionary<T> copyOnWriteDictionary)
-            {
-                foreach (KeyValuePair<string, T> kvp in copyOnWriteDictionary)
-                {
-                    builder ??= _backing.ToBuilder();
-                    builder[kvp.Value.Key] = kvp.Value;
-                }
-            }
-            else
+            IEnumerable<KeyValuePair<string, T>> Items()
             {
                 foreach (T property in other)
                 {
-                    builder ??= _backing.ToBuilder();
-                    builder[property.Key] = property;
+                    yield return new(property.Key, property);
                 }
-            }
-
-            if (builder is not null)
-            {
-                _backing = builder.ToImmutable();
             }
         }
 
@@ -386,39 +365,6 @@ namespace Microsoft.Build.Collections
         public ICopyOnWritePropertyDictionary<T> DeepClone()
         {
             return new CopyOnWritePropertyDictionary<T>(this);
-        }
-
-        /// <summary>
-        /// Struct based enumerator to expose the values of the backing collection.
-        /// This avoids the allocation when accessing the Values property directly.
-        /// </summary>
-        public struct Enumerator : IEnumerator<T>
-        {
-            private ImmutableDictionary<string, T>.Enumerator _dictionaryEnumerator;
-            public Enumerator(CopyOnWritePropertyDictionary<T> dictionary)
-            {
-                _dictionaryEnumerator = dictionary._backing.GetEnumerator();
-            }
-
-            public T Current { get; private set; }
-
-            readonly object IEnumerator.Current => Current;
-
-            public void Dispose() => _dictionaryEnumerator.Dispose();
-
-            public bool MoveNext()
-            {
-                if (_dictionaryEnumerator.MoveNext())
-                {
-                    Current = _dictionaryEnumerator.Current.Value;
-
-                    return true;
-                }
-
-                return false;
-            }
-
-            public void Reset() => _dictionaryEnumerator.Reset();
         }
     }
 }

@@ -989,8 +989,8 @@ namespace Microsoft.Build.Shared
 
             // TODO: consider some kind of protection against infinite loop during serialization, hint: pre serialize check for cycle in graph
             translator.TranslateHashSet(ref remappedFrom,
-                (t) => new AssemblyNameExtension(t),
-                (capacity) => CreateRemappedFrom());
+                (ITranslator t) => new AssemblyNameExtension(t),
+                (int capacity) => CreateRemappedFrom());
         }
     }
 }

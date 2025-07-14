@@ -61,10 +61,10 @@
       "commitSha": "7346d84a24dd15155d74f8179788a423cbdd962a"
     },
     {
-      "barId": 273878,
+      "barId": 335,
       "path": "msbuild",
-      "remoteUri": "https://github.com/dotnet/msbuild",
-      "commitSha": "e4dc6152ef4332d8736cadc189044aa3446956f4"
+      "remoteUri": "https://github.com/maestro-auth-test/msbuild",
+      "commitSha": "314b669887a7d8ca9857b7287ffb796d669ba508"
     },
     {
       "barId": 271771,

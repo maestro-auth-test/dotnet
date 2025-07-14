@@ -693,7 +693,7 @@ namespace Microsoft.Build.UnitTests.Evaluation
             }
             finally
             {
-                FileMatcher.ClearCaches();
+                FileMatcher.ClearFileEnumerationsCache();
             }
         }
 

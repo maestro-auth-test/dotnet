@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Internal;
 using Microsoft.Build.Shared;
 using Xunit.Abstractions;
 
@@ -20,16 +19,6 @@ namespace Microsoft.Build.UnitTests.Shared
 
         public static ArtifactsLocationAttribute ArtifactsLocationAttribute = Assembly.GetExecutingAssembly().GetCustomAttribute<ArtifactsLocationAttribute>()
                                                    ?? throw new InvalidOperationException("This test assembly does not have the ArtifactsLocationAttribute");
-
-        internal  static BootstrapLocationAttribute BootstrapLocationAttribute = Assembly.GetExecutingAssembly().GetCustomAttribute<BootstrapLocationAttribute>()
-                                                   ?? throw new InvalidOperationException("This test assembly does not have the BootstrapLocationAttribute");
-
-        public static string BootstrapMsBuildBinaryLocation => BootstrapLocationAttribute.BootstrapMsBuildBinaryLocation;
-
-        public static string BootstrapSdkVersion => BootstrapLocationAttribute.BootstrapSdkVersion;
-
-        public static string BootstrapRootPath => BootstrapLocationAttribute.BootstrapRoot;
-
 #if !FEATURE_RUN_EXE_IN_TESTS
         private static readonly string s_dotnetExePath = EnvironmentProvider.GetDotnetExePath();
 
@@ -73,11 +62,15 @@ namespace Microsoft.Build.UnitTests.Shared
             bool attachProcessId = true,
             int timeoutMilliseconds = 30_000)
         {
+            BootstrapLocationAttribute attribute = Assembly.GetExecutingAssembly().GetCustomAttribute<BootstrapLocationAttribute>()
+                                                   ?? throw new InvalidOperationException("This test assembly does not have the BootstrapLocationAttribute");
+
+            string binaryFolder = attribute.BootstrapMsBuildBinaryLocation;
 #if NET
-            string pathToExecutable = EnvironmentProvider.GetDotnetExePathFromFolder(BootstrapMsBuildBinaryLocation);
-            msbuildParameters = Path.Combine(BootstrapMsBuildBinaryLocation, "sdk", BootstrapLocationAttribute.BootstrapSdkVersion, Constants.MSBuildAssemblyName) + " " + msbuildParameters;
+            string pathToExecutable = EnvironmentProvider.GetDotnetExePathFromFolder(binaryFolder);
+            msbuildParameters = Path.Combine(binaryFolder, "sdk", attribute.BootstrapSdkVersion, "MSBuild.dll") + " " + msbuildParameters;
 #else
-            string pathToExecutable = Path.Combine(BootstrapMsBuildBinaryLocation, Constants.MSBuildExecutableName);
+            string pathToExecutable = Path.Combine(binaryFolder, "MSBuild.exe");
 #endif
             return RunProcessAndGetOutput(pathToExecutable, msbuildParameters, out successfulExit, shellExecute, outputHelper, attachProcessId, timeoutMilliseconds);
         }

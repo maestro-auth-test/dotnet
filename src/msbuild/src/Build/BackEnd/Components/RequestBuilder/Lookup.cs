@@ -58,7 +58,7 @@ namespace Microsoft.Build.BackEnd
         #region Fields
 
         /// <summary>
-        /// Ordered stack of scopes used for lookup, where each scope references its parent.
+        /// Ordered list of scope used for lookup.
         /// Each scope contains multiple tables:
         ///  - the main item table (populated with subsets of lists, in order to create batches)
         ///  - the add table (items that have been added during execution)
@@ -70,7 +70,7 @@ namespace Microsoft.Build.BackEnd
         /// We have to keep them separate, because the adds and removes etc need to be applied to the table
         /// below when we leave a scope.
         /// </summary>
-        private Lookup.Scope _lookupScopes;
+        private LinkedList<Lookup.Scope> _lookupScopes = new LinkedList<Lookup.Scope>();
 
         /// <summary>
         /// When we are asked for all the items of a certain type using the GetItems() method, we may have to handle items
@@ -93,7 +93,8 @@ namespace Microsoft.Build.BackEnd
             ErrorUtilities.VerifyThrowInternalNull(projectItems);
             ErrorUtilities.VerifyThrowInternalNull(properties);
 
-            _lookupScopes = new Lookup.Scope(this, "Lookup()", projectItems, properties);
+            Lookup.Scope scope = new Lookup.Scope(this, "Lookup()", projectItems, properties);
+            _lookupScopes.AddFirst(scope);
         }
 
         /// <summary>
@@ -101,8 +102,11 @@ namespace Microsoft.Build.BackEnd
         /// </summary>
         private Lookup(Lookup that)
         {
-            // Add the same tables from the original.
-            _lookupScopes = that._lookupScopes;
+            // Add the same tables from the original
+            foreach (Lookup.Scope scope in that._lookupScopes)
+            {
+                _lookupScopes.AddLast(scope);
+            }
 
             // Clones need to share an (item)clone table; the batching engine asks for items from the lookup,
             // then populates buckets with them, which have clone lookups.
@@ -118,68 +122,68 @@ namespace Microsoft.Build.BackEnd
         // "Secondary" is the next from the top.
         private IItemDictionary<ProjectItemInstance> PrimaryTable
         {
-            get { return _lookupScopes.Items; }
-            set { _lookupScopes.Items = value; }
+            get { return _lookupScopes.First.Value.Items; }
+            set { _lookupScopes.First.Value.Items = value; }
         }
 
         private ItemDictionary<ProjectItemInstance> PrimaryAddTable
         {
-            get { return _lookupScopes.Adds; }
-            set { _lookupScopes.Adds = value; }
+            get { return _lookupScopes.First.Value.Adds; }
+            set { _lookupScopes.First.Value.Adds = value; }
         }
 
         private ItemDictionary<ProjectItemInstance> PrimaryRemoveTable
         {
-            get { return _lookupScopes.Removes; }
-            set { _lookupScopes.Removes = value; }
+            get { return _lookupScopes.First.Value.Removes; }
+            set { _lookupScopes.First.Value.Removes = value; }
         }
 
         private ItemTypeToItemsMetadataUpdateDictionary PrimaryModifyTable
         {
-            get { return _lookupScopes.Modifies; }
-            set { _lookupScopes.Modifies = value; }
+            get { return _lookupScopes.First.Value.Modifies; }
+            set { _lookupScopes.First.Value.Modifies = value; }
         }
 
         private PropertyDictionary<ProjectPropertyInstance> PrimaryPropertySets
         {
-            get { return _lookupScopes.PropertySets; }
-            set { _lookupScopes.PropertySets = value; }
+            get { return _lookupScopes.First.Value.PropertySets; }
+            set { _lookupScopes.First.Value.PropertySets = value; }
         }
 
         private IItemDictionary<ProjectItemInstance> SecondaryTable
         {
-            get { return _lookupScopes.Parent.Items; }
-            set { _lookupScopes.Parent.Items = value; }
+            get { return _lookupScopes.First.Next.Value.Items; }
+            set { _lookupScopes.First.Next.Value.Items = value; }
         }
 
         private ItemDictionary<ProjectItemInstance> SecondaryAddTable
         {
-            get { return _lookupScopes.Parent.Adds; }
-            set { _lookupScopes.Parent.Adds = value; }
+            get { return _lookupScopes.First.Next.Value.Adds; }
+            set { _lookupScopes.First.Next.Value.Adds = value; }
         }
 
         private ItemDictionary<ProjectItemInstance> SecondaryRemoveTable
         {
-            get { return _lookupScopes.Parent.Removes; }
-            set { _lookupScopes.Parent.Removes = value; }
+            get { return _lookupScopes.First.Next.Value.Removes; }
+            set { _lookupScopes.First.Next.Value.Removes = value; }
         }
 
         private ItemTypeToItemsMetadataUpdateDictionary SecondaryModifyTable
         {
-            get { return _lookupScopes.Parent.Modifies; }
-            set { _lookupScopes.Parent.Modifies = value; }
+            get { return _lookupScopes.First.Next.Value.Modifies; }
+            set { _lookupScopes.First.Next.Value.Modifies = value; }
         }
 
         private PropertyDictionary<ProjectPropertyInstance> SecondaryProperties
         {
-            get { return _lookupScopes.Parent.Properties; }
-            set { _lookupScopes.Parent.Properties = value; }
+            get { return _lookupScopes.First.Next.Value.Properties; }
+            set { _lookupScopes.First.Next.Value.Properties = value; }
         }
 
         private PropertyDictionary<ProjectPropertyInstance> SecondaryPropertySets
         {
-            get { return _lookupScopes.Parent.PropertySets; }
-            set { _lookupScopes.Parent.PropertySets = value; }
+            get { return _lookupScopes.First.Next.Value.PropertySets; }
+            set { _lookupScopes.First.Next.Value.PropertySets = value; }
         }
 
         #endregion
@@ -243,7 +247,7 @@ namespace Microsoft.Build.BackEnd
         {
             // We don't create the tables unless we need them
             Scope scope = new Scope(this, description, null, null);
-            _lookupScopes = scope;
+            _lookupScopes.AddFirst(scope);
             return scope;
         }
 
@@ -256,7 +260,7 @@ namespace Microsoft.Build.BackEnd
         private void LeaveScope(Lookup.Scope scopeToLeave)
         {
             ErrorUtilities.VerifyThrow(_lookupScopes.Count >= 2, "Too many calls to Leave().");
-            ErrorUtilities.VerifyThrow(Object.ReferenceEquals(scopeToLeave, _lookupScopes), "Attempting to leave with scope '{0}' but scope '{1}' is on top of the stack.", scopeToLeave.Description, _lookupScopes.Description);
+            ErrorUtilities.VerifyThrow(Object.ReferenceEquals(scopeToLeave, _lookupScopes.First.Value), "Attempting to leave with scope '{0}' but scope '{1}' is on top of the stack.", scopeToLeave.Description, _lookupScopes.First.Value.Description);
 
             // Our lookup works by stopping the first time it finds an item group of the appropriate type.
             // So we can't apply an add directly into the table below because that could create a new group
@@ -280,7 +284,7 @@ namespace Microsoft.Build.BackEnd
             _cloneTable = null;
 
             // Move all tables up one, discarding the primary tables
-            _lookupScopes = _lookupScopes.Parent;
+            _lookupScopes.RemoveFirst();
         }
 
         /// <summary>
@@ -411,8 +415,7 @@ namespace Microsoft.Build.BackEnd
         {
             // Walk down the tables and stop when the first
             // property with this name is found
-            Scope scope = _lookupScopes;
-            while (scope != null)
+            foreach (Scope scope in _lookupScopes)
             {
                 if (scope.PropertySets != null)
                 {
@@ -436,8 +439,6 @@ namespace Microsoft.Build.BackEnd
                 {
                     break;
                 }
-
-                scope = scope.Parent;
             }
 
             return null;
@@ -471,8 +472,7 @@ namespace Microsoft.Build.BackEnd
             Dictionary<ProjectItemInstance, MetadataModifications> allModifies = null;
             ICollection<ProjectItemInstance> groupFound = null;
 
-            Scope scope = _lookupScopes;
-            while (scope != null)
+            foreach (Scope scope in _lookupScopes)
             {
                 // Accumulate adds while we look downwards
                 if (scope.Adds != null)
@@ -480,15 +480,8 @@ namespace Microsoft.Build.BackEnd
                     ICollection<ProjectItemInstance> adds = scope.Adds[itemType];
                     if (adds.Count != 0)
                     {
-                        if (allAdds == null)
-                        {
-                            // Use the List<T>(IEnumerable<T>) constructor to avoid an intermediate array allocation.
-                            allAdds = new List<ProjectItemInstance>(adds);
-                        }
-                        else
-                        {
-                            allAdds.AddRange(adds);
-                        }
+                        allAdds ??= new List<ProjectItemInstance>(adds.Count);
+                        allAdds.AddRange(adds);
                     }
                 }
 
@@ -498,14 +491,8 @@ namespace Microsoft.Build.BackEnd
                     ICollection<ProjectItemInstance> removes = scope.Removes[itemType];
                     if (removes.Count != 0)
                     {
-                        if (allRemoves == null)
-                        {
-                            allRemoves = new List<ProjectItemInstance>(removes);
-                        }
-                        else
-                        {
-                            allRemoves.AddRange(removes);
-                        }
+                        allRemoves ??= new List<ProjectItemInstance>(removes.Count);
+                        allRemoves.AddRange(removes);
                     }
                 }
 
@@ -544,8 +531,6 @@ namespace Microsoft.Build.BackEnd
                 {
                     break;
                 }
-
-                scope = scope.Parent;
             }
 
             if ((allAdds == null) &&
@@ -767,16 +752,16 @@ namespace Microsoft.Build.BackEnd
             // This item should not already be in any remove table; there is no way a project can
             // modify items that were already removed
             // Obviously, do this only in debug, as it's a slow check for bugs.
-            Scope scope = _lookupScopes;
-            while (scope != null)
+            LinkedListNode<Scope> node = _lookupScopes.First;
+            while (node != null)
             {
+                Scope scope = node.Value;
                 foreach (ProjectItemInstance item in group)
                 {
                     ProjectItemInstance actualItem = RetrieveOriginalFromCloneTable(item);
                     MustNotBeInTable(scope.Removes, actualItem);
                 }
-
-                scope = scope.Parent;
+                node = node.Next;
             }
 #endif
 
@@ -860,31 +845,7 @@ namespace Microsoft.Build.BackEnd
             // or if keepOnlySpecified == true and there is no entry for that name.
             if (modificationsToApply.KeepOnlySpecified)
             {
-
-                // Perf: Avoid boxing when possible by getting the underlying struct enumerator if available.
-                List<string> metadataToRemove = new List<string>(); ;
-                if (itemToModify.Metadata is CopyOnWritePropertyDictionary<ProjectMetadataInstance> copyOnWritePropertyMetadata)
-                {
-                    foreach (var m in copyOnWritePropertyMetadata)
-                    {
-                        string name = m.Value.Name;
-                        if (modificationsToApply[name].Remove)
-                        {
-                            metadataToRemove.Add(name);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (var m in itemToModify.Metadata)
-                    {
-                        if (modificationsToApply[m.Name].Remove)
-                        {
-                            metadataToRemove.Add(m.Name);
-                        }
-                    }
-                }
-
+                List<string> metadataToRemove = new List<string>(itemToModify.Metadata.Where(m => modificationsToApply[m.Name].Remove).Select(m => m.Name));
                 foreach (var metadataName in metadataToRemove)
                 {
                     itemToModify.RemoveMetadata(metadataName);
@@ -1023,13 +984,14 @@ namespace Microsoft.Build.BackEnd
             // This item should not already be in any table; there is no way a project can
             // create items that already existed
             // Obviously, do this only in debug, as it's a slow check for bugs.
-            Scope scope = _lookupScopes;
-            while (scope != null)
+            LinkedListNode<Scope> node = _lookupScopes.First;
+            while (node != null)
             {
+                Scope scope = node.Value;
                 MustNotBeInTable(scope.Adds, item);
                 MustNotBeInTable(scope.Removes, item);
                 MustNotBeInTable(scope.Modifies, item);
-                scope = scope.Parent;
+                node = node.Next;
             }
         }
 
@@ -1412,31 +1374,6 @@ namespace Microsoft.Build.BackEnd
                 _propertySets = null;
                 _threadIdThatEnteredScope = Environment.CurrentManagedThreadId;
                 _truncateLookupsAtThisScope = false;
-                Parent = lookup._lookupScopes;
-            }
-
-            /// <summary>
-            /// The parent scope in the stack, if any.
-            /// </summary>
-            internal Scope Parent { get; }
-
-            /// <summary>
-            /// The total number of scopes in the chain.
-            /// </summary>
-            internal int Count
-            {
-                get
-                {
-                    int count = 1;
-                    Scope scope = Parent;
-                    while (scope != null)
-                    {
-                        count++;
-                        scope = scope.Parent;
-                    }
-
-                    return count;
-                }
             }
 
             /// <summary>

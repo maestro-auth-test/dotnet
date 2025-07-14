@@ -259,9 +259,8 @@ namespace Microsoft.Build.Engine.UnitTests
         }
 
         [WindowsFullFrameworkOnlyTheory(additionalMessage: "No Visual Studio installed for .NET.")]
-        [InlineData("18.0", true)]
-        [InlineData("17.0", false)]
-        [InlineData("17.3", false)]
+        [InlineData("17.0", true)]
+        [InlineData("17.3", true)]
         [InlineData("16.0", false)]
         public void BuildEnvironmentDetectsVisualStudioFromSetupInstance(string visualStudioVersion, bool shouldBeValid)
         {

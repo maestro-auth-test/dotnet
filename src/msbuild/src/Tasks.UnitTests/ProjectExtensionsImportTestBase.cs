@@ -22,13 +22,12 @@ namespace Microsoft.Build.UnitTests
             ObjectModelHelpers.DeleteTempProjectDirectory();
         }
 
-        protected virtual string BasicProjectImportContents => $"""
+        protected virtual string BasicProjectImportContents => $@"
             <Project>
                 <PropertyGroup>
                 <{PropertyNameToSignalImportSucceeded}>true</{PropertyNameToSignalImportSucceeded}>
                 </PropertyGroup>
-            </Project>
-            """;
+            </Project>";
 
         protected abstract string CustomImportProjectPath { get; }
         protected abstract string ImportProjectPath { get; }
@@ -54,13 +53,13 @@ namespace Microsoft.Build.UnitTests
             // src\Foo\Foo.csproj
             // ---------------------
 
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, """
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, @"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <Import Project=`$(MSBuildBinPath)\Microsoft.Common.props` />
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             string projectExtensionsPath = project.GetPropertyValue("MSBuildProjectExtensionsPath");
 
@@ -75,7 +74,7 @@ namespace Microsoft.Build.UnitTests
         {
             ObjectModelHelpers.CreateFileInTempProjectDirectory(ImportProjectPath, BasicProjectImportContents);
 
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $"""
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $@"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <PropertyGroup>
                         <{MSBuildConstants.MSBuildIsRestoring}>true</{MSBuildConstants.MSBuildIsRestoring}>
@@ -85,7 +84,7 @@ namespace Microsoft.Build.UnitTests
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             string projectExtensionsPath = project.GetPropertyValue("MSBuildProjectExtensionsPath");
 
@@ -100,7 +99,7 @@ namespace Microsoft.Build.UnitTests
         {
             ObjectModelHelpers.CreateFileInTempProjectDirectory(ImportProjectPath, BasicProjectImportContents);
 
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $"""
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $@"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <PropertyGroup>
                         <{PropertyNameToEnableImport}>true</{PropertyNameToEnableImport}>
@@ -111,7 +110,7 @@ namespace Microsoft.Build.UnitTests
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             string projectExtensionsPath = project.GetPropertyValue("MSBuildProjectExtensionsPath");
 
@@ -136,7 +135,7 @@ namespace Microsoft.Build.UnitTests
             // src\Foo\Foo.csproj
             // ---------------------
 
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $"""
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $@"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <PropertyGroup>
                         <{PropertyNameToEnableImport}>false</{PropertyNameToEnableImport}>
@@ -146,7 +145,7 @@ namespace Microsoft.Build.UnitTests
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             string projectExtensionsDirectory = Path.Combine(ObjectModelHelpers.TempProjectDir, Path.GetDirectoryName(ImportProjectPath));
 
@@ -168,7 +167,7 @@ namespace Microsoft.Build.UnitTests
             // src\Foo\Foo.csproj
             // ---------------------
 
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $"""
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, $@"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <PropertyGroup>
                         <MSBuildProjectExtensionsPath>{Path.GetDirectoryName(CustomImportProjectPath)}</MSBuildProjectExtensionsPath>
@@ -177,7 +176,7 @@ namespace Microsoft.Build.UnitTests
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             project.GetPropertyValue(PropertyNameToEnableImport).ShouldBe("true");
             project.GetPropertyValue(PropertyNameToSignalImportSucceeded).ShouldBe("true");
@@ -195,13 +194,13 @@ namespace Microsoft.Build.UnitTests
             // src\Foo\Foo.csproj
             // ---------------------
 
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, """
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, @"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <Import Project=`$(MSBuildBinPath)\Microsoft.Common.props` />
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             project.GetPropertyValue(PropertyNameToEnableImport).ShouldBe("true");
             project.GetPropertyValue(PropertyNameToSignalImportSucceeded).ShouldBe("true");
@@ -213,7 +212,7 @@ namespace Microsoft.Build.UnitTests
         [Fact]
         public void ErrorIfChangedInBodyOfProject()
         {
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, """
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, @"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <Import Project=`$(MSBuildBinPath)\Microsoft.Common.props` />
 
@@ -223,7 +222,7 @@ namespace Microsoft.Build.UnitTests
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             MockLogger logger = new MockLogger();
 
@@ -239,7 +238,7 @@ namespace Microsoft.Build.UnitTests
         [Fact]
         public void WarningIfBaseIntermediateOutputPathIsChangedInBodyOfProject()
         {
-            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, """
+            Project project = ObjectModelHelpers.LoadProjectFileInTempProjectDirectory(ObjectModelHelpers.CreateFileInTempProjectDirectory(_projectRelativePath, @"
                 <Project DefaultTargets=`Build` ToolsVersion=`msbuilddefaulttoolsversion`>
                     <Import Project=`$(MSBuildBinPath)\Microsoft.Common.props` />
 
@@ -250,7 +249,7 @@ namespace Microsoft.Build.UnitTests
 
                     <Import Project=`$(MSBuildBinPath)\Microsoft.CSharp.targets` />
                 </Project>
-            """));
+            "));
 
             MockLogger logger = new MockLogger();
 
