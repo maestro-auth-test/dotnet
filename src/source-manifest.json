@@ -139,10 +139,10 @@
       "commitSha": "41346681fafc7b7ab31239a77aba00d7c3e71be5"
     },
     {
-      "barId": 277209,
+      "barId": 618,
       "path": "winforms",
-      "remoteUri": "https://github.com/dotnet/winforms",
-      "commitSha": "17c060b66dbf2810f1637102a521aa51cdfee7f1"
+      "remoteUri": "https://github.com/maestro-auth-test/winforms",
+      "commitSha": "037540d26a32b73b69a9187851e4f24bb187928e"
     },
     {
       "barId": 276740,
