@@ -135,7 +135,7 @@
     {
       "barId": 276382,
       "path": "windowsdesktop",
-      "remoteUri": "https://github.com/dotnet/windowsdesktop",
+      "remoteUri": "https://github.com/maestro-auth-test/windowsdesktop",
       "commitSha": "41346681fafc7b7ab31239a77aba00d7c3e71be5"
     },
     {
