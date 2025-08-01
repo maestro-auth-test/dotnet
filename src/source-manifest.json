@@ -153,7 +153,7 @@
     {
       "barId": 276515,
       "path": "xdt",
-      "remoteUri": "https://github.com/dotnet/xdt",
+      "remoteUri": "https://github.com/maestro-auth-test/xdt",
       "commitSha": "3ae5c14d94509e8ffed62d10685ca4a4159754df"
     }
   ],
