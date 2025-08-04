@@ -12,6 +12,8 @@
     <DotNetFinalVersionKind Condition="'$(StabilizePackageVersion)' == 'true'">release</DotNetFinalVersionKind>
     <SystemReflectionMetadataLoadContextVersion>10.0.0-preview.7.25377.103</SystemReflectionMetadataLoadContextVersion>
     <SystemTextEncodingsWebVersion>10.0.0-preview.7.25377.103</SystemTextEncodingsWebVersion>
+    <testVersion>
+    </testVersion>
   </PropertyGroup>
   <!-- Below have corresponding entries in Versions.Details.XML because they are updated via Maestro -->
   <PropertyGroup>
