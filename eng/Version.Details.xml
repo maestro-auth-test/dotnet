@@ -1,5 +1,9 @@
 <Dependencies>
   <ProductDependencies>
+    <Dependency Name="test" Version="">
+      <Uri>dkurepa-test</Uri>
+      <Sha />
+    </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
     <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25372.107">

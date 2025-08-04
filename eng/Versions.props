@@ -42,5 +42,7 @@
     <!-- external dependencies -->
     <NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
     <OctokitVersion>10.0.0</OctokitVersion>
+    <testVersion>
+    </testVersion>
   </PropertyGroup>
 </Project>
