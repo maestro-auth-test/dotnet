@@ -68,16 +68,16 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
     </Dependency>
-    <Dependency Name="System.Configuration.ConfigurationManager" Version="10.0.0-preview.7.25377.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
-    </Dependency>
     <Dependency Name="System.Formats.Nrbf" Version="10.0.0-preview.7.25377.103">
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
     </Dependency>
-    <Dependency Name="System.IO.Hashing" Version="10.0.0-preview.7.25377.103">
+    <Dependency Name="System.IO.Hashing" Version="10.0.0-preview.7.25377.104">
       <Uri>https://github.com/dotnet/dotnet</Uri>
+      <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
+    </Dependency>
+    <Dependency Name="test2" Version="10.0.0-preview.7.25377.103">
+      <Uri>https://github.com/dotnet/djuradj</Uri>
       <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
     </Dependency>
   </ProductDependencies>
