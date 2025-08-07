@@ -8,7 +8,7 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
 <Dependencies>
   <Source Uri="https://github.com/dotnet/dotnet" Mapping="winforms" Sha="6a953e76162f3f079405f80e28664fa51b136740" BarId="276981" />
   <ProductDependencies>
-    <Dependency Name="Microsoft.NETCore.Platforms" Version="10.0.0-preview.7.25377.103">
+    <Dependency Name="Microsoft.NETCore.Platforms" Version="10.0.0-preview.7.25377.104">
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
     </Dependency>
@@ -44,10 +44,6 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
     </Dependency>
-    <Dependency Name="System.Text.Encodings.Web" Version="10.0.0-preview.7.25377.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
-    </Dependency>
     <Dependency Name="System.Text.Json" Version="10.0.0-preview.7.25377.103">
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
@@ -79,6 +75,10 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
     <Dependency Name="test2" Version="10.0.0-preview.7.25377.103">
       <Uri>https://github.com/dotnet/djuradj</Uri>
       <Sha>6a953e76162f3f079405f80e28664fa51b136740</Sha>
+    </Dependency>
+    <Dependency Name="test" Version="">
+      <Uri>dkurepa-test</Uri>
+      <Sha />
     </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
