@@ -19,10 +19,10 @@
   </PropertyGroup>
   <!-- Repo Toolset Features -->
   <PropertyGroup>
-    <UsingToolIbcOptimization>true</UsingToolIbcOptimization>
-    <UsingToolVisualStudioIbcTraining>true</UsingToolVisualStudioIbcTraining>
-    <UsingToolSymbolUploader>true</UsingToolSymbolUploader>
-    <UsingToolVSSDK>true</UsingToolVSSDK>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <Change>1</Change>
   </PropertyGroup>
   <!-- Production Dependencies -->
   <!-- Condition consumption of maintenance-packages dependencies based on source build.

@@ -10,5 +10,9 @@
   <PropertyGroup>
     <MicrosoftSourceBuildIntermediatearcadePackageVersion>10.0.0-beta.25178.2</MicrosoftSourceBuildIntermediatearcadePackageVersion>
     <MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>10.0.0-alpha.1.24515.1</MicrosoftSourceBuildIntermediatesourcebuildreferencepackagesPackageVersion>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <Change>1</Change>
   </PropertyGroup>
 </Project>

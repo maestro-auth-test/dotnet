@@ -52,9 +52,10 @@
   </PropertyGroup>
   <PropertyGroup Label="Arcade settings">
     <!-- Opt-in to Arcade tools for building VSIX projects. -->
-    <UsingToolVSSDK>true</UsingToolVSSDK>
-    <!-- Disable XLIFF tasks -->
-    <UsingToolXliff>false</UsingToolXliff>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <Change>1</Change>
   </PropertyGroup>
   <!--
     Versions below this comment are not managed by automation and can be changed as needed.

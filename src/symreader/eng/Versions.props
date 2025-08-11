@@ -7,5 +7,9 @@
     <UsingToolPdbConverter>false</UsingToolPdbConverter>
     <UsingToolNuGetRepack>true</UsingToolNuGetRepack>
     <FlagNetStandard1XDependencies>true</FlagNetStandard1XDependencies>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <Change>1</Change>
   </PropertyGroup>
 </Project>

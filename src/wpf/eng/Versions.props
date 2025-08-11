@@ -18,9 +18,10 @@
             dotnet/winforms is handling versions for the analyzers.
       -->
     <AssemblyVersion>$(MajorVersion).$(MinorVersion).0.0</AssemblyVersion>
-    <MicrosoftDotNetCodeAnalysisVersion>10.0.0-beta.25377.103</MicrosoftDotNetCodeAnalysisVersion>
-    <MicrosoftSourceLinkAzureReposGitVersion>10.0.0-beta.25377.103</MicrosoftSourceLinkAzureReposGitVersion>
-    <MicrosoftSourceLinkGitHubVersion>10.0.0-beta.25377.103</MicrosoftSourceLinkGitHubVersion>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <Change>1</Change>
   </PropertyGroup>
   <!-- Packages that come from https://github.com/dotnet/winforms -->
   <PropertyGroup>

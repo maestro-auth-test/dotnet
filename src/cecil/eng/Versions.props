@@ -7,5 +7,9 @@
     <PreReleaseVersionLabel>alpha</PreReleaseVersionLabel>
     <!-- Use VSTestRunner instead of allowing Arcade to use xunit, since Cecil tests are nunit based -->
     <UseVSTestRunner>true</UseVSTestRunner>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <Change>1</Change>
   </PropertyGroup>
 </Project>
