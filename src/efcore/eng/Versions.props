@@ -25,9 +25,9 @@
     <MicrosoftCodeAnalysisAnalyzerTestingVersion>1.1.3-beta1.24423.1</MicrosoftCodeAnalysisAnalyzerTestingVersion>
     <MicrosoftCodeAnalysisCSharpTestingVersion>1.1.3-beta1.24352.1</MicrosoftCodeAnalysisCSharpTestingVersion>
     <AzureIdentityVersion>1.14.0</AzureIdentityVersion>
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
   </PropertyGroup>
 </Project>

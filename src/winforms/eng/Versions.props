@@ -14,9 +14,9 @@
   </PropertyGroup>
   <!-- Below have no corresponding entries in Versions.Details.XML because they are not updated via Maestro -->
   <PropertyGroup>
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
   </PropertyGroup>
   <!-- Docs / Intellisense -->

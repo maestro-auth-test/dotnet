@@ -5,9 +5,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SystemCommandLineVersion>2.0.0-beta7.25363.103</SystemCommandLineVersion>
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
   </PropertyGroup>
 </Project>

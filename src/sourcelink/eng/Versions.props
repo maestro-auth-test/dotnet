@@ -18,9 +18,9 @@
     <NuGetVersioningVersion>6.12.1</NuGetVersioningVersion>
     <!-- runtime -->
     <SystemTextJsonVersion>8.0.5</SystemTextJsonVersion>
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
   </PropertyGroup>
 </Project>

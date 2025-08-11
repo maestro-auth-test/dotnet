@@ -10,9 +10,9 @@
     <SdkBandVersion>$(MajorVersion).0.100</SdkBandVersion>
     <PackageVersionNet9>9.0.3</PackageVersionNet9>
     <PackageVersionNet8>8.0.$([MSBuild]::Add($([System.Version]::Parse('$(PackageVersionNet9)').Build),11))</PackageVersionNet8>
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
     <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
     <!-- Enable to remove prerelease label. -->

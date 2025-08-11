@@ -28,9 +28,9 @@
     <MicrosoftNETSdkVersion>10.0.100-preview.7.25351.106</MicrosoftNETSdkVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
   </PropertyGroup>
   <PropertyGroup>

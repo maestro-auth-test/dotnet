@@ -22,9 +22,9 @@
     https://github.com/dotnet/sdk/issues/45155
   -->
   <PropertyGroup Condition="'$(DotNetBuildSourceOnly)' == 'true'">
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
     <SystemMemoryVersion>4.6.3</SystemMemoryVersion>
     <SystemNumericsVectorsVersion>4.6.1</SystemNumericsVectorsVersion>

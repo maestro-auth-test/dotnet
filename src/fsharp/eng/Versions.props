@@ -16,9 +16,9 @@
     <PreReleaseVersionLabel>preview$(FSharpPreReleaseIteration)</PreReleaseVersionLabel>
     <!-- These have to be in sync with latest release branch -->
     <!-- F# Version components -->
-    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersiasdasdasdon>
+    <MicrosoftBclHashCodeVersion>1.1.1</MicrosoftBclHashCodeVersion>
     <SystemMemoryVersion>4.5.5</SystemMemoryVersion>
-    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORediqweqwestVersion>
+    <MicrosoftIORedistVersion>6.0.1</MicrosoftIORedistVersion>
     <Change>1</Change>
     <!-- -->
     <!-- F# Language version -->
