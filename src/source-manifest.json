@@ -39,7 +39,7 @@
     {
       "barId": 279968,
       "path": "efcore",
-      "remoteUri": "https://github.com/dotnet/efcore",
+      "remoteUri": "https://github.com/maestro-auth-test/efcore",
       "commitSha": "59ebfcb5b859ecf9bb94fa3169a9f568ef3c46af"
     },
     {
