@@ -91,10 +91,10 @@
       "commitSha": "b267b85fd0ad76c74548757bd2bb96a4497ff2de"
     },
     {
-      "barId": 277711,
+      "barId": 788,
       "path": "scenario-tests",
-      "remoteUri": "https://github.com/dotnet/scenario-tests",
-      "commitSha": "082359066ee0064039b9b1f1f025bdd0507d06de"
+      "remoteUri": "https://github.com/maestro-auth-test/scenario-tests",
+      "commitSha": "c9d8e731163e4b5080b2df6b492285c018148ac9"
     },
     {
       "barId": 278980,
