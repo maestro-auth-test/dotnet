@@ -2,45 +2,45 @@
 <Dependencies>
   <Source Uri="https://github.com/dotnet/dotnet" Mapping="windowsdesktop" Sha="e9f665e52848a3615736c099e5631af531b66a5c" BarId="278626" />
   <ProductDependencies>
-    <Dependency Name="Microsoft.Internal.Runtime.WindowsDesktop.Transport" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.Internal.Runtime.WindowsDesktop.Transport" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Private.Winforms" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.Private.Winforms" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Wpf.GitHub" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Wpf.GitHub" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NET.Sdk.WindowsDesktop" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.NET.Sdk.WindowsDesktop" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NETCore.App.Ref" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.NETCore.App.Ref" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NETCore.Platforms" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.NETCore.Platforms" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Dotnet.WinForms.ProjectTemplates" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.Dotnet.WinForms.ProjectTemplates" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Wpf.ProjectTemplates" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Wpf.ProjectTemplates" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Win32.Registry.AccessControl" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.Win32.Registry.AccessControl" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Win32.SystemEvents" Version="10.0.0-rc.1.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.Win32.SystemEvents" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.CodeDom" Version="10.0.0-rc.1.25409.103">
       <Uri>https://github.com/dotnet/dotnet</Uri>
@@ -148,29 +148,29 @@
     </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Build.Tasks.Feed" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Build.Tasks.Feed" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.SharedFramework.Sdk" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.SharedFramework.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Build.Tasks.Templating" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Build.Tasks.Templating" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Build.Tasks.Archives" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Build.Tasks.Archives" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Build.Tasks.Installers" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Build.Tasks.Installers" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
   </ToolsetDependencies>
 </Dependencies>
