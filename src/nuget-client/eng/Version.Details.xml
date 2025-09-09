@@ -14,21 +14,21 @@
     Arcade flow and versions do not necessarily match what is currently consumed by repo build.
   -->
   <ProductDependencies>
-    <Dependency Name="Microsoft.Build" Version="17.3.1">
-      <Uri>https://github.com/dotnet/msbuild</Uri>
-      <Sha>80f618ad45d38475773fd1a6eaa059f118a0ad5a</Sha>
+    <Dependency Name="Microsoft.Build" Version="17.15.0-preview-25451-1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Extensions.FileProviders.Abstractions" Version="6.0.0">
-      <Uri>https://github.com/dotnet/runtime</Uri>
-      <Sha>8470979eb44c2218025515234d3e01138bd74afb</Sha>
+    <Dependency Name="Microsoft.Extensions.FileProviders.Abstractions" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Extensions.FileSystemGlobbing" Version="6.0.0">
-      <Uri>https://github.com/dotnet/runtime</Uri>
-      <Sha>8470979eb44c2218025515234d3e01138bd74afb</Sha>
+    <Dependency Name="Microsoft.Extensions.FileSystemGlobbing" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Web.Xdt" Version="3.2.0">
-      <Uri>https://github.com/dotnet/xdt</Uri>
-      <Sha>dea0a90f9a8f54babf081db780922a00a1ecc32c</Sha>
+    <Dependency Name="Microsoft.Web.Xdt" Version="3.2.0-preview.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.CommandLine" Version="2.0.0-beta5.25208.1">
       <Uri>https://github.com/dotnet/command-line-api</Uri>
@@ -56,13 +56,13 @@
     </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.XliffTasks" Version="10.0.0-beta.25409.103">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>e9f665e52848a3615736c099e5631af531b66a5c</Sha>
+    <Dependency Name="Microsoft.DotNet.XliffTasks" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
   </ToolsetDependencies>
 </Dependencies>
