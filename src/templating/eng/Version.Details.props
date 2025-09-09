@@ -8,12 +8,12 @@ This file should be imported by eng/Versions.props
     <!-- dotnet/dotnet dependencies -->
     <SystemCommandLinePackageVersion>2.0.0-rc.1.25401.103</SystemCommandLinePackageVersion>
     <!-- maestro-auth-test/dotnet dependencies -->
-    <MicrosoftBclAsyncInterfacesPackageVersion>10.0.0-rc.1.25451.1071</MicrosoftBclAsyncInterfacesPackageVersion>
-    <MicrosoftDotNetArcadeSdkPackageVersion>10.0.0-beta.25451.1071</MicrosoftDotNetArcadeSdkPackageVersion>
-    <MicrosoftExtensionsDependencyInjectionAbstractionsPackageVersion>10.0.0-rc.1.25451.1071</MicrosoftExtensionsDependencyInjectionAbstractionsPackageVersion>
-    <MicrosoftExtensionsLoggingPackageVersion>10.0.0-rc.1.25451.1071</MicrosoftExtensionsLoggingPackageVersion>
-    <MicrosoftExtensionsLoggingAbstractionsPackageVersion>10.0.0-rc.1.25451.1071</MicrosoftExtensionsLoggingAbstractionsPackageVersion>
-    <MicrosoftExtensionsLoggingConsolePackageVersion>10.0.0-rc.1.25451.1071</MicrosoftExtensionsLoggingConsolePackageVersion>
+    <MicrosoftBclAsyncInterfacesPackageVersion>10.0.0-rc.1.25457.1031</MicrosoftBclAsyncInterfacesPackageVersion>
+    <MicrosoftDotNetArcadeSdkPackageVersion>11.0.0-beta.25457.1031</MicrosoftDotNetArcadeSdkPackageVersion>
+    <MicrosoftExtensionsDependencyInjectionAbstractionsPackageVersion>10.0.0-rc.1.25457.1031</MicrosoftExtensionsDependencyInjectionAbstractionsPackageVersion>
+    <MicrosoftExtensionsLoggingPackageVersion>10.0.0-rc.1.25457.1031</MicrosoftExtensionsLoggingPackageVersion>
+    <MicrosoftExtensionsLoggingAbstractionsPackageVersion>10.0.0-rc.1.25457.1031</MicrosoftExtensionsLoggingAbstractionsPackageVersion>
+    <MicrosoftExtensionsLoggingConsolePackageVersion>10.0.0-rc.1.25457.1031</MicrosoftExtensionsLoggingConsolePackageVersion>
     <!-- _git/dotnet-runtime dependencies -->
     <SystemDiagnosticsDiagnosticSourcePackageVersion>9.0.3</SystemDiagnosticsDiagnosticSourcePackageVersion>
     <SystemFormatsAsn1PackageVersion>9.0.3</SystemFormatsAsn1PackageVersion>
