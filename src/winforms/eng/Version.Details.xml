@@ -8,9 +8,9 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
 <Dependencies>
   <Source Uri="https://github.com/dotnet/dotnet" Mapping="winforms" Sha="c4dc56079d959dbdb7fc27ea8ad7f95194885923" BarId="280214" />
   <ProductDependencies>
-    <Dependency Name="Microsoft.NETCore.Platforms" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.NETCore.Platforms" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.Resources.Extensions" Version="10.0.0-rc.1.25420.121">
       <Uri>https://github.com/dotnet/dotnet</Uri>
@@ -20,29 +20,29 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NET.Sdk.IL" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.NET.Sdk.IL" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NETCore.ILAsm" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.NETCore.ILAsm" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="runtime.win-x64.Microsoft.NETCore.ILAsm" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="runtime.win-x64.Microsoft.NETCore.ILAsm" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="runtime.win-x86.Microsoft.NETCore.ILAsm" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="runtime.win-x86.Microsoft.NETCore.ILAsm" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.Reflection.MetadataLoadContext" Version="10.0.0-rc.1.25420.121">
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NETCore.ILDAsm" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.NETCore.ILDAsm" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.Text.Encodings.Web" Version="10.0.0-rc.1.25420.121">
       <Uri>https://github.com/dotnet/dotnet</Uri>
@@ -52,17 +52,17 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NETCore.App.Ref" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.NETCore.App.Ref" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.Runtime.Serialization.Formatters" Version="10.0.0-rc.1.25420.121">
       <Uri>https://github.com/dotnet/dotnet</Uri>
       <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Win32.SystemEvents" Version="10.0.0-rc.1.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.Win32.SystemEvents" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.CodeDom" Version="10.0.0-rc.1.25420.121">
       <Uri>https://github.com/dotnet/dotnet</Uri>
@@ -83,29 +83,29 @@ Note: if the Uri is a new place, you will need to add a subscription from that p
   </ProductDependencies>
   <ToolsetDependencies>
     <!-- Arcade -->
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.GenFacades" Version="10.0.0-beta.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.DotNet.GenFacades" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.CMake.Sdk" Version="10.0.0-beta.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.DotNet.CMake.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Helix.Sdk" Version="10.0.0-beta.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.DotNet.Helix.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.RemoteExecutor" Version="10.0.0-beta.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.DotNet.RemoteExecutor" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.XUnitV3Extensions" Version="10.0.0-beta.25420.121">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>c4dc56079d959dbdb7fc27ea8ad7f95194885923</Sha>
+    <Dependency Name="Microsoft.DotNet.XUnitV3Extensions" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
   </ToolsetDependencies>
 </Dependencies>

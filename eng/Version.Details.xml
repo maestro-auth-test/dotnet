@@ -2,13 +2,13 @@
   <ProductDependencies>
   </ProductDependencies>
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25420.111">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>6218c7cdc745d1633718b5474be71b4ddb2cedf2</Sha>
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Build.Manifest" Version="10.0.0-beta.25420.111">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>6218c7cdc745d1633718b5474be71b4ddb2cedf2</Sha>
+    <Dependency Name="Microsoft.DotNet.Build.Manifest" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="Microsoft.DotNet.Darc" Version="1.1.0-beta.25422.4" SkipProperty="True">
       <Uri>https://github.com/dotnet/arcade-services</Uri>
