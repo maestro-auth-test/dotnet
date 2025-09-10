@@ -2,21 +2,21 @@
 <Dependencies>
   <Source Uri="https://github.com/dotnet/dotnet" Mapping="fsharp" Sha="adfea8e331724cfd46007dfefec405b5e5faad1d" BarId="279079" />
   <ProductDependencies>
-    <Dependency Name="Microsoft.Build" Version="17.15.0-preview-25451-1071">
+    <Dependency Name="Microsoft.Build" Version="17.15.0-preview-25457-1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Build.Framework" Version="17.15.0-preview-25451-1071">
+    <Dependency Name="Microsoft.Build.Framework" Version="17.15.0-preview-25457-1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Build.Tasks.Core" Version="17.15.0-preview-25451-1071">
+    <Dependency Name="Microsoft.Build.Tasks.Core" Version="17.15.0-preview-25457-1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Build.Utilities.Core" Version="17.15.0-preview-25451-1071">
+    <Dependency Name="Microsoft.Build.Utilities.Core" Version="17.15.0-preview-25457-1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
     <Dependency Name="System.Reflection.Metadata" Version="9.0.0">
       <Uri>https://github.com/dotnet/runtime</Uri>
@@ -44,9 +44,9 @@
     </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="11.0.0-beta.25457.1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
     <Dependency Name="optimization.windows_nt-x64.MIBC.Runtime" Version="1.0.0-prerelease.25421.1">
       <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-optimization</Uri>

@@ -6,12 +6,12 @@ This file should be imported by eng/Versions.props
 <Project>
   <PropertyGroup>
     <!-- maestro-auth-test/dotnet dependencies -->
-    <MicrosoftBuildPackageVersion>17.15.0-preview-25451-1071</MicrosoftBuildPackageVersion>
-    <MicrosoftDotNetArcadeSdkPackageVersion>10.0.0-beta.25451.1071</MicrosoftDotNetArcadeSdkPackageVersion>
-    <MicrosoftDotNetXliffTasksPackageVersion>10.0.0-beta.25451.1071</MicrosoftDotNetXliffTasksPackageVersion>
-    <MicrosoftExtensionsFileProvidersAbstractionsPackageVersion>10.0.0-rc.1.25451.1071</MicrosoftExtensionsFileProvidersAbstractionsPackageVersion>
-    <MicrosoftExtensionsFileSystemGlobbingPackageVersion>10.0.0-rc.1.25451.1071</MicrosoftExtensionsFileSystemGlobbingPackageVersion>
-    <MicrosoftWebXdtPackageVersion>3.2.0-preview.25451.1071</MicrosoftWebXdtPackageVersion>
+    <MicrosoftBuildPackageVersion>17.15.0-preview-25457-1031</MicrosoftBuildPackageVersion>
+    <MicrosoftDotNetArcadeSdkPackageVersion>11.0.0-beta.25457.1031</MicrosoftDotNetArcadeSdkPackageVersion>
+    <MicrosoftDotNetXliffTasksPackageVersion>11.0.0-beta.25457.1031</MicrosoftDotNetXliffTasksPackageVersion>
+    <MicrosoftExtensionsFileProvidersAbstractionsPackageVersion>10.0.0-rc.1.25457.1031</MicrosoftExtensionsFileProvidersAbstractionsPackageVersion>
+    <MicrosoftExtensionsFileSystemGlobbingPackageVersion>10.0.0-rc.1.25457.1031</MicrosoftExtensionsFileSystemGlobbingPackageVersion>
+    <MicrosoftWebXdtPackageVersion>3.2.0-preview.25457.1031</MicrosoftWebXdtPackageVersion>
     <!-- dotnet/command-line-api dependencies -->
     <SystemCommandLinePackageVersion>2.0.0-beta5.25208.1</SystemCommandLinePackageVersion>
     <!-- dotnet/corefx dependencies -->

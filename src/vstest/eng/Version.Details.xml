@@ -6,9 +6,9 @@
       <Uri>https://dev.azure.com/devdiv/DevDiv/_git/vs-code-coverage</Uri>
       <Sha>5877eadeb2d78c45d3bb1996f74b8a96f2e4a1da</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Diagnostics.NETCore.Client" Version="0.2.0-preview.25451.1071">
+    <Dependency Name="Microsoft.Diagnostics.NETCore.Client" Version="0.2.0-preview.25457.1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
     <!-- Necessary for source-build. This allows the live version of the package to be used by source-build. -->
     <Dependency Name="System.ComponentModel.Composition" Version="4.5.0">
@@ -16,20 +16,20 @@
       <Sha>30ab651fcb4354552bd4891619a0bdd81e0ebdbf</Sha>
     </Dependency>
     <!-- Necessary for source-build. This allows the live version of the package to be used by source-build. -->
-    <Dependency Name="Microsoft.Extensions.DependencyModel" Version="10.0.0-rc.1.25451.1071">
+    <Dependency Name="Microsoft.Extensions.DependencyModel" Version="10.0.0-rc.1.25457.1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
     <!-- Necessary for source-build. This allows the live version of the package to be used by source-build. -->
-    <Dependency Name="Microsoft.Extensions.FileSystemGlobbing" Version="10.0.0-rc.1.25451.1071">
+    <Dependency Name="Microsoft.Extensions.FileSystemGlobbing" Version="10.0.0-rc.1.25457.1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="11.0.0-beta.25457.1031">
       <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
-      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
+      <Sha>9d24e131fc9d315b1773a0e080d7b35a0cd8856f</Sha>
     </Dependency>
     <Dependency Name="Microsoft.DiaSymReader.Pdb2Pdb" Version="1.1.0-beta2-19575-01">
       <Uri>https://github.com/dotnet/symreader-converter</Uri>
