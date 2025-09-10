@@ -2,29 +2,29 @@
 <Dependencies>
   <Source Uri="https://github.com/dotnet/dotnet" Mapping="source-build-reference-packages" Sha="ea90fea181ebdfa48b1c240085dcdc4ab5837ddb" BarId="279959" />
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.Build" Version="17.15.0-preview-25418-119">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>ea90fea181ebdfa48b1c240085dcdc4ab5837ddb</Sha>
+    <Dependency Name="Microsoft.Build" Version="17.15.0-preview-25451-1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Build.Utilities.Core" Version="17.15.0-preview-25418-119">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>ea90fea181ebdfa48b1c240085dcdc4ab5837ddb</Sha>
+    <Dependency Name="Microsoft.Build.Utilities.Core" Version="17.15.0-preview-25451-1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25418.119">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>ea90fea181ebdfa48b1c240085dcdc4ab5837ddb</Sha>
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.GenAPI.Task" Version="10.0.100-rc.2.25418.119">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>ea90fea181ebdfa48b1c240085dcdc4ab5837ddb</Sha>
+    <Dependency Name="Microsoft.DotNet.GenAPI.Task" Version="10.0.100-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NETCore.ILAsm" Version="10.0.0-rc.2.25418.119">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>ea90fea181ebdfa48b1c240085dcdc4ab5837ddb</Sha>
+    <Dependency Name="Microsoft.NETCore.ILAsm" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NETCore.ILDAsm" Version="10.0.0-rc.2.25418.119">
-      <Uri>https://github.com/dotnet/dotnet</Uri>
-      <Sha>ea90fea181ebdfa48b1c240085dcdc4ab5837ddb</Sha>
+    <Dependency Name="Microsoft.NETCore.ILDAsm" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
   </ToolsetDependencies>
 </Dependencies>
