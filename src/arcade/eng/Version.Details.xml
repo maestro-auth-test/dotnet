@@ -4,9 +4,9 @@
   <ProductDependencies>
   </ProductDependencies>
   <ToolsetDependencies>
-    <Dependency Name="Microsoft.CodeAnalysis.CSharp" Version="4.8.0">
-      <Uri>https://github.com/dotnet/roslyn</Uri>
-      <Sha>e091728607ca0fc9efca55ccfb3e59259c6b5a0a</Sha>
+    <Dependency Name="Microsoft.CodeAnalysis.CSharp" Version="5.0.0-2.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="Microsoft.SymbolUploader.Build.Task" Version="2.0.0-preview.1.23470.14">
       <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-symuploader</Uri>
@@ -16,17 +16,17 @@
       <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-symuploader</Uri>
       <Sha>d617bc8ed2787c235a57cf0dcdfd087b86ff9521</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.TemplateEngine.Authoring.Tasks" Version="10.0.100-preview.4.25220.1">
-      <Uri>https://github.com/dotnet/templating</Uri>
-      <Sha>43b5827697e501c442eb75ffff832cd4df2514fe</Sha>
+    <Dependency Name="Microsoft.TemplateEngine.Authoring.Tasks" Version="10.0.100-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25426.3">
-      <Uri>https://github.com/dotnet/arcade</Uri>
-      <Sha>5db998e02282e63bc375948a237bcdfef534a5c5</Sha>
+    <Dependency Name="Microsoft.DotNet.Arcade.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Helix.Sdk" Version="10.0.0-beta.25426.3">
-      <Uri>https://github.com/dotnet/arcade</Uri>
-      <Sha>5db998e02282e63bc375948a237bcdfef534a5c5</Sha>
+    <Dependency Name="Microsoft.DotNet.Helix.Sdk" Version="10.0.0-beta.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="Microsoft.DotNet.ProductConstructionService.Client" Version="1.1.0-beta.25426.4">
       <Uri>https://github.com/dotnet/arcade-services</Uri>
@@ -40,9 +40,9 @@
       <Uri>https://github.com/dotnet/xharness</Uri>
       <Sha>fe850ca677efa9ed62009b929f55ff59d5e24c0e</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Net.Compilers.Toolset" Version="4.8.0">
-      <Uri>https://github.com/dotnet/roslyn</Uri>
-      <Sha>e091728607ca0fc9efca55ccfb3e59259c6b5a0a</Sha>
+    <Dependency Name="Microsoft.Net.Compilers.Toolset" Version="5.0.0-2.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="Microsoft.DiaSymReader.Pdb2Pdb" Version="1.1.0-beta2-19575-01">
       <Uri>https://github.com/dotnet/symreader-converter</Uri>
@@ -62,45 +62,45 @@
       <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
       <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Bcl.AsyncInterfaces" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <!-- Necessary for source-build. This allows the live version of the dependency
          to flow in and eliminates related prebuilts. -->
-    <Dependency Name="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <!-- Necessary for source-build. This allows the live version of the dependency
          to flow in and eliminates related prebuilts. -->
-    <Dependency Name="Microsoft.Extensions.DependencyInjection" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Extensions.DependencyInjection" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <!-- Necessary for source-build. The dependency is loaded in during built-time
          by consumers of SharedFramework.Sdk (such as runtime), so we cannot use a ref pack for it -->
-    <Dependency Name="Microsoft.Extensions.DependencyModel" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Extensions.DependencyModel" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Extensions.Http" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Extensions.Http" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Extensions.FileProviders.Abstractions" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Extensions.FileProviders.Abstractions" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Extensions.FileSystemGlobbing" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Extensions.FileSystemGlobbing" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <!-- Necessary for source-build. This allows the live version of the dependency
          to flow in and eliminates related prebuilts. -->
-    <Dependency Name="Microsoft.Extensions.Logging.Console" Version="9.0.0-rc.2.24473.5">
-      <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
-      <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
+    <Dependency Name="Microsoft.Extensions.Logging.Console" Version="10.0.0-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="System.Text.Encodings.Web" Version="9.0.0-rc.2.24473.5">
       <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
@@ -110,13 +110,13 @@
       <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-runtime</Uri>
       <Sha>990ebf52fc408ca45929fd176d2740675a67fab8</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Deployment.DotNet.Releases" Version="2.0.0-preview.1.24305.1" CoherentParentDependency="Microsoft.NET.Sdk.WorkloadManifestReader">
-      <Uri>https://github.com/dotnet/deployment-tools</Uri>
-      <Sha>d882ae4af9fb09a89e36487a9c8cb7dfde713927</Sha>
+    <Dependency Name="Microsoft.Deployment.DotNet.Releases" Version="2.0.0-preview.1.25451.1071" CoherentParentDependency="Microsoft.NET.Sdk.WorkloadManifestReader">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.NET.Sdk.WorkloadManifestReader" Version="9.0.100-preview.6.24328.19">
-      <Uri>https://github.com/dotnet/sdk</Uri>
-      <Sha>ef4c24166691977558e5312758df4313ab310dc0</Sha>
+    <Dependency Name="Microsoft.NET.Sdk.WorkloadManifestReader" Version="10.0.100-rc.1.25451.1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <!-- Transitive dependency needed for source build. -->
     <Dependency Name="System.Collections.Immutable" Version="9.0.0-rc.2.24473.5">
@@ -149,21 +149,21 @@
       <Sha>9f9162ee769829503e3efb7b7ec688de558ff63b</Sha>
     </Dependency>
     <!-- Dependencies required for source build to lift to the previously-source-built version. -->
-    <Dependency Name="Microsoft.Build" Version="17.12.36">
-      <Uri>https://github.com/dotnet/msbuild</Uri>
-      <Sha>d1cce8d7cc03c23a4f1bad8e9240714fd9d199a3</Sha>
+    <Dependency Name="Microsoft.Build" Version="17.15.0-preview-25451-1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Build.Framework" Version="17.12.36">
-      <Uri>https://github.com/dotnet/msbuild</Uri>
-      <Sha>d1cce8d7cc03c23a4f1bad8e9240714fd9d199a3</Sha>
+    <Dependency Name="Microsoft.Build.Framework" Version="17.15.0-preview-25451-1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Build.Tasks.Core" Version="17.12.36">
-      <Uri>https://github.com/dotnet/msbuild</Uri>
-      <Sha>d1cce8d7cc03c23a4f1bad8e9240714fd9d199a3</Sha>
+    <Dependency Name="Microsoft.Build.Tasks.Core" Version="17.15.0-preview-25451-1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Build.Utilities.Core" Version="17.12.36">
-      <Uri>https://github.com/dotnet/msbuild</Uri>
-      <Sha>d1cce8d7cc03c23a4f1bad8e9240714fd9d199a3</Sha>
+    <Dependency Name="Microsoft.Build.Utilities.Core" Version="17.15.0-preview-25451-1071">
+      <Uri>https://github.com/maestro-auth-test/dotnet</Uri>
+      <Sha>5f5e95173d6213638a58c0029e467e85ad33ce70</Sha>
     </Dependency>
     <Dependency Name="Microsoft.ApplicationInsights" Version="2.23.0">
       <Uri>https://github.com/microsoft/ApplicationInsights-dotnet</Uri>
