@@ -97,10 +97,10 @@
       "commitSha": "dfa14d786e4d5ca238cbd72600bc7afc477e48a4"
     },
     {
-      "barId": 282653,
+      "barId": 414,
       "path": "source-build-reference-packages",
-      "remoteUri": "https://github.com/dotnet/source-build-reference-packages",
-      "commitSha": "812ed9d675ecd84d10972fcbaf4515de6658085d"
+      "remoteUri": "https://github.com/maestro-auth-test/source-build-reference-packages",
+      "commitSha": "c6115d2ca1a6c6fec3be61d2beaa676e9026f8d4"
     },
     {
       "barId": 277912,
