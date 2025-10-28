@@ -3,7 +3,7 @@
     {
       "barId": 288750,
       "path": "arcade",
-      "remoteUri": "https://github.com/dotnet/arcade",
+      "remoteUri": "https://github.com/maestro-auth-test/arcade",
       "commitSha": "d48732057be73512b3bac9c01eeacd59398c16d5"
     },
     {
