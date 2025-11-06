@@ -75,7 +75,7 @@
     {
       "barId": 286437,
       "path": "roslyn",
-      "remoteUri": "https://github.com/dotnet/roslyn",
+      "remoteUri": "https://github.com/maestro-auth-test/roslyn",
       "commitSha": "a01d6a0838430706cea74ad38e054c2877ffbfa1"
     },
     {
