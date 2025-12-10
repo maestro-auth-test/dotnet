@@ -109,10 +109,10 @@
       "commitSha": "d656e7bc73c28d039e6baf6d591c905ea8b76ee1"
     },
     {
-      "barId": 291112,
+      "barId": 271,
       "path": "symreader",
       "remoteUri": "https://github.com/maestro-auth-test/symreader",
-      "commitSha": "2255aa6d6c21541848933c33f72e60363041abaf"
+      "commitSha": "9f8fdb2ae664463a53b8d590bc278429a6fd81e2"
     },
     {
       "barId": 292030,
