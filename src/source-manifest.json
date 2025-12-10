@@ -79,10 +79,10 @@
       "commitSha": "a01d6a0838430706cea74ad38e054c2877ffbfa1"
     },
     {
-      "barId": 293591,
+      "barId": 273,
       "path": "runtime",
-      "remoteUri": "https://github.com/dotnet/runtime",
-      "commitSha": "bce6119e41ecfbcf630c369836770669604c22c6"
+      "remoteUri": "https://github.com/maestro-auth-test/runtime",
+      "commitSha": "8dbca2cd19e608d45f13b8f193299dd2fe52d3b3"
     },
     {
       "barId": 291013,
