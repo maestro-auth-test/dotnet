@@ -79,10 +79,10 @@
       "commitSha": "f59d40346a8b5646a464cf7968a9493a338e08be"
     },
     {
-      "barId": 293575,
+      "barId": 1120,
       "path": "runtime",
       "remoteUri": "https://github.com/maestro-auth-test/runtime",
-      "commitSha": "34d6f3ea64a58f29b965f427afd99ec1e57e859b"
+      "commitSha": "f808bc2f33416ba8e123e9bc259cc2855a680f97"
     },
     {
       "barId": 291014,
