@@ -111,7 +111,7 @@
     {
       "barId": 291112,
       "path": "symreader",
-      "remoteUri": "https://github.com/dotnet/symreader",
+      "remoteUri": "https://github.com/maestro-auth-test/symreader",
       "commitSha": "2255aa6d6c21541848933c33f72e60363041abaf"
     },
     {
