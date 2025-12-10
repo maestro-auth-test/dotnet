@@ -43,10 +43,10 @@
       "commitSha": "bdeac5b76b25f4e027e8043a39e0c637a9914d8a"
     },
     {
-      "barId": 292157,
+      "barId": 270,
       "path": "emsdk",
       "remoteUri": "https://github.com/maestro-auth-test/emsdk",
-      "commitSha": "f8b85873c9157f00b4951a78977fa87e3ab7c628"
+      "commitSha": "bd34bc15df21b9135d7b6a5ec6f940735ffc4cca"
     },
     {
       "barId": 293499,
