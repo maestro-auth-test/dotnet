@@ -63,7 +63,7 @@
     {
       "barId": 292299,
       "path": "sourcelink",
-      "remoteUri": "https://github.com/dotnet/sourcelink",
+      "remoteUri": "https://github.com/maestro-auth-test/sourcelink",
       "commitSha": "b9386293548b43c7c6cd294c1fc14a5c4d16a15f"
     },
     {
