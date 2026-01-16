@@ -33,7 +33,7 @@
     {
       "barId": 288647,
       "path": "diagnostics",
-      "remoteUri": "https://github.com/dotnet/diagnostics",
+      "remoteUri": "https://github.com/maestro-auth-test/diagnostics",
       "commitSha": "73f1fdca8d9fb191297a7e687790b804f4e78ef5"
     },
     {
