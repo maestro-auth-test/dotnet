@@ -9,7 +9,7 @@
     {
       "barId": 297697,
       "path": "aspnetcore",
-      "remoteUri": "https://github.com/dotnet/aspnetcore",
+      "remoteUri": "https://github.com/maestro-auth-test/aspnetcore",
       "commitSha": "03d43ac61779148acb14ff0abd32a079a28ba42d"
     },
     {
