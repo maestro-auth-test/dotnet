@@ -27,7 +27,7 @@
     {
       "barId": 298082,
       "path": "deployment-tools",
-      "remoteUri": "https://github.com/dotnet/deployment-tools",
+      "remoteUri": "https://github.com/maestro-auth-test/deployment-tools",
       "commitSha": "df9cbeae4228047164c2cc7df184459f475af2a4"
     },
     {
