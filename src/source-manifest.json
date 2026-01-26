@@ -99,7 +99,7 @@
     {
       "barId": 298520,
       "path": "source-build-reference-packages",
-      "remoteUri": "https://github.com/dotnet/source-build-reference-packages",
+      "remoteUri": "https://github.com/maestro-auth-test/source-build-reference-packages",
       "commitSha": "ed69460b01b309a944e0f06824f7c46346b3133e"
     },
     {
