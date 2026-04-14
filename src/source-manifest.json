@@ -51,7 +51,7 @@
     {
       "barId": 309984,
       "path": "fsharp",
-      "remoteUri": "https://github.com/dotnet/fsharp",
+      "remoteUri": "https://github.com/maestro-auth-test/fsharp",
       "commitSha": "bd2823e2d07c84f987b4029bce12c19ac10d6a2b"
     },
     {
