@@ -123,7 +123,7 @@
     {
       "barId": 303332,
       "path": "vstest",
-      "remoteUri": "https://github.com/microsoft/vstest",
+      "remoteUri": "https://github.com/maestro-auth-test/vstest",
       "commitSha": "e31538146d8df06a663d8a4ad9c75aa548deebc0"
     },
     {
