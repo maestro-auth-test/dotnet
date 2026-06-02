@@ -75,7 +75,7 @@
     {
       "barId": 316504,
       "path": "runtime",
-      "remoteUri": "https://github.com/dotnet/runtime",
+      "remoteUri": "https://github.com/maestro-auth-test/runtime",
       "commitSha": "6963a5964693f9c439d100b4bba9ae01af697dc1"
     },
     {
