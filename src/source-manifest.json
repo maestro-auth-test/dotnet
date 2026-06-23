@@ -123,7 +123,7 @@
     {
       "barId": 318615,
       "path": "winforms",
-      "remoteUri": "https://github.com/dotnet/winforms",
+      "remoteUri": "https://github.com/maestro-auth-test/winforms",
       "commitSha": "fbccbb43f0b6a211ca879b2a7c8a8cb7388c58ec"
     },
     {
