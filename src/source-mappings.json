@@ -138,7 +138,7 @@
     },
     {
       "name": "winforms",
-      "defaultRemote": "https://github.com/dotnet/winforms",
+      "defaultRemote": "https://github.com/maestro-auth-test/winforms",
       "exclude": [
         "src/test/integration/DesignSurface/**/*.cs",
         "src/test/integration/DesignSurface/**/*.ico",
