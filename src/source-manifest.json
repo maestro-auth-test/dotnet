@@ -141,7 +141,7 @@
     {
       "barId": 319562,
       "path": "wpf",
-      "remoteUri": "https://github.com/dotnet/wpf",
+      "remoteUri": "https://github.com/maestro-auth-test/wpf",
       "commitSha": "174c8764338348faa85a4ba35cdc7583d21e9da9"
     },
     {
