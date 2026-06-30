@@ -126,7 +126,7 @@
     },
     {
       "name": "vstest",
-      "defaultRemote": "https://github.com/microsoft/vstest",
+      "defaultRemote": "https://github.com/maestro-auth-test/vstest",
       "exclude": [
         "src/package/licenses/LICENSE_VS.txt",
         "test/Microsoft.TestPlatform.CoreUtilities.UnitTests/TestAssets/dotnetWinX86.exe"
