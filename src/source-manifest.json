@@ -87,7 +87,7 @@
     {
       "barId": 319930,
       "path": "sdk",
-      "remoteUri": "https://github.com/dotnet/sdk",
+      "remoteUri": "https://github.com/maestro-auth-test/sdk",
       "commitSha": "447460efbdfb45fdf082fb053955a197c43f42b3"
     },
     {
