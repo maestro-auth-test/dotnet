@@ -69,7 +69,7 @@
     },
     {
       "name": "sdk",
-      "defaultRemote": "https://github.com/dotnet/sdk"
+      "defaultRemote": "https://github.com/maestro-auth-test/sdk"
     },
     {
       "name": "source-build-assets",
