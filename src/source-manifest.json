@@ -117,7 +117,7 @@
     {
       "barId": 322237,
       "path": "templating",
-      "remoteUri": "https://github.com/dotnet/templating",
+      "remoteUri": "https://github.com/maestro-auth-test/templating",
       "commitSha": "4bfcfdeb77b831e4da6e383a45873dba45985a34"
     },
     {
