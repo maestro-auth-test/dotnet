@@ -21,7 +21,7 @@
     {
       "barId": 327397,
       "path": "command-line-api",
-      "remoteUri": "https://github.com/dotnet/command-line-api",
+      "remoteUri": "https://github.com/maestro-auth-test/command-line-api",
       "commitSha": "1f13873cf84d5547d1b8d4f9d68dcb06b3ea0a69"
     },
     {
