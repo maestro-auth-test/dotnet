@@ -45,7 +45,7 @@
     {
       "barId": 327709,
       "path": "emsdk",
-      "remoteUri": "https://github.com/dotnet/emsdk",
+      "remoteUri": "https://github.com/maestro-auth-test/emsdk",
       "commitSha": "335c4fe2bda8198e5fa597b9979e7c7abe7bc0d6"
     },
     {
