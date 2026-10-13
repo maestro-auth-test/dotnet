@@ -139,10 +139,10 @@
       "commitSha": "e6c5ebc7bc6ffe473d900bbf36e730fee5c3626a"
     },
     {
-      "barId": 335439,
+      "barId": 348,
       "path": "wpf",
       "remoteUri": "https://github.com/maestro-auth-test/wpf",
-      "commitSha": "58c4d69654061a702bba90ed5f765a0f953fb7c1"
+      "commitSha": "acb0c0a4c6790758740d033c34709d802b01c64f"
     },
     {
       "barId": 327376,
